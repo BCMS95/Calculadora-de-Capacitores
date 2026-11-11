@@ -244,11 +244,136 @@ select option{background:#292b31!important}input::placeholder,textarea::placehol
 @keyframes labEnergyLogo{0%,100%{box-shadow:0 0 11px #ff9b3f28,inset 0 0 10px #ff953218}50%{box-shadow:0 0 28px #ffae5b7d,inset 0 0 18px #ff953230}}
 @keyframes labButtonFlux{to{background-position:220% 0}}
 @media(prefers-reduced-motion:reduce){.login-card::after,.login-card .signal::before,.login-card .logo,.login-card .btn.primary{animation:none!important}}
+
+/* BCMS95 LAB — IDENTIDADE VERMELHO + LARANJA | somete estilos; APIs Neon intactas */
+:root{
+ --bg:#0c0d10;--surface:#222329;--surface2:#292a31;--input:#15171c;
+ --line:#844b45;--line2:#a95a43;--text:#f8f3ef;--muted:#d0b9b2;
+ --blue:#ff4357;--ice:#ffba72;--aqua:#ff9248;--lime:#ffae66;
+ --warning:#ffc06c;--danger:#ff6574;
+}
+body{background:radial-gradient(ellipse at 78% 0%,#9e27231c,transparent 40%),linear-gradient(135deg,#08090c,#151319 62%,#0c0c10)!important}
+#ambient::before{background:repeating-linear-gradient(128deg,transparent 0 42px,#ff50520a 43px 44px,transparent 45px 102px)!important}
+/* Faixa principal: controles não invadem o radar nem os títulos. */
+#appScreen .hero.mecha-hud-panel{
+ display:grid!important;grid-template-columns:minmax(260px,1fr) minmax(290px,420px);
+ align-items:center!important;column-gap:24px;row-gap:15px;
+ min-height:185px;padding:24px 26px!important;
+ border:1px solid #f05b47!important;
+ background:#19191e!important;
+ box-shadow:0 14px 42px #000a,inset 0 0 0 1px #ff98551e!important;
+}
+.hero.mecha-hud-panel::before{background:linear-gradient(90deg,#17171ced 0%,#19171de6 38%,#201b1c88 61%,#17171ce0 100%),repeating-linear-gradient(132deg,transparent 0 26px,#ff454510 26px 27px,transparent 27px 71px)!important}
+.hero.mecha-hud-panel::after{background:linear-gradient(90deg,#ff4054,#ff8548 60%,#ffbf6f)!important;height:4px!important}
+#appScreen .hero .hero-copy{position:relative;z-index:6;min-width:0;max-width:650px}
+#appScreen .hero .hero-copy h1{font-size:clamp(23px,2.4vw,34px);line-height:1.15;letter-spacing:.01em;margin:11px 0 8px}
+#appScreen .hero .hero-copy h1 span{color:#ff6054!important;text-shadow:0 0 18px #fb3a4655!important}
+#appScreen .hero .hero-copy .hero-top{color:#ffb06d!important;letter-spacing:.14em}
+#appScreen .hero .hero-copy p{color:#f0dcd1!important;font-size:12px;line-height:1.5}
+#appScreen .hero .hero-controls{
+ position:relative;z-index:9;display:grid!important;
+ grid-template-columns:repeat(3,minmax(0,1fr));
+ align-content:center;align-items:stretch;justify-content:end!important;
+ gap:9px;min-width:0;
+ padding:13px;border:1px solid #ae554b8a;border-radius:12px;
+ background:linear-gradient(135deg,#242027f5,#211d22f5);
+ box-shadow:0 10px 25px #0008,inset 0 0 0 1px #f7894b13;
+}
+#appScreen .hero .hero-controls #heroProject{
+ grid-column:1/-1;display:block;min-width:0;max-width:100%;
+ overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+ text-align:center;padding:9px 12px;border-radius:7px;
+ border:1px solid #fa9258!important;background:#352725!important;
+ color:#ffca8d!important;font-weight:900;font-size:12px;
+}
+#appScreen .hero .hero-controls .btn{
+ width:100%;min-width:0;min-height:36px;padding:7px 9px;
+ font-size:12px;font-weight:900;white-space:nowrap;
+ border-color:#b66852!important;background:#34262a!important;color:#ffdfc3!important;
+}
+#appScreen .hero .hero-controls #backupExport{border-color:#f09852!important;background:#4d3025!important;color:#ffe0b5!important}
+#appScreen .hero .hero-controls #backupImport{border-color:#ff944b!important;background:#392720!important;color:#ffc88c!important}
+#appScreen .hero .hero-controls #logout{border-color:#fb6170!important;background:#54252c!important;color:#fff0ef!important}
+#appScreen .hero .hero-controls .btn:hover{filter:brightness(1.16)}
+/* Radar ornamental sempre atrás dos controles. */
+#appScreen .hero .mecha-art{z-index:1!important}
+#appScreen .hero .mecha-art .mecha-emblem{right:41%!important;opacity:.65}
+#appScreen .hero .mecha-art .mecha-emblem>span{border-top-color:#ff625f!important;border-bottom-color:#ffae5e!important}
+#appScreen .hero .mecha-art .mecha-emblem>i{border-color:#ff935177!important;box-shadow:0 0 12px #f64e5030!important}
+#appScreen .hero .mecha-art .mecha-pip{right:auto!important;left:43%!important;bottom:13px!important;color:#ffb77e!important;border-color:#a4514488!important;font-size:8px!important;opacity:.82}
+#appScreen .hero .mecha-art .mecha-pip::before{background:#ff5b50!important;box-shadow:0 0 11px #ff4c4c!important}
+#appScreen .hero .mecha-art .mecha-beam{background:linear-gradient(180deg,transparent,#ff434300 24%,#ff8c6d99 49%,#ff4d4d6d 54%,transparent 76%)!important}
+@media(max-width:1050px){
+ #appScreen .hero.mecha-hud-panel{grid-template-columns:minmax(0,1fr) minmax(270px,360px)!important;padding:20px!important}
+ #appScreen .hero .mecha-art .mecha-emblem{right:37%!important;opacity:.38}
+ #appScreen .hero .mecha-art .mecha-pip{display:none!important}
+}
+@media(max-width:750px){
+ #appScreen .hero.mecha-hud-panel{grid-template-columns:minmax(0,1fr)!important;row-gap:18px;padding:19px!important}
+ #appScreen .hero .hero-controls{width:100%;grid-template-columns:repeat(3,minmax(0,1fr))}
+ #appScreen .hero .mecha-art .mecha-emblem{right:-60px!important;top:30%!important;opacity:.28}
+}
+@media(max-width:420px){#appScreen .hero .hero-controls{gap:6px;padding:9px}#appScreen .hero .hero-controls .btn{font-size:11px;padding:7px 5px}}
+/* Todos os módulos, cabeçalhos e cartões na mesma identidade. */
+#appScreen .nav{border-color:#a8564c!important;background:#211f25!important;box-shadow:inset 0 1px 0 #ff71541c!important}
+#appScreen .nav button{background:#2c2429!important;border-color:#85504a!important;color:#ffd2c1!important}
+#appScreen .nav button[data-tab="converter"]{color:#ffaaa5!important;border-color:#cb5056!important;background:#352226!important}
+#appScreen .nav button[data-tab="tapeboard"]{color:#ffc591!important;border-color:#d57c42!important;background:#342821!important}
+#appScreen .nav button[data-tab="converter"].active{background:linear-gradient(105deg,#ff4357,#ff6a54)!important;border-color:#ff9a8a!important;color:#fff!important;box-shadow:0 0 20px #fa48512d!important}
+#appScreen .nav button[data-tab="tapeboard"].active{background:linear-gradient(105deg,#ff944b,#ffbc6c)!important;border-color:#ffdb96!important;color:#321809!important;box-shadow:0 0 20px #ff91402d!important}
+#appScreen .panel{background:linear-gradient(152deg,#29252a,#211f25)!important;border-color:#89534d!important}
+#appScreen .panel h2{color:#ffbd8a!important}#appScreen .panel h3{color:#ff806f!important}
+#appScreen .section-label,#appScreen .cardhead h2{color:#ff9a72!important}
+#appScreen .strip,#appScreen .notice{background:#32272a!important;border-left-color:#ff6658!important;color:#f5e6e2!important}
+#appScreen .stat,#appScreen .kpi{background:linear-gradient(135deg,#30262a,#272127)!important;border-color:#985b52!important}
+#appScreen .stat b,#appScreen .kpi strong{color:#ffb071!important}
+#appScreen .kpi span,#appScreen .stat span{color:#e4cfc7!important}
+#appScreen .tablewrap{border-color:#a15c50!important}
+#appScreen .table th{background:#442c2d!important;color:#ffe1c8!important}
+#appScreen .table td{border-top-color:#714747!important;color:#f8e9e2!important}
+#appScreen .table tfoot td{background:#3b292d!important}
+#appScreen .chip{background:#38282a!important;border-color:#db7254!important;color:#ffbe90!important}
+#appScreen .chip.blue{border-color:#ff5968!important;color:#ffaeaa!important}
+#appScreen .mini-item,#appScreen .empty{background:#292329!important;border-color:#80524e!important}
+#appScreen .mini-item strong{color:#ffaf75!important}
+#appScreen .report-block,#appScreen .proof .line{background:#292329!important;border-color:#ad674f!important}
+#appScreen .pillbar span{background:#372729!important;border-color:#b76a56!important;color:#ffd0a7!important}
+#appScreen .conversion-result-card,#appScreen .convert-primary,#appScreen .conversion-followup{border-color:#ad6a53!important;background:#2b2529!important}
+#appScreen .auto-note{border-left-color:#ff8055!important;background:#352b27!important;color:#ffe2d0!important}
+#appScreen .live-label{color:#ff9e72!important}
+#appScreen .projectless-indicator{border-left-color:#ff625f!important;background:#332428!important;color:#ffd9cc!important}
+#appScreen .lab-guide{--guide-accent:#ff5d66!important;--guide-soft:#34262a!important;--guide-line:#af6252!important;background:#292227!important;border-color:#af6252!important}
+#appScreen .lab-guide.report-guide{--guide-accent:#ff9b57!important;--guide-soft:#332922!important;--guide-line:#b67c4e!important}
+#appScreen .lab-guide details{border-color:var(--guide-line)!important;background:#242027!important}
+#appScreen .lab-guide .guide-body{color:#f3e1db!important}
+#appScreen .example-box{border-color:#a96451!important;background:#35292a!important}
+#appScreen .example-box.report-example{border-color:#c5814f!important;background:#352b25!important}
+#appScreen .example-box .example-title{color:#ffac87!important}
+#appScreen .example-box.report-example .example-title{color:#ffbd83!important}
+#appScreen .btn.example{border-color:#c66b53!important;background:#452b2b!important;color:#ffe5d1!important}
+#appScreen .report-example .btn.example{border-color:#db8b4c!important;background:#493122!important;color:#ffdfbc!important}
+#appScreen .project-accordion{border-color:#9e5e4b!important;background:#272127!important}
+#appScreen .project-accordion>summary{color:#ffb17e!important}
+#appScreen .project-accordion>summary .project-icon{color:#ff6658!important}
+#appScreen .project-accordion>summary::after{color:#ff995e!important}
+#appScreen .conversion-panel{border-top-color:#ff5362!important}
+#appScreen input:focus,#appScreen textarea:focus,#appScreen select:focus{border-color:#ff975b!important;box-shadow:0 0 0 3px #ff66451f!important}
+#appScreen input[type="checkbox"]{accent-color:#ff8253!important}
+#appScreen .btn.primary{background:linear-gradient(105deg,#ff5360,#ff9a4f)!important;border-color:#ffba82!important;color:#240e10!important}
+#appScreen .btn.soft{background:#392a2e!important;border-color:#bd7256!important;color:#ffe3cb!important}
+#appScreen .btn.excel{background:#14794c!important;border-color:#4cbc85!important;color:#fff!important}
+#appScreen .btn.pdf{background:#b72e42!important;border-color:#f08997!important;color:#fff!important}
+#appScreen .btn.danger{background:#55242d!important;border-color:#e86d74!important;color:#fff!important}
+#appScreen a{color:#ffbb89!important}
+#appScreen .toast{background:#3d272a!important;border-color:#e57b59!important;color:#fff2eb!important}
+.modal{background:linear-gradient(145deg,#33282c,#201e24)!important;border-color:#fa845c!important}
+.modal h2{color:#ffbc86!important}.modal .lock-symbol{color:#ff995e!important}.modal .brandline{background:linear-gradient(90deg,#ff455d,#ffa35b)!important}
+
 </style>
 </head>
 <body>
 <main id="appScreen" hidden>
- <header class="hero mecha-hud-panel"><div class="mecha-art" aria-hidden="true"><div class="mecha-emblem"><span></span><i></i></div><div class="mecha-frame"><b class="mecha-target"></b></div><div class="mecha-beam"></div><div class="mecha-pip">BCMS95 LAB · SISTEMA ATIVO</div></div><div><div class="hero-top">BCMS95 / Laboratório de componentes</div><h1>Conversor de <span>Capacitância</span></h1><p>Registros por projeto · Inspeção documental · Relatório Tapeboard</p></div><div class="hero-controls"><span class="chip blue" id="heroProject">Nenhum projeto selecionado</span><button class="btn soft small" id="backupExport">Backup</button><button class="btn soft small" id="backupImport">Importar</button><button class="btn danger small" id="logout">Sair <span aria-hidden="true">↪</span></button></div></header>
+ <header class="hero mecha-hud-panel"><div class="mecha-art" aria-hidden="true"><div class="mecha-emblem"><span></span><i></i></div><div class="mecha-frame"><b class="mecha-target"></b></div><div class="mecha-beam"></div><div class="mecha-pip">BCMS95 LAB · SISTEMA ATIVO</div></div><div class="hero-copy"><div class="hero-top">BCMS95 / Laboratório de componentes</div><h1>Conversor de <span>Capacitância</span></h1><p>Registros por projeto · Inspeção documental · Relatório Tapeboard</p></div><div class="hero-controls"><span class="chip blue" id="heroProject">Nenhum projeto selecionado</span><button class="btn soft small" id="backupExport">Backup</button><button class="btn soft small" id="backupImport">Importar</button><button class="btn danger small" id="logout">Sair <span aria-hidden="true">↪</span></button></div></header>
  <nav class="nav" aria-label="Módulos"><button class="active" data-tab="converter">01 · Conversor de Capacitância</button><button data-tab="tapeboard" class="locked" id="reportTabBtn">02 · Relatório Tapeboard <span id="tabLock" aria-hidden="true">🔒</span></button></nav>
  <div class="maincontent">
   <section id="converter" class="active">
@@ -486,7 +611,7 @@ async function unlockReport(evt){
  }catch(e){$('gateError').textContent=e.message}
 }
 function prepareBackup(){const backup={format:'BCMS95-LAB-Backup',version:1,exportedAt:now(),projects};const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'});downloadBlob(blob,'BCMS95_LAB_backup_'+new Date().toISOString().slice(0,10)+'.json')}
-function importBackup(file){if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const obj=JSON.parse(reader.result);if(obj.format!=='BCMS95-LAB-Backup'||!Array.isArray(obj.projects))throw Error('Arquivo não reconhecido.');if(!confirm(`Importar ${obj.projects.length} projeto(s)? Isso substituirá os registros atuais deste navegador.`))return;projects=obj.projects.map(normalizeProject);activeId='';persist();selectProject('');notify('Backup importado. Sincronização online iniciada.')}catch(e){notify('Falha ao importar: '+e.message)}};reader.readAsText(file)}
+function importBackup(file){if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const obj=JSON.parse(reader.result);if(obj.format!=='BCMS95-LAB-Backup'||!Array.isArray(obj.projects))throw Error('Arquivo não reconhecido.');if(!confirm(`ATENÇÃO: importar ${obj.projects.length} projeto(s) substituirá os projetos do BANCO DE DADOS ONLINE (Neon), acessados por todos os dispositivos. Antes de continuar, exporte um Backup dos dados atuais. Deseja substituir os registros online?`))return;projects=obj.projects.map(normalizeProject);activeId='';persist();selectProject('');notify('Backup importado. Sincronização online iniciada.')}catch(e){notify('Falha ao importar: '+e.message)}};reader.readAsText(file)}
 function downloadBlob(blob,filename){const a=document.createElement('a');const u=URL.createObjectURL(blob);a.href=u;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000)}
 /* XLSX OOXML, gerado localmente sem serviços externos ou bibliotecas de terceiros. */
 const enc=new TextEncoder();
