@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#111318">
-<meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#111318" name="theme-color"/>
+<meta content="noindex,nofollow" name="robots"/>
 <title>BCMS95 — Conversor de Capacitância e Relatório Tapeboard</title>
 <style>
 :root{color-scheme:dark;--bg:#090f15;--surface:#131d27;--surface2:#1a2834;--input:#0d1821;--line:#335363;--line2:#477286;--text:#edf7fa;--muted:#a6bfcb;--blue:#56c5fc;--ice:#a4ecff;--aqua:#5de1c5;--lime:#a5e8b4;--warning:#e3c874;--danger:#fa8a9c;--shadow:0 18px 42px #0007;--font:'Arial Nova',Arial,sans-serif}
@@ -398,143 +399,280 @@ body{background:radial-gradient(ellipse at 78% 10%,#d66d1716,transparent 33%),ra
 @media(prefers-reduced-motion:reduce){.bcms-header-compact .bcms-header-emblem,.bcms-header-compact .bcms-header-emblem>span,.bcms-header-compact .mecha-tracer,.bcms-header-compact .mecha-status-led{animation:none!important}}
 
 
+
+/* REFORMA DE USABILIDADE — superfícies sólidas, agrupamentos por tarefa.
+   Regras apenas visuais; sem mudanças de API, campos ou armazenamento. */
+:root {
+ --bg:#101216 !important;--surface:#1b1e24 !important;
+ --surface2:#242830 !important;--input:#12161c !important;
+ --line:#49505a !important;--line2:#69717d !important;
+ --text:#f4f5f7 !important;--muted:#b9c1cc !important;
+ --blue:#5daeff !important;--ice:#b8daff !important;
+ --aqua:#48cfae !important;--lime:#59d898 !important;
+ --warning:#ffb65b !important;--danger:#ff5969 !important;
+}
+html,body {background:#101216!important;background-image:none!important;}
+#ambient {display:none!important}
+#appScreen {background:transparent!important;max-width:1410px!important;}
+#appScreen .bcms-hero.bcms-header-compact {background:#171a20!important;border-color:#a97543!important;}
+#appScreen .bcms-hero-art {background-color:#171a20!important;}
+/* Todos os painéis deixam de ter gradientes e fundo avermelhado. */
+#appScreen .panel,
+#appScreen .nav,
+#appScreen .lab-guide,
+#appScreen .lab-guide.report-guide,
+#appScreen .lab-guide details,
+#appScreen .lab-guide details[open],
+#appScreen .example-box,
+#appScreen .example-box.report-example,
+#appScreen .stat,
+#appScreen .kpi,
+#appScreen .conversion-result-card,
+#appScreen .convert-primary,
+#appScreen .conversion-followup,
+#appScreen .mini-item,
+#appScreen .empty,
+#appScreen .report-block,
+#appScreen .project-accordion,
+#appScreen .project-accordion>.panel,
+#appScreen .project-accordion[open]>summary,
+#appScreen .chip,
+#appScreen .strip,
+#appScreen .notice,
+#appScreen .projectless-indicator,
+#appScreen .table th,
+#appScreen .table tfoot td,
+#appScreen .auto-note {
+ background-image:none!important;box-shadow:none!important;
+}
+#appScreen .panel {background-color:#1d2128!important;border:1px solid #444d59!important;
+ border-radius:12px!important;padding:18px!important;margin-bottom:0!important;}
+#appScreen .panel h2{color:#f5f6f9!important;font-size:18px!important;letter-spacing:0!important;}
+#appScreen .panel h3{color:#e6edf5!important;}
+#appScreen .cardhead {padding-bottom:11px;border-bottom:1px solid #38434f!important;margin-bottom:15px!important;}
+#appScreen .cardhead .chip {background:#262e38!important;color:#a9b7c8!important;border:1px solid #3d4855!important;font-size:10px;}
+#appScreen .nav {background:#191d23!important;border:1px solid #3d4855!important;
+ border-radius:12px!important;padding:6px!important;gap:8px!important;margin-bottom:17px!important;}
+#appScreen .nav button {background:#252a32!important;color:#ccd5df!important;border:1px solid #485563!important;
+ padding:13px 18px!important;font-size:13px!important;min-height:49px;}
+#appScreen .nav button[data-tab="converter"] {color:#b8d8ff!important;border-color:#516d8d!important;background:#252e38!important;}
+#appScreen .nav button[data-tab="converter"].active {background:#174b78!important;border-color:#59afff!important;color:#fff!important;box-shadow:inset 0 -3px #78caff!important;}
+#appScreen .nav button[data-tab="tapeboard"] {color:#ffcea3!important;border-color:#a77a53!important;background:#312924!important;}
+#appScreen .nav button[data-tab="tapeboard"].active {background:#824b25!important;border-color:#ffa65c!important;color:#fff!important;box-shadow:inset 0 -3px #ffc079!important;}
+#appScreen .converter-workspace {display:grid;gap:15px!important;align-items:start;}
+#appScreen .converter-main,#appScreen .converter-side {display:grid;gap:15px!important;min-width:0;}
+#appScreen .conversion-panel {border-left:4px solid #5daeff!important;border-top:1px solid #444d59!important;}
+#appScreen .convert-primary {background-color:#151e29!important;border:1px solid #4b6681!important;padding:16px!important;border-radius:10px!important;}
+#appScreen .convert-primary .field:first-child input {background:#0e1724!important;font-weight:800!important;font-size:20px!important;}
+#appScreen .convert-primary label {color:#dce9fa!important;}
+#appScreen .convert-explanation,#appScreen .formhint {color:#aebaca!important;}
+#appScreen .conversion-followup {background-color:#202630!important;border:1px solid #4b596b!important;}
+#appScreen .conversion-followup summary {color:#b9d9ff!important;}
+#appScreen .conversion-result-card {background-color:#171f29!important;border:1px solid #4d7898!important;border-left:4px solid #56b0ff!important;}
+#appScreen .conversion-result-card .section-label {color:#89caff!important;}
+#appScreen .auto-note {background:#1f302e!important;color:#d4f0e8!important;border-left:3px solid #43c6a3!important;}
+#appScreen .project-accordion {background-color:#22272f!important;border:1px solid #596778!important;}
+#appScreen .project-accordion>summary {color:#d5e4f5!important;background:#252d38!important;padding:16px!important;}
+#appScreen .project-accordion .project-icon {color:#64bbff!important;}
+#appScreen .project-accordion>summary::after {color:#85c9ff!important;}
+#appScreen .project-accordion[open]>summary {background:#27384b!important;border-bottom:1px solid #596778!important;}
+#appScreen .project-accordion>.panel {background:#1c232c!important;border:0!important;}
+#appScreen .lab-guide {margin:18px 0 6px!important;padding:13px!important;background:#171b21!important;
+ border:1px solid #424a56!important;border-left:3px solid #7a8595!important;border-radius:10px!important;
+ --guide-accent:#acb7c6!important;--guide-soft:#242932!important;--guide-line:#3b4552!important;}
+#appScreen .lab-guide.report-guide {--guide-accent:#b2bdca!important;--guide-soft:#292b2e!important;--guide-line:#53545d!important;}
+#appScreen .lab-guide-title {color:#b7c3d1!important;font-size:11px!important;letter-spacing:.04em!important;}
+#appScreen .lab-guide-title::before {background:#414957!important;color:#f1f5fb!important;}
+#appScreen .lab-guide details {background:#20252d!important;border:1px solid #424d5b!important;}
+#appScreen .lab-guide details[open] {background:#242b35!important;border-color:#6c849d!important;}
+#appScreen .lab-guide summary {color:#c7d5e4!important;min-height:48px;}
+#appScreen .lab-guide summary .num {background:#303944!important;border-color:#566b80!important;color:#cee2f4!important;}
+#appScreen .lab-guide summary::after {color:#e6f0ff!important;font-size:22px;}
+#appScreen .lab-guide .guide-body {color:#ced6e1!important;}
+#appScreen .example-box {background:#202630!important;border:1px solid #49596a!important;border-left:3px solid #5faefa!important;}
+#appScreen .example-box.report-example {background:#282823!important;border-left-color:#ffad5c!important;border-color:#715e49!important;}
+#appScreen .example-box .example-title {color:#cce4ff!important;}
+#appScreen .example-box.report-example .example-title {color:#ffe1bc!important;}
+#appScreen .btn.example {background:#263b54!important;border-color:#567ba5!important;color:#e3f0ff!important;}
+#appScreen .report-example .btn.example {background:#493521!important;border-color:#a2764c!important;color:#ffe2c6!important;}
+#appScreen .kpi,#appScreen .stat {background:#252d37!important;border:1px solid #485666!important;border-radius:9px!important;}
+#appScreen .kpi strong,#appScreen .stat b {color:#77c1ff!important;}
+#appScreen .kpirow .kpi:nth-child(2) strong {color:#ffbb72!important;}
+#appScreen .kpirow .kpi:nth-child(3) strong {color:#69d8a8!important;}
+#appScreen .tablewrap {border-color:#4a5765!important;}
+#appScreen .table th {background:#2a3340!important;color:#deecfa!important;}
+#appScreen .table td {border-color:#3d4856!important;color:#ebedf0!important;}
+#appScreen .table tfoot td {background:#283039!important;}
+#appScreen .mini-item {background:#252b34!important;border-color:#505d6c!important;}
+#appScreen .mini-item strong {color:#e9f3ff!important;}
+#appScreen .report-block {background:#232831!important;border-color:#6f6054!important;}
+#appScreen .chip {background:#29313b!important;border-color:#647389!important;color:#bcd8f5!important;}
+#appScreen .chip.blue {border-color:#69b5ff!important;color:#b8dcff!important;}
+#appScreen .strip,#appScreen .notice {background:#252931!important;color:#e1e6ed!important;border-left-color:#ffb45a!important;}
+#appScreen .projectless-indicator {background:#253142!important;color:#d4e7ff!important;border-left-color:#53adfc!important;}
+#appScreen .btn {transition:background .18s,border-color .18s,filter .18s;}
+#appScreen .btn.primary {background:#2678b7!important;border:1px solid #62bbff!important;color:white!important;}
+#appScreen .btn.soft {background:#303741!important;border:1px solid #657487!important;color:#e6edf5!important;}
+#appScreen .btn.excel {background:#14794c!important;border-color:#4cbc85!important;color:#fff!important;}
+#appScreen .btn.pdf {background:#b72e42!important;border-color:#f08997!important;color:#fff!important;}
+#appScreen .btn.danger {background:#4a252c!important;border-color:#df6976!important;color:#fff!important;}
+#appScreen .actions {display:flex;gap:9px!important;flex-wrap:wrap;margin-top:14px!important;}
+#appScreen .project-accordion .btn.primary,#appScreen #projectSave,#appScreen #memorizeBtn {background:#176e53!important;border-color:#4cce9f!important;color:#f0fff8!important;}
+#appScreen #projectNew {background:#1e658e!important;border-color:#5cb6e7!important;color:white!important;}
+#appScreen .section-label,#appScreen .live-label {color:#8ecfff!important;}
+#appScreen .project-accordion .section-label {color:#a9d6ff!important;}
+#appScreen input,#appScreen select,#appScreen textarea {background:#121820!important;border:1px solid #586575!important;color:#f1f5fa!important;}
+#appScreen input:focus,#appScreen select:focus,#appScreen textarea:focus {border-color:#78beff!important;box-shadow:0 0 0 2px #5aaaff33!important;}
+#appScreen input[type=checkbox] {accent-color:#2689ca!important;}
+#appScreen .modal {background:#20252c!important;border-color:#54677a!important;}
+#appScreen .toast {background:#263037!important;border-color:#548a83!important;}
+#appScreen .footer-app {color:#8e99a8!important;font-size:11px;}
+/* Somente o cabeçalho conserva detalhes mecânicos; o fundo da página é sólido. */
+#appScreen .bcms-unified-main .bcms-hero-title strong {color:#fff!important;}
+#appScreen .bcms-hero-title>span {color:#e3e5e9!important;}
+#appScreen .lab-project-chip {background:#24282e!important;border-color:#8b7559!important;color:#efc896!important;}
+#appScreen .bcms-header-actions .bcms-install-button {background:#292c32!important;border-color:#b48c57!important;color:#f5dfbe!important;}
+#appScreen .bcms-header-actions .bcms-logout {background:#42212a!important;border-color:#e36f74!important;}
+@media(max-width:680px){
+ #appScreen .lab-guide{margin-top:14px!important;}
+ #appScreen .panel{padding:14px!important;}
+ #appScreen .nav button{padding:12px!important;}
+}
 </style>
 </head>
 <body>
-<main id="appScreen" hidden>
- <header class="bcms-hero bcms-unified-header bcms-header-compact" aria-label="BCMS95 LAB — identificação e acesso">
- <div class="bcms-hero-art" aria-hidden="true"></div>
- <div class="bcms-hero-grid" aria-hidden="true"></div>
- <div class="bcms-header-emblem" aria-hidden="true"><span></span><i></i></div>
- <div class="mecha-rail" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
- <div class="mecha-hud" aria-hidden="true"><b class="mecha-hud-target"></b><b class="mecha-hud-pip"></b></div>
- <div class="mecha-tracer" aria-hidden="true"></div>
- <div class="mecha-status" aria-hidden="true"><span class="mecha-status-led"></span> SISTEMA ONLINE <span class="mecha-status-divider">//</span> CAPACITOR LAB</div>
- <div class="bcms-unified-main">
-  <div class="symbol bcms-logo" aria-hidden="true"><svg viewBox="0 0 60 60" role="img"><defs><linearGradient id="bcmsLogoGlowLab" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD76A"/><stop offset="1" stop-color="#FF8A3D"/></linearGradient></defs><path d="M10 48H51" stroke="#ffd986" stroke-width="2.3" stroke-linecap="round"/><rect x="13" y="32" width="8" height="15" rx="1.1" fill="#ffffff"/><rect x="26" y="24" width="8" height="23" rx="1.1" fill="#ffffff"/><rect x="39" y="17" width="8" height="30" rx="1.1" fill="#ffffff"/><path d="M10 34L24 25L35 26L47 12" stroke="url(#bcmsLogoGlowLab)" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M47 6L49 11L54 12L50 16L51 21L47 18L43 21L44 16L40 12L45 11Z" fill="#2d2110" stroke="#FFD76A" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
-  <div class="bcms-unified-identity">
-   <div class="bcms-hero-title"><strong>BCMS95</strong><span>Conversor de Capacitância · Registros por projeto · Relatório Tapeboard</span></div>
-   <div class="lab-project-chip">Projeto atual <span id="heroProject">Nenhum projeto selecionado</span></div>
-  </div>
- </div>
- <div class="bcms-unified-top"><div class="bcms-header-actions"><button type="button" class="btn bcms-install-button" id="backupImport" title="Importar projetos do laboratório"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V9m0 0 4 4m-4-4-4 4M4 4v4h16V4"/></svg>Importar</button><button type="button" id="logout" class="btn bcms-logout" aria-label="Logoff — encerrar sessão" title="Logoff — encerrar sessão"><svg class="logout-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"/><path d="M13 8l4 4-4 4M8 12h9"/></svg></button></div></div>
+<main hidden="" id="appScreen">
+<header aria-label="BCMS95 LAB — identificação e acesso" class="bcms-hero bcms-unified-header bcms-header-compact">
+<div aria-hidden="true" class="bcms-hero-art"></div>
+<div aria-hidden="true" class="bcms-hero-grid"></div>
+<div aria-hidden="true" class="bcms-header-emblem"><span></span><i></i></div>
+<div aria-hidden="true" class="mecha-rail"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<div aria-hidden="true" class="mecha-hud"><b class="mecha-hud-target"></b><b class="mecha-hud-pip"></b></div>
+<div aria-hidden="true" class="mecha-tracer"></div>
+<div aria-hidden="true" class="mecha-status"><span class="mecha-status-led"></span> SISTEMA ONLINE <span class="mecha-status-divider">//</span> CAPACITOR LAB</div>
+<div class="bcms-unified-main">
+<div aria-hidden="true" class="symbol bcms-logo"><svg role="img" viewbox="0 0 60 60"><defs><lineargradient id="bcmsLogoGlowLab" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#FFD76A"></stop><stop offset="1" stop-color="#FF8A3D"></stop></lineargradient></defs><path d="M10 48H51" stroke="#ffd986" stroke-linecap="round" stroke-width="2.3"></path><rect fill="#ffffff" height="15" rx="1.1" width="8" x="13" y="32"></rect><rect fill="#ffffff" height="23" rx="1.1" width="8" x="26" y="24"></rect><rect fill="#ffffff" height="30" rx="1.1" width="8" x="39" y="17"></rect><path d="M10 34L24 25L35 26L47 12" fill="none" stroke="url(#bcmsLogoGlowLab)" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.2"></path><path d="M47 6L49 11L54 12L50 16L51 21L47 18L43 21L44 16L40 12L45 11Z" fill="#2d2110" stroke="#FFD76A" stroke-linejoin="round" stroke-width="1.8"></path></svg></div>
+<div class="bcms-unified-identity">
+<div class="bcms-hero-title"><strong>BCMS95</strong><span>Conversor de Capacitância · Registros por projeto · Relatório Tapeboard</span></div>
+<div class="lab-project-chip">Projeto atual <span id="heroProject">Nenhum projeto selecionado</span></div>
+</div>
+</div>
+<div class="bcms-unified-top"><div class="bcms-header-actions"><button class="btn bcms-install-button" id="backupImport" title="Importar projetos do laboratório" type="button"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M12 21V9m0 0 4 4m-4-4-4 4M4 4v4h16V4"></path></svg>Importar</button><button aria-label="Logoff — encerrar sessão" class="btn bcms-logout" id="logout" title="Logoff — encerrar sessão" type="button"><svg aria-hidden="true" class="logout-ico" fill="none" viewbox="0 0 24 24"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path><path d="M13 8l4 4-4 4M8 12h9"></path></svg></button></div></div>
 </header>
- <nav class="nav" aria-label="Módulos"><button class="active" data-tab="converter">01 · Conversor de Capacitância</button><button data-tab="tapeboard" class="locked" id="reportTabBtn">02 · Relatório Tapeboard <span id="tabLock" aria-hidden="true">🔒</span></button></nav>
- <div class="maincontent">
-  <section id="converter" class="active">
-   <div class="lab-guide" aria-label="Orientações do conversor de capacitância">
-    <div class="lab-guide-title">Guia rápido · Conversão e identificação de componentes SMD</div>
-    <div class="lab-guides">
-     <details><summary><span class="num">01</span>Objetivo do conversor</summary><div class="guide-body">
-      <p>Padronizar os valores de capacitância encontrados em documentos técnicos, BOM, desenhos e referências de componentes utilizados em placas SMD e Tapeboard.</p>
-      <ul><li>Converter valores entre F, mF, µF, nF e pF sem alterar a capacitância.</li><li>Associar o resultado ao identificador do componente e ao projeto correspondente.</li></ul>
-     </div></details>
-     <details><summary><span class="num">02</span>Como utilizar na análise de Tapeboard?</summary><div class="guide-body">
-      <p>Utilize o conversor para comparar unidades e registrar equivalências para consulta e relatório.</p>
-      <ul><li>Informe um valor e uma unidade. A tabela, a tolerância e a observação técnica são atualizadas automaticamente; confira tudo com a BOM e o datasheet.</li><li>Clique em <strong>Memorizar / adicionar ao relatório</strong> somente após verificar o valor e selecionar o projeto.</li></ul>
-     </div></details>
-    </div>
-   </div>
-   <div class="converter-workspace">
-    <div class="converter-main">
-     <article class="panel conversion-panel"><div class="cardhead"><h2>Conversor de capacitância</h2><span class="chip">F · mF · µF · nF · pF</span></div><p class="subline">Informe o valor e sua unidade para ver imediatamente a tabela de equivalências e, se desejar, os limites com tolerância. Também é possível interpretar códigos compatíveis em pF.</p>
-      <div class="example-box"><div class="example-title">Exemplos práticos · Capacitores de placas SMD</div><div class="example-sub">Clique para preencher e converter um exemplo. O resultado não será memorizado automaticamente.</div>
-       <div class="example-buttons">
-        <button type="button" class="btn example" data-cap-example="104">104 · 100 nF</button>
-        <button type="button" class="btn example" data-cap-example="472">472 · 4,7 nF</button>
-        <button type="button" class="btn example" data-cap-example="1002">1002 · 10 nF</button>
-        <button type="button" class="btn example" data-cap-example="4R7">4R7 · 4,7 pF</button>
-       </div>
-       <p class="example-disclaimer"><strong>Atenção:</strong> são exemplos didáticos de codificação, não evidências de um material real. Muitos capacitores SMD não possuem marcação no corpo; confirme o valor pela BOM, Part Number e datasheet.</p>
-      </div>
-      <div class="live-label">Conversão imediata · Informe o valor e a unidade</div>
-      <div class="convert-primary">
-       <div class="field"><label for="capValue">Valor da capacitância</label><input id="capValue" inputmode="decimal" placeholder="Ex.: 0,1" autocomplete="off"></div>
-       <div class="field"><label for="capUnit">Unidade de origem</label><select id="capUnit"><option value="uF">µF — microfarad</option><option value="nF">nF — nanofarad</option><option value="pF">pF — picofarad</option><option value="mF">mF — milifarad</option><option value="F">F — farad</option></select></div>
-       <div class="field"><label for="capTolerance">Tolerância (±%)</label><input id="capTolerance" inputmode="decimal" placeholder="Ex.: 10" autocomplete="off"></div>
-      </div>
-      <p class="convert-explanation">O sistema converte enquanto você digita. A tolerância é opcional; quando informada, calcula os limites nominais mínimo e máximo.</p>
-      <details class="conversion-followup"><summary>Identificação do componente, código e observação (opcional)</summary>
-       <div class="two"><div class="field"><label for="componentName">Componente / posição na placa</label><input id="componentName" placeholder="Ex.: C105 / capacitor cerâmico"></div><div class="field"><label for="capCode">Código do capacitor (opcional)</label><input id="capCode" placeholder="Ex.: 104 ou 4R7" maxlength="12"></div></div>
-       <div class="field"><label for="conversionNote">Observação técnica personalizada</label><textarea id="conversionNote" placeholder="Opcional: escreva uma observação para substituir a automática no relatório."></textarea></div>
-      </details>
-      <div id="conversionResult" class="conversion-result-card hide">
-       <div class="section-label">Equivalências calculadas em tempo real</div><div class="three" id="convertedTop"></div>
-       <div class="tablewrap" style="margin-top:12px"><table class="table"><thead><tr><th>Unidade</th><th class="right">Valor nominal</th><th class="right">Mínimo (−%)</th><th class="right">Máximo (+%)</th></tr></thead><tbody id="conversionRows"></tbody></table></div>
-       <div id="automaticConversionNote" class="auto-note"></div>
-      </div>
-      <p class="formhint">Ao digitar um código reconhecido (104, 472, 1002, 4R7), seu equivalente em pF será usado na conversão. Confirme a interpretação na especificação do componente.</p>
-      <div class="actions"><button class="btn primary" id="convertBtn">Converter</button><button class="btn" id="memorizeBtn">Memorizar / adicionar ao relatório</button><button class="btn soft" id="clearConvert">Limpar</button></div><p class="message" id="conversionError" role="status"></p><div class="projectless-indicator" id="projectlessHint">Você pode converter sem projeto. Para memorizar e incluir no relatório, expanda “Projetos e identificação” e selecione ou crie um projeto.</div>
+<nav aria-label="Módulos" class="nav"><button class="active" data-tab="converter">01 · Conversor de Capacitância</button><button class="locked" data-tab="tapeboard" id="reportTabBtn">02 · Relatório Tapeboard <span aria-hidden="true" id="tabLock">🔒</span></button></nav>
+<div class="maincontent">
+<section class="active" id="converter">
 
-     </article>
-     <details class="project-accordion" id="projectAccordion"><summary><span class="project-icon">▣</span>Projetos e identificação <span class="project-indicator">Opcional · Expandir para memorizar</span></summary>
-     <article class="panel"><div class="cardhead"><h2>Projetos e identificação</h2><span class="chip blue">Organização por projeto</span></div><p class="subline">Esta área é opcional para converter. Expanda somente quando quiser vincular uma conversão a um projeto ou montar o Relatório Tapeboard.</p>
-      <div class="field"><label for="projectSelect">Projeto ativo</label><select id="projectSelect"><option value="">Selecione ou crie um projeto</option></select></div>
-      <div class="example-box"><div class="example-title">Exemplo de identificação do projeto</div><div class="example-sub">Preenche somente os campos do formulário; você escolhe se deseja salvar.</div><div class="example-buttons"><button type="button" class="btn example" id="exampleProject">Preencher exemplo de Tapeboard SMD</button></div></div>
-      <div class="two"><div class="field"><label for="projectName">Nome do projeto / modelo</label><input id="projectName" placeholder="Ex.: Tapeboard — Projeto Orion"></div><div class="field"><label for="projectPN">Part Number / Código</label><input id="projectPN" placeholder="Código ou referência do projeto"></div></div>
-      <div class="two"><div class="field"><label for="projectDocument">NF / Documento de referência</label><input id="projectDocument" placeholder="Documento opcional"></div><div class="field"><label for="projectOwner">Responsável pela análise</label><input id="projectOwner" placeholder="Nome do responsável"></div></div>
-      <div class="actions"><button class="btn primary" id="projectNew">Novo projeto</button><button class="btn" id="projectSave">Salvar projeto</button><button class="btn danger" id="projectDelete">Excluir projeto</button></div><p class="message" id="projectMessage" role="status"></p>
-     </article>
-     </details>
-    </div>
-    <div class="converter-side">
-
-     <article class="panel"><div class="cardhead"><h2>Resumo do projeto</h2><span class="chip" id="projectTag">SEM PROJETO</span></div><div class="kpirow"><div class="kpi"><strong id="kpiConversions">0</strong><span>Conversões registradas</span></div><div class="kpi"><strong id="kpiNotes">0</strong><span>Observações manuais</span></div><div class="kpi"><strong id="kpiSignatures">0</strong><span>Assinaturas previstas</span></div></div><div class="strip">Cada projeto possui um histórico independente. Registros memorizados aparecem automaticamente no Relatório Tapeboard correspondente.</div></article>
-     <article class="panel"><div class="cardhead"><h2>Conversões memorizadas</h2><span class="chip blue">Consultar e editar</span></div><p class="subline">Expanda cada registro para ver suas equivalências ou selecione Editar para alterar os dados.</p><div id="conversionHistory" class="mini-list"></div></article>
-     <article class="panel"><div class="cardhead"><h2>Projetos cadastrados</h2><span class="chip" id="projectCount">0 projetos</span></div><div id="projectList" class="mini-list"></div></article>
-    </div>
-   </div>
-  </section>
-  <section id="tapeboard">
-   <div class="lab-guide report-guide" aria-label="Orientações do relatório Tapeboard">
-    <div class="lab-guide-title">Guia rápido · Inspeção e documentação de placas SMD</div>
-    <div class="lab-guides">
-     <details><summary><span class="num">01</span>Objetivo do Relatório Tapeboard</summary><div class="guide-body">
-      <p>Reunir as conversões verificadas e as observações técnicas de um projeto de placa SMD em um documento rastreável.</p>
-      <ul><li>Relacionar cada registro ao componente, à posição ou ao local da placa.</li><li>Apresentar evidências, classificação e validação com assinaturas.</li></ul>
-     </div></details>
-     <details><summary><span class="num">02</span>O que registrar na inspeção?</summary><div class="guide-body">
-      <p>Registre constatações objetivas, sempre vinculadas ao requisito aplicável.</p>
-      <ul><li>Ex.: referência serigráfica diferente da BOM ou divergência de valor nominal do capacitor.</li><li>Ex.: identificação do tape, orientação de embalagem e evidência fotográfica, quando exigidas pelo projeto.</li></ul>
-      <p>Uma divergência só deve ser classificada como não conforme após verificação da especificação ou desenho aplicável.</p>
-     </div></details>
-    </div>
-   </div>
-   <div class="columns">
-    <div class="stack">
-     <article class="panel"><div class="cardhead"><h2>Relatório Tapeboard</h2><span class="chip blue">Módulo restrito</span></div><p class="subline">Todas as conversões memorizadas do projeto ativo serão incluídas no relatório. Acrescente observações manuais conforme a inspeção.</p><div class="section-label">Projeto selecionado</div><div id="reportProjectInfo" class="strip">Selecione um projeto na primeira aba.</div><div class="divider"></div><h3>Nova observação manual</h3>
-      <div class="example-box report-example"><div class="example-title">Modelos de observação para Tapeboard SMD</div><div class="example-sub">Use como ponto de partida para redigir um registro verificável. Nenhum exemplo é salvo até clicar em <strong>Adicionar observação</strong>.</div>
-       <div class="example-buttons">
-        <button type="button" class="btn example" data-note-example="serigrafia">Serigrafia diferente</button>
-        <button type="button" class="btn example" data-note-example="capacitancia">Valor divergente da BOM</button>
-        <button type="button" class="btn example" data-note-example="tape">Identificação do tape</button>
-        <button type="button" class="btn example" data-note-example="conforme">Registro conforme</button>
-       </div>
-       <p class="example-disclaimer">Os textos são <strong>situações hipotéticas</strong>. Revise o componente, o requisito aplicável, a evidência e a classificação antes de memorizar ou emitir o relatório.</p>
-      </div>
-      <div class="two"><div class="field"><label for="manualComponent">Componente / Local</label><input id="manualComponent" placeholder="Ex.: C17, tape, serigrafia"></div><div class="field"><label for="manualCategory">Categoria da observação</label><select id="manualCategory"><option>Identificação / Serigrafia</option><option>Capacitância / Componente</option><option>Embalagem / Tape</option><option>Dimensional / Mecânica</option><option>Processo / Montagem</option><option>Outro</option></select></div></div>
-      <div class="field"><label for="manualText">Descrição da ocorrência / observação</label><textarea id="manualText" placeholder="Ex.: O componente C17 apresenta serigrafia divergente da amostra padrão."></textarea></div>
-      <div class="two"><div class="field"><label for="manualStatus">Classificação</label><select id="manualStatus"><option value="Informativo">Informativo</option><option value="Conforme">Conforme</option><option value="Não conforme">Não conforme</option><option value="Pendente de validação">Pendente de validação</option></select></div><div class="field"><label for="manualEvidence">Evidência / Referência (opcional)</label><input id="manualEvidence" placeholder="Ex.: foto 02 / BOM revisão B"></div></div>
-      <div class="actions"><button class="btn primary" id="addNote">Adicionar observação</button><button class="btn soft" id="clearNote">Limpar campos</button></div><p class="message" id="manualMessage"></p>
-     </article>
-     <article class="panel"><div class="cardhead"><h2>Lista de observações manuais</h2><span class="chip" id="manualCount">0 registros</span></div><div id="manualList" class="mini-list"></div></article>
-     <article class="panel"><div class="cardhead"><h2>Validação e assinaturas</h2><span class="chip blue">Quantidade livre</span></div><p class="subline">Adicione quantos nomes e campos de assinatura forem necessários. O PDF cria um espaço de assinatura para cada pessoa.</p>
-      <div class="two"><div class="field"><label for="sigName">Nome</label><input id="sigName" placeholder="Nome completo"></div><div class="field"><label for="sigRole">Função / Setor</label><input id="sigRole" placeholder="Ex.: Qualidade / Engenharia"></div></div>
-      <div class="field"><label for="sigDate">Data de validação (opcional)</label><input id="sigDate" type="date"></div><div class="actions"><button class="btn primary" id="addSignature">Adicionar assinatura</button></div><div id="signatureList" class="mini-list" style="margin-top:12px"></div>
-     </article>
-    </div>
-    <div class="stack">
-     <article class="panel"><div class="cardhead"><h2>Prévia do relatório</h2><span class="chip blue">A4 · PDF / Excel</span></div><div id="reportPreview" class="proof"></div><div class="divider"></div><div class="actions"><button class="btn pdf" id="printPdf">Gerar PDF</button><button class="btn excel" id="exportExcel">Exportar Excel (.xlsx)</button><button class="btn soft" id="saveReport">Salvar projeto</button></div><p class="message" id="exportMessage"></p></article>
-     <article class="panel"><h3>Critérios de apresentação</h3><p class="subline">Documento técnico em formato A4 vertical, com identificação do projeto, tabela de conversões, observações manuais, síntese do registro e campos de validação.</p><div class="notice">Referências de apresentação: ABNT NBR 14724:2024 para organização visual, margens e tipografia. A norma trata da apresentação de trabalhos acadêmicos, não estabelece critérios técnicos para inspeção de Tapeboard.</div></article>
-    </div>
-   </div>
-  </section>
- </div>
- <div class="footer-app">BCMS95 LAB · Conversão de capacitância e documentação de Tapeboard · Sincronização online · Banco de dados PostgreSQL</div>
+<div class="converter-workspace">
+<div class="converter-main">
+<article class="panel conversion-panel"><div class="cardhead"><h2>Conversor de capacitância</h2><span class="chip">F · mF · µF · nF · pF</span></div>
+<div class="example-box"><div class="example-title">Exemplos de códigos SMD</div><div class="example-sub">Clique para preencher e converter um exemplo. O resultado não será memorizado automaticamente.</div>
+<div class="example-buttons">
+<button class="btn example" data-cap-example="104" type="button">104 · 100 nF</button>
+<button class="btn example" data-cap-example="472" type="button">472 · 4,7 nF</button>
+<button class="btn example" data-cap-example="1002" type="button">1002 · 10 nF</button>
+<button class="btn example" data-cap-example="4R7" type="button">4R7 · 4,7 pF</button>
+</div>
+<p class="example-disclaimer"><strong>Atenção:</strong> são exemplos didáticos de codificação, não evidências de um material real. Muitos capacitores SMD não possuem marcação no corpo; confirme o valor pela BOM, Part Number e datasheet.</p>
+</div>
+<div class="live-label">1. Informe a capacitância</div>
+<div class="convert-primary">
+<div class="field"><label for="capValue">Valor da capacitância</label><input autocomplete="off" id="capValue" inputmode="decimal" placeholder="Ex.: 0,1"/></div>
+<div class="field"><label for="capUnit">Unidade de origem</label><select id="capUnit"><option value="uF">µF — microfarad</option><option value="nF">nF — nanofarad</option><option value="pF">pF — picofarad</option><option value="mF">mF — milifarad</option><option value="F">F — farad</option></select></div>
+<div class="field"><label for="capTolerance">Tolerância (±%)</label><input autocomplete="off" id="capTolerance" inputmode="decimal" placeholder="Ex.: 10"/></div>
+</div>
+<p class="convert-explanation">O sistema converte enquanto você digita. A tolerância é opcional; quando informada, calcula os limites nominais mínimo e máximo.</p>
+<details class="conversion-followup"><summary>Identificação do componente, código e observação (opcional)</summary>
+<div class="two"><div class="field"><label for="componentName">Componente / posição na placa</label><input id="componentName" placeholder="Ex.: C105 / capacitor cerâmico"/></div><div class="field"><label for="capCode">Código do capacitor (opcional)</label><input id="capCode" maxlength="12" placeholder="Ex.: 104 ou 4R7"/></div></div>
+<div class="field"><label for="conversionNote">Observação técnica personalizada</label><textarea id="conversionNote" placeholder="Opcional: escreva uma observação para substituir a automática no relatório."></textarea></div>
+</details>
+<div class="conversion-result-card hide" id="conversionResult">
+<div class="section-label">2. Resultado da conversão</div><div class="three" id="convertedTop"></div>
+<div class="tablewrap" style="margin-top:12px"><table class="table"><thead><tr><th>Unidade</th><th class="right">Valor nominal</th><th class="right">Mínimo (−%)</th><th class="right">Máximo (+%)</th></tr></thead><tbody id="conversionRows"></tbody></table></div>
+<div class="auto-note" id="automaticConversionNote"></div>
+</div>
+<p class="formhint">Ao digitar um código reconhecido (104, 472, 1002, 4R7), seu equivalente em pF será usado na conversão. Confirme a interpretação na especificação do componente.</p>
+<div class="actions"><button class="btn primary" id="convertBtn">Converter</button><button class="btn" id="memorizeBtn">Memorizar / adicionar ao relatório</button><button class="btn soft" id="clearConvert">Limpar</button></div><p class="message" id="conversionError" role="status"></p><div class="projectless-indicator" id="projectlessHint">Você pode converter sem projeto. Para memorizar e incluir no relatório, expanda “Projetos e identificação” e selecione ou crie um projeto.</div>
+</article>
+<details class="project-accordion" id="projectAccordion"><summary><span class="project-icon">▣</span>Projeto e identificação <span class="project-indicator">Abrir para salvar</span></summary>
+<article class="panel"><div class="cardhead"><h2>Projeto e identificação</h2><span class="chip blue">Organização por projeto</span></div>
+<div class="field"><label for="projectSelect">Projeto ativo</label><select id="projectSelect"><option value="">Selecione ou crie um projeto</option></select></div>
+<div class="example-box"><div class="example-title">Exemplo de identificação do projeto</div><div class="example-sub">Preenche somente os campos do formulário; você escolhe se deseja salvar.</div><div class="example-buttons"><button class="btn example" id="exampleProject" type="button">Preencher exemplo de Tapeboard SMD</button></div></div>
+<div class="two"><div class="field"><label for="projectName">Nome do projeto / modelo</label><input id="projectName" placeholder="Ex.: Tapeboard — Projeto Orion"/></div><div class="field"><label for="projectPN">Part Number / Código</label><input id="projectPN" placeholder="Código ou referência do projeto"/></div></div>
+<div class="two"><div class="field"><label for="projectDocument">NF / Documento de referência</label><input id="projectDocument" placeholder="Documento opcional"/></div><div class="field"><label for="projectOwner">Responsável pela análise</label><input id="projectOwner" placeholder="Nome do responsável"/></div></div>
+<div class="actions"><button class="btn primary" id="projectNew">Novo projeto</button><button class="btn" id="projectSave">Salvar projeto</button><button class="btn danger" id="projectDelete">Excluir projeto</button></div><p class="message" id="projectMessage" role="status"></p>
+</article>
+</details>
+</div>
+<div class="converter-side">
+<article class="panel"><div class="cardhead"><h2>Resumo</h2><span class="chip" id="projectTag">SEM PROJETO</span></div><div class="kpirow"><div class="kpi"><strong id="kpiConversions">0</strong><span>Conversões registradas</span></div><div class="kpi"><strong id="kpiNotes">0</strong><span>Observações manuais</span></div><div class="kpi"><strong id="kpiSignatures">0</strong><span>Assinaturas previstas</span></div></div><div class="strip">Cada projeto possui um histórico independente. Registros memorizados aparecem automaticamente no Relatório Tapeboard correspondente.</div></article>
+<article class="panel"><div class="cardhead"><h2>Histórico de conversões</h2><span class="chip blue">Consultar e editar</span></div><div class="mini-list" id="conversionHistory"></div></article>
+<article class="panel"><div class="cardhead"><h2>Lista de projetos</h2><span class="chip" id="projectCount">0 projetos</span></div><div class="mini-list" id="projectList"></div></article>
+</div>
+</div><div aria-label="Orientações do conversor de capacitância" class="lab-guide">
+<div class="lab-guide-title">Ajuda e exemplos — Conversor</div>
+<div class="lab-guides">
+<details><summary><span class="num">01</span>Para que serve?</summary><div class="guide-body">
+<p>Padronizar os valores de capacitância encontrados em documentos técnicos, BOM, desenhos e referências de componentes utilizados em placas SMD e Tapeboard.</p>
+<ul><li>Converter valores entre F, mF, µF, nF e pF sem alterar a capacitância.</li><li>Associar o resultado ao identificador do componente e ao projeto correspondente.</li></ul>
+</div></details>
+<details><summary><span class="num">02</span>Como registrar no Tapeboard?</summary><div class="guide-body">
+<p>Utilize o conversor para comparar unidades e registrar equivalências para consulta e relatório.</p>
+<ul><li>Informe um valor e uma unidade. A tabela, a tolerância e a observação técnica são atualizadas automaticamente; confira tudo com a BOM e o datasheet.</li><li>Clique em <strong>Memorizar / adicionar ao relatório</strong> somente após verificar o valor e selecionar o projeto.</li></ul>
+</div></details>
+</div>
+</div>
+</section>
+<section id="tapeboard">
+<div aria-label="Orientações do relatório Tapeboard" class="lab-guide report-guide">
+<div class="lab-guide-title">Ajuda e exemplos — Tapeboard</div>
+<div class="lab-guides">
+<details><summary><span class="num">01</span>Objetivo do Relatório Tapeboard</summary><div class="guide-body">
+<p>Reunir as conversões verificadas e as observações técnicas de um projeto de placa SMD em um documento rastreável.</p>
+<ul><li>Relacionar cada registro ao componente, à posição ou ao local da placa.</li><li>Apresentar evidências, classificação e validação com assinaturas.</li></ul>
+</div></details>
+<details><summary><span class="num">02</span>O que registrar na inspeção?</summary><div class="guide-body">
+<p>Registre constatações objetivas, sempre vinculadas ao requisito aplicável.</p>
+<ul><li>Ex.: referência serigráfica diferente da BOM ou divergência de valor nominal do capacitor.</li><li>Ex.: identificação do tape, orientação de embalagem e evidência fotográfica, quando exigidas pelo projeto.</li></ul>
+<p>Uma divergência só deve ser classificada como não conforme após verificação da especificação ou desenho aplicável.</p>
+</div></details>
+</div>
+</div>
+<div class="columns">
+<div class="stack">
+<article class="panel"><div class="cardhead"><h2>Relatório Tapeboard</h2><span class="chip blue">Módulo restrito</span></div><p class="subline">Todas as conversões memorizadas do projeto ativo serão incluídas no relatório. Acrescente observações manuais conforme a inspeção.</p><div class="section-label">Projeto selecionado</div><div class="strip" id="reportProjectInfo">Selecione um projeto na primeira aba.</div><div class="divider"></div><h3>Nova observação manual</h3>
+<div class="example-box report-example"><div class="example-title">Modelos de observação para Tapeboard SMD</div><div class="example-sub">Use como ponto de partida para redigir um registro verificável. Nenhum exemplo é salvo até clicar em <strong>Adicionar observação</strong>.</div>
+<div class="example-buttons">
+<button class="btn example" data-note-example="serigrafia" type="button">Serigrafia diferente</button>
+<button class="btn example" data-note-example="capacitancia" type="button">Valor divergente da BOM</button>
+<button class="btn example" data-note-example="tape" type="button">Identificação do tape</button>
+<button class="btn example" data-note-example="conforme" type="button">Registro conforme</button>
+</div>
+<p class="example-disclaimer">Os textos são <strong>situações hipotéticas</strong>. Revise o componente, o requisito aplicável, a evidência e a classificação antes de memorizar ou emitir o relatório.</p>
+</div>
+<div class="two"><div class="field"><label for="manualComponent">Componente / Local</label><input id="manualComponent" placeholder="Ex.: C17, tape, serigrafia"/></div><div class="field"><label for="manualCategory">Categoria da observação</label><select id="manualCategory"><option>Identificação / Serigrafia</option><option>Capacitância / Componente</option><option>Embalagem / Tape</option><option>Dimensional / Mecânica</option><option>Processo / Montagem</option><option>Outro</option></select></div></div>
+<div class="field"><label for="manualText">Descrição da ocorrência / observação</label><textarea id="manualText" placeholder="Ex.: O componente C17 apresenta serigrafia divergente da amostra padrão."></textarea></div>
+<div class="two"><div class="field"><label for="manualStatus">Classificação</label><select id="manualStatus"><option value="Informativo">Informativo</option><option value="Conforme">Conforme</option><option value="Não conforme">Não conforme</option><option value="Pendente de validação">Pendente de validação</option></select></div><div class="field"><label for="manualEvidence">Evidência / Referência (opcional)</label><input id="manualEvidence" placeholder="Ex.: foto 02 / BOM revisão B"/></div></div>
+<div class="actions"><button class="btn primary" id="addNote">Adicionar observação</button><button class="btn soft" id="clearNote">Limpar campos</button></div><p class="message" id="manualMessage"></p>
+</article>
+<article class="panel"><div class="cardhead"><h2>Lista de observações manuais</h2><span class="chip" id="manualCount">0 registros</span></div><div class="mini-list" id="manualList"></div></article>
+<article class="panel"><div class="cardhead"><h2>Validação e assinaturas</h2><span class="chip blue">Quantidade livre</span></div><p class="subline">Adicione quantos nomes e campos de assinatura forem necessários. O PDF cria um espaço de assinatura para cada pessoa.</p>
+<div class="two"><div class="field"><label for="sigName">Nome</label><input id="sigName" placeholder="Nome completo"/></div><div class="field"><label for="sigRole">Função / Setor</label><input id="sigRole" placeholder="Ex.: Qualidade / Engenharia"/></div></div>
+<div class="field"><label for="sigDate">Data de validação (opcional)</label><input id="sigDate" type="date"/></div><div class="actions"><button class="btn primary" id="addSignature">Adicionar assinatura</button></div><div class="mini-list" id="signatureList" style="margin-top:12px"></div>
+</article>
+</div>
+<div class="stack">
+<article class="panel"><div class="cardhead"><h2>Prévia do relatório</h2><span class="chip blue">A4 · PDF / Excel</span></div><div class="proof" id="reportPreview"></div><div class="divider"></div><div class="actions"><button class="btn pdf" id="printPdf">Gerar PDF</button><button class="btn excel" id="exportExcel">Exportar Excel (.xlsx)</button><button class="btn soft" id="saveReport">Salvar projeto</button></div><p class="message" id="exportMessage"></p></article>
+<article class="panel"><h3>Critérios de apresentação</h3><p class="subline">Documento técnico em formato A4 vertical, com identificação do projeto, tabela de conversões, observações manuais, síntese do registro e campos de validação.</p><div class="notice">Referências de apresentação: ABNT NBR 14724:2024 para organização visual, margens e tipografia. A norma trata da apresentação de trabalhos acadêmicos, não estabelece critérios técnicos para inspeção de Tapeboard.</div></article>
+</div>
+</div>
+</section>
+</div>
+<div class="footer-app">BCMS95 LAB · Conversão de capacitância e documentação de Tapeboard · Sincronização online · Banco de dados PostgreSQL</div>
 </main>
-<div class="modal-overlay" id="reportGate" hidden><div class="modal"><div class="lock-symbol" aria-hidden="true">◇</div><h2>Relatório Tapeboard</h2><div class="brandline"></div><p>Este módulo possui uma segunda etapa de acesso. Insira a senha específica para consultar e produzir os relatórios.</p><form id="reportGateForm"><div class="field"><label for="reportPassword">Senha do Relatório Tapeboard</label><input id="reportPassword" type="password" autocomplete="off" placeholder="Senha do módulo" required></div><p class="message" id="gateError" role="alert"></p><div class="actions"><button type="button" class="btn soft" id="gateCancel">Cancelar</button><button type="submit" class="btn primary">Desbloquear módulo</button></div></form></div></div>
-<input type="file" id="backupFile" accept="application/json,.json" hidden>
-<div id="toast" class="toast" hidden role="status"></div>
+<div class="modal-overlay" hidden="" id="reportGate"><div class="modal"><div aria-hidden="true" class="lock-symbol">◇</div><h2>Relatório Tapeboard</h2><div class="brandline"></div><p>Este módulo possui uma segunda etapa de acesso. Insira a senha específica para consultar e produzir os relatórios.</p><form id="reportGateForm"><div class="field"><label for="reportPassword">Senha do Relatório Tapeboard</label><input autocomplete="off" id="reportPassword" placeholder="Senha do módulo" required="" type="password"/></div><p class="message" id="gateError" role="alert"></p><div class="actions"><button class="btn soft" id="gateCancel" type="button">Cancelar</button><button class="btn primary" type="submit">Desbloquear módulo</button></div></form></div></div>
+<input accept="application/json,.json" hidden="" id="backupFile" type="file"/>
+<div class="toast" hidden="" id="toast" role="status"></div>
 <script>
 'use strict';
 const $=id=>document.getElementById(id);
