@@ -339,7 +339,7 @@ select option{background:#292b31!important}input::placeholder,textarea::placehol
    </div>
   </section>
  </div>
- <div class="footer-app">BCMS95 LAB · Conversão de capacitância e documentação de Tapeboard · Armazenamento local do navegador</div>
+ <div class="footer-app">BCMS95 LAB · Conversão de capacitância e documentação de Tapeboard · Sincronização online · Banco de dados PostgreSQL</div>
 </main>
 <div class="modal-overlay" id="reportGate" hidden><div class="modal"><div class="lock-symbol" aria-hidden="true">◇</div><h2>Relatório Tapeboard</h2><div class="brandline"></div><p>Este módulo possui uma segunda etapa de acesso. Insira a senha específica para consultar e produzir os relatórios.</p><form id="reportGateForm"><div class="field"><label for="reportPassword">Senha do Relatório Tapeboard</label><input id="reportPassword" type="password" autocomplete="off" placeholder="Senha do módulo" required></div><p class="message" id="gateError" role="alert"></p><div class="actions"><button type="button" class="btn soft" id="gateCancel">Cancelar</button><button type="submit" class="btn primary">Desbloquear módulo</button></div></form></div></div>
 <input type="file" id="backupFile" accept="application/json,.json" hidden>
@@ -349,8 +349,7 @@ select option{background:#292b31!important}input::placeholder,textarea::placehol
 const $=id=>document.getElementById(id);
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random().toString(36).slice(2);
-const STORE='bcms95-tapeboard-projects-v1';
-const shaExpected={main:'00fda93197f82b925fbb89f0b671797ee37dc1ae12e00fe449672d65480e6640',report:'fddb8714b3fd3037be351e2a4088b07a1430f83df72b6ea21177718d6444c930'};
+const STORE='bcms95-tapeboard-projects-v1'; // Usado somente para eventual migração de projetos antigos; não para salvar online.
 const UNITS={F:1,mF:1e-3,uF:1e-6,nF:1e-9,pF:1e-12};
 const UNITS_LABEL={F:'F',mF:'mF',uF:'µF',nF:'nF',pF:'pF'};
 let projects=[],activeId='',editingConversion='',editingNote='',tab='converter',reportUnlocked=false,latest=null,toastTimeout=null;
@@ -364,14 +363,52 @@ function capCode(code){const raw=String(code||'').trim().toUpperCase();if(!raw)r
 function capValues(farad){return Object.fromEntries(Object.entries(UNITS).map(([unit,scale])=>{const n=farad/scale;return[unit,n&&Number.isFinite(n)?Number(n.toPrecision(12)):n]}))}
 function getActive(){return projects.find(p=>p.id===activeId)||null}
 function normalizeProject(p){return{id:String(p.id||uid()),name:String(p.name||'Projeto sem nome'),pn:String(p.pn||''),document:String(p.document||''),owner:String(p.owner||''),created:p.created||now(),updated:p.updated||now(),conversions:Array.isArray(p.conversions)?p.conversions:[],notes:Array.isArray(p.notes)?p.notes:[],signatures:Array.isArray(p.signatures)?p.signatures:[]}}
-function persist(){try{localStorage.setItem(STORE,JSON.stringify(projects));return true}catch(e){notify('Não foi possível salvar os dados neste navegador. Exporte um backup.');return false}}
-function hydrate(){try{const parsed=JSON.parse(localStorage.getItem(STORE)||'[]');projects=Array.isArray(parsed)?parsed.map(normalizeProject):[]}catch(e){projects=[];notify('Houve um problema ao ler os projetos salvos.')}}
+// Banco remoto com controle de revisão: sem salvamento silencioso no dispositivo.
+let serverRevision=0, syncTail=Promise.resolve(), syncBlocked=false, ready=false;
+async function api(url,opts={}){
+ const res=await fetch(url,{credentials:'same-origin',cache:'no-store',...opts});
+ let data={};try{data=await res.json()}catch{}
+ if(!res.ok){const error=new Error(data.erro||'Não foi possível completar a solicitação.');error.status=res.status;throw error}
+ return data;
+}
+function persist(){
+ if(!ready){notify('Os registros ainda estão sendo carregados do banco.');return false}
+ if(syncBlocked){notify('Sincronização pausada para evitar perda de dados. Exporte backup e atualize a página.');return false}
+ const snapshot=JSON.parse(JSON.stringify(projects));
+ syncTail=syncTail.then(async()=>{
+   if(syncBlocked)return;
+   try{
+     const data=await api('/api/projects',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({projects:snapshot,revision:serverRevision})});
+     serverRevision=data.revision;
+   }catch(e){
+     syncBlocked=true;
+     if(e.status===409)notify('Conflito: outro dispositivo alterou os dados. Faça backup antes de recarregar.');
+     else notify('Falha ao salvar online. Exporte um backup antes de fechar o navegador: '+e.message);
+   }
+ }).catch(e=>{syncBlocked=true;notify('Erro de sincronização: '+e.message)});
+ return true;
+}
+async function hydrate(){
+ ready=false;syncBlocked=false;
+ try{
+   const data=await api('/api/projects');
+   serverRevision=data.revision;
+   projects=data.projects.map(normalizeProject);
+   activeId='';ready=true;drawAll();
+   let legacy=[];
+   try{legacy=JSON.parse(localStorage.getItem(STORE)||'[]')}catch{}
+   if(!projects.length && Array.isArray(legacy) && legacy.length && confirm('Foram encontrados '+legacy.length+' projeto(s) salvos apenas neste navegador. Importar para o banco online agora?')){
+      projects=legacy.map(normalizeProject);persist();drawAll();
+      notify('Importação solicitada. Aguarde a confirmação do salvamento online.');
+   }
+ }catch(e){ready=false;notify('Não foi possível carregar os projetos do banco: '+e.message);throw e}
+}
 function touch(p){p.updated=now();persist();drawAll()}
 function clearConversion(){editingConversion='';$('componentName').value='';$('capCode').value='';$('capValue').value='';$('capUnit').value='uF';$('capTolerance').value='';$('conversionNote').value='';$('automaticConversionNote').textContent='';$('conversionError').textContent='';$('conversionResult').classList.add('hide');$('memorizeBtn').textContent='Memorizar / adicionar ao relatório';latest=null}
 function clearManual(){editingNote='';$('manualComponent').value='';$('manualText').value='';$('manualCategory').selectedIndex=0;$('manualStatus').value='Informativo';$('manualEvidence').value='';$('addNote').textContent='Adicionar observação';$('manualMessage').textContent=''}
 function drawProjects(){const sel=$('projectSelect');sel.innerHTML='<option value="">Selecione ou crie um projeto</option>'+projects.map(p=>`<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('');sel.value=activeId||'';$('projectCount').textContent=projects.length+' projeto(s)';$('projectList').innerHTML=projects.length?projects.map(p=>`<div class="mini-item"><strong>${esc(p.name)}</strong><p>${esc(p.pn||'Sem PN')} · ${p.conversions.length} conversão(ões) · ${p.notes.length} observação(ões)</p><div class="actions" style="margin-top:8px"><button class="btn small soft" data-project="${esc(p.id)}">Selecionar</button></div></div>`).join(''):'<div class="empty">Nenhum projeto cadastrado.</div>'}
 function selectProject(id){activeId=id;clearConversion();clearManual();const p=getActive();$('projectName').value=p?.name||'';$('projectPN').value=p?.pn||'';$('projectDocument').value=p?.document||'';$('projectOwner').value=p?.owner||'';drawAll()}
-function saveProject(){const name=$('projectName').value.trim();if(!name){$('projectMessage').textContent='Informe o nome do projeto.';return null}let p=getActive();if(!p){p=normalizeProject({id:uid(),name});projects.unshift(p);activeId=p.id}p.name=name;p.pn=$('projectPN').value.trim();p.document=$('projectDocument').value.trim();p.owner=$('projectOwner').value.trim();p.updated=now();persist();$('projectMessage').textContent='Projeto salvo com sucesso.';drawAll();return p}
+function saveProject(){const name=$('projectName').value.trim();if(!name){$('projectMessage').textContent='Informe o nome do projeto.';return null}let p=getActive();if(!p){p=normalizeProject({id:uid(),name});projects.unshift(p);activeId=p.id}p.name=name;p.pn=$('projectPN').value.trim();p.document=$('projectDocument').value.trim();p.owner=$('projectOwner').value.trim();p.updated=now();persist();$('projectMessage').textContent='Projeto preparado para sincronização online.';drawAll();return p}
 function drawHistory(){const p=getActive();const el=$('conversionHistory');if(!p||!p.conversions.length){el.innerHTML='<div class="empty">Nenhuma conversão memorizada neste projeto.</div>';return}el.innerHTML=p.conversions.map((c,i)=>`<details class="mini-item"><summary style="cursor:pointer;color:#a4f3df;font-weight:800">${String(i+1).padStart(2,'0')} · ${esc(c.component||'Componente não identificado')} — ${esc(c.origin||'')}</summary><p><b>Equivalências:</b> ${esc(formatNumber(c.values?.uF??c.farad*1e6))} µF · ${esc(formatNumber(c.values?.nF??c.farad*1e9))} nF · ${esc(formatNumber(c.values?.pF??c.farad*1e12))} pF · <b>Registro:</b> ${esc(datetime(c.updated||c.created))}</p><p>${c.tolerance===null||c.tolerance===undefined?'Tolerância não informada.':'Tolerância ±'+esc(formatNumber(c.tolerance))+'%. '}${esc(c.note||'Sem observação técnica.')}</p><div class="actions" style="margin-top:9px"><button class="btn small soft" data-edit-conv="${esc(c.id)}">Editar</button><button class="btn small danger" data-del-conv="${esc(c.id)}">Excluir</button></div></details>`).join('')}
 function drawManual(){const p=getActive();const el=$('manualList');$('manualCount').textContent=(p?.notes.length||0)+' registro(s)';if(!p||!p.notes.length){el.innerHTML='<div class="empty">Nenhuma observação manual adicionada.</div>';return}el.innerHTML=p.notes.map((n,i)=>`<div class="mini-item"><strong>${String(i+1).padStart(2,'0')} · ${esc(n.component||'Sem identificação')}</strong> <span class="chip ${n.status==='Não conforme'?'warn':''}">${esc(n.status||'Informativo')}</span><p>${esc(n.category)}</p><p>${esc(n.text)}</p>${n.evidence?`<p><b>Evidência:</b> ${esc(n.evidence)}</p>`:''}<div class="actions" style="margin-top:9px"><button class="btn small soft" data-edit-note="${esc(n.id)}">Editar</button><button class="btn small danger" data-del-note="${esc(n.id)}">Excluir</button></div></div>`).join('')}
 function drawSignatures(){const p=getActive();$('signatureList').innerHTML=p&&p.signatures.length?p.signatures.map((sig,i)=>`<div class="mini-item"><strong>${esc(sig.name)}</strong> <span class="muted">${esc(sig.role||'Sem função')}</span><p>${sig.date?'Data: '+esc(sig.date.split('-').reverse().join('/')):'Data a preencher na assinatura'}</p><button class="btn danger small" data-del-signature="${esc(sig.id)}">Excluir</button></div>`).join(''):'<div class="empty">Nenhum campo de assinatura configurado.</div>'}
@@ -404,20 +441,42 @@ function refreshLiveConversion(){
  if(!hasData){$('conversionResult').classList.add('hide');$('conversionError').textContent='';latest=null;return}
  try{$('conversionError').textContent='';calcConversion()}catch(e){$('conversionError').textContent=e.message;$('conversionResult').classList.add('hide');latest=null}
 }
-function saveConversion(){const p=getActive();if(!p){$('projectAccordion').open=true;$('conversionError').textContent='Para memorizar, selecione ou crie um projeto no painel expandido abaixo.';$('projectAccordion').scrollIntoView({behavior:'smooth',block:'center'});return}try{const calc=calcConversion();if(editingConversion){const i=p.conversions.findIndex(c=>c.id===editingConversion);if(i>=0)p.conversions[i]={...p.conversions[i],...calc,id:editingConversion};notify('Conversão atualizada.')}else{p.conversions.unshift({...calc,id:uid()});notify('Conversão memorizada e incluída no relatório.')}touch(p);clearConversion()}catch(e){$('conversionError').textContent=e.message}}
+function saveConversion(){const p=getActive();if(!p){$('projectAccordion').open=true;$('conversionError').textContent='Para memorizar, selecione ou crie um projeto no painel expandido abaixo.';$('projectAccordion').scrollIntoView({behavior:'smooth',block:'center'});return}try{const calc=calcConversion();if(editingConversion){const i=p.conversions.findIndex(c=>c.id===editingConversion);if(i>=0)p.conversions[i]={...p.conversions[i],...calc,id:editingConversion};notify('Conversão atualizada.')}else{p.conversions.unshift({...calc,id:uid()});notify('Conversão adicionada; sincronização online iniciada.')}touch(p);clearConversion()}catch(e){$('conversionError').textContent=e.message}}
 function editConversion(id){const p=getActive(),c=p?.conversions.find(c=>c.id===id);if(!c)return;editingConversion=id;$('componentName').value=c.component||'';$('capCode').value=c.code||'';$('capValue').value=String(c.values?.[$('capUnit').value]??c.values?.uF??c.farad/1e-6);$('capUnit').value='uF';$('capValue').value=String(c.farad/1e-6);$('conversionNote').value=c.note||'';$('capTolerance').value=c.tolerance===null||c.tolerance===undefined?'':String(c.tolerance);$('memorizeBtn').textContent='Atualizar conversão memorizada';$('converter').querySelector('.conversion-followup').open=true;refreshLiveConversion();$('capValue').scrollIntoView({behavior:'smooth',block:'center'});notify('Edite os campos e clique em Atualizar conversão.')}
-function saveNote(){const p=getActive();if(!p){$('manualMessage').textContent='Selecione um projeto na primeira aba.';return}const text=$('manualText').value.trim();if(!text){$('manualMessage').textContent='Descreva a observação para adicionar.';return}const item={id:editingNote||uid(),component:$('manualComponent').value.trim(),category:$('manualCategory').value,status:$('manualStatus').value,text,evidence:$('manualEvidence').value.trim(),updated:now()};if(editingNote){const i=p.notes.findIndex(n=>n.id===editingNote);if(i>=0)p.notes[i]={...p.notes[i],...item}}else{p.notes.unshift({...item,created:now()})}touch(p);clearManual();notify('Observação salva no projeto.')}
+function saveNote(){const p=getActive();if(!p){$('manualMessage').textContent='Selecione um projeto na primeira aba.';return}const text=$('manualText').value.trim();if(!text){$('manualMessage').textContent='Descreva a observação para adicionar.';return}const item={id:editingNote||uid(),component:$('manualComponent').value.trim(),category:$('manualCategory').value,status:$('manualStatus').value,text,evidence:$('manualEvidence').value.trim(),updated:now()};if(editingNote){const i=p.notes.findIndex(n=>n.id===editingNote);if(i>=0)p.notes[i]={...p.notes[i],...item}}else{p.notes.unshift({...item,created:now()})}touch(p);clearManual();notify('Observação adicionada; sincronização online iniciada.')}
 function setTab(name){if(name==='tapeboard'&&!reportUnlocked){$('reportGate').hidden=false;$('reportPassword').value='';$('gateError').textContent='';setTimeout(()=>$('reportPassword').focus(),50);return}tab=name;document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));document.querySelectorAll('.maincontent>section').forEach(s=>s.classList.toggle('active',s.id===name));}
-function sessionRead(key){try{return sessionStorage.getItem(key)}catch(e){return null}}
-function sessionWrite(key,val){try{sessionStorage.setItem(key,val)}catch(e){}}
-function sessionRemove(key){try{sessionStorage.removeItem(key)}catch(e){}}
-function goLogin(){sessionRemove('bcms95-lab-session');sessionRemove('bcms95-lab-report');reportUnlocked=false;$('loginPassword').value='';$('loginScreen').hidden=false;$('appScreen').hidden=true;$('reportGate').hidden=true;setTab('converter')}
-async function digest(v){if(!crypto?.subtle)throw Error('A autenticação requer um navegador com HTTPS ou origem segura.');const data=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(v));return [...new Uint8Array(data)].map(x=>x.toString(16).padStart(2,'0')).join('')}
-async function validatePassword(v,type){return await digest(v)===shaExpected[type]}
-async function login(evt){evt.preventDefault();const raw=$('loginPassword').value;let valid=false;try{valid=await validatePassword(raw,'main')}catch(e){$('loginError').textContent=e.message;return}if(!valid){$('loginError').textContent='Senha não reconhecida.';return}sessionWrite('bcms95-lab-session','1');$('loginScreen').hidden=true;$('appScreen').hidden=false;$('loginPassword').value='';$('loginError').textContent='';drawAll();setTab('converter')}
-async function unlockReport(evt){evt.preventDefault();let valid=false;try{valid=await validatePassword($('reportPassword').value,'report')}catch(e){$('gateError').textContent=e.message;return}if(!valid){$('gateError').textContent='Senha não reconhecida. Solicite acesso ao administrador do sistema.';return}reportUnlocked=true;sessionWrite('bcms95-lab-report','1');$('reportGate').hidden=true;$('tabLock').textContent='✓';drawReport();setTab('tapeboard')}
+async function goLogin(){
+ try{await api('/api/auth/logout',{method:'POST'})}catch(e){notify('Não foi possível encerrar a sessão no servidor: '+e.message)}
+ projects=[];activeId='';ready=false;reportUnlocked=false;
+ $('loginPassword').value='';$('loginScreen').hidden=false;$('appScreen').hidden=true;$('reportGate').hidden=true;setTab('converter');
+}
+async function login(evt){
+ evt.preventDefault();const btn=$('loginScreen').querySelector('button[type="submit"]');
+ if(btn)btn.disabled=true;$('loginError').textContent='';
+ try{
+   await api('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:$('loginPassword').value})});
+   $('loginPassword').value='';await hydrate();
+   $('loginScreen').hidden=true;$('appScreen').hidden=false;reportUnlocked=false;drawAll();setTab('converter');
+ }catch(e){$('loginError').textContent=e.message}
+ finally{if(btn)btn.disabled=false}
+}
+async function unlockReport(evt){
+ evt.preventDefault();$('gateError').textContent='';
+ try{
+   await api('/api/auth/report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:$('reportPassword').value})});
+   // Aguarda conversões pendentes antes de trocar para a visão protegida.
+   await syncTail;
+   if(syncBlocked)throw Error('O salvamento anterior falhou. Exporte backup e recarregue para evitar perda de dados.');
+   const previousId=activeId;
+   const full=await api('/api/projects');
+   serverRevision=full.revision;
+   projects=full.projects.map(normalizeProject);
+   activeId=projects.some(p=>p.id===previousId)?previousId:'';
+   $('reportPassword').value='';reportUnlocked=true;$('reportGate').hidden=true;$('tabLock').textContent='✓';drawAll();setTab('tapeboard');
+ }catch(e){$('gateError').textContent=e.message}
+}
 function prepareBackup(){const backup={format:'BCMS95-LAB-Backup',version:1,exportedAt:now(),projects};const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'});downloadBlob(blob,'BCMS95_LAB_backup_'+new Date().toISOString().slice(0,10)+'.json')}
-function importBackup(file){if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const obj=JSON.parse(reader.result);if(obj.format!=='BCMS95-LAB-Backup'||!Array.isArray(obj.projects))throw Error('Arquivo não reconhecido.');if(!confirm(`Importar ${obj.projects.length} projeto(s)? Isso substituirá os registros atuais deste navegador.`))return;projects=obj.projects.map(normalizeProject);activeId='';persist();selectProject('');notify('Backup importado com sucesso.')}catch(e){notify('Falha ao importar: '+e.message)}};reader.readAsText(file)}
+function importBackup(file){if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const obj=JSON.parse(reader.result);if(obj.format!=='BCMS95-LAB-Backup'||!Array.isArray(obj.projects))throw Error('Arquivo não reconhecido.');if(!confirm(`Importar ${obj.projects.length} projeto(s)? Isso substituirá os registros atuais deste navegador.`))return;projects=obj.projects.map(normalizeProject);activeId='';persist();selectProject('');notify('Backup importado. Sincronização online iniciada.')}catch(e){notify('Falha ao importar: '+e.message)}};reader.readAsText(file)}
 function downloadBlob(blob,filename){const a=document.createElement('a');const u=URL.createObjectURL(blob);a.href=u;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000)}
 /* XLSX OOXML, gerado localmente sem serviços externos ou bibliotecas de terceiros. */
 const enc=new TextEncoder();
@@ -511,7 +570,16 @@ document.querySelectorAll('[data-note-example]').forEach(btn=>btn.addEventListen
  $('manualMessage').textContent='Exemplo preenchido, ainda não salvo. Substitua pelos dados reais da inspeção antes de adicionar.';
 }));
 
-hydrate();drawAll();if(sessionRead('bcms95-lab-session')==='1'){$('loginScreen').hidden=true;$('appScreen').hidden=false;reportUnlocked=sessionRead('bcms95-lab-report')==='1';if(reportUnlocked)$('tabLock').textContent='✓'}
+(async()=>{
+ try{
+   const auth=await api('/api/auth/session');
+   if(auth.authenticated){
+     await hydrate();reportUnlocked=!!auth.report;
+     $('loginScreen').hidden=true;$('appScreen').hidden=false;
+     if(reportUnlocked)$('tabLock').textContent='✓';drawAll();
+   }else{projects=[];ready=false;$('loginScreen').hidden=false;$('appScreen').hidden=true}
+ }catch(e){$('loginError').textContent='A conexão com o servidor está indisponível: '+e.message}
+})();
 </script>
 </body>
 </html>
