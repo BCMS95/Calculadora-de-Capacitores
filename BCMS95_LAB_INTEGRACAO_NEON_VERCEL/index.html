@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111318">
+<meta name="robots" content="noindex,nofollow">
+<title>BCMS95 — Conversor de Capacitância e Relatório Tapeboard</title>
+<style>
+:root{color-scheme:dark;--bg:#090f15;--surface:#131d27;--surface2:#1a2834;--input:#0d1821;--line:#335363;--line2:#477286;--text:#edf7fa;--muted:#a6bfcb;--blue:#56c5fc;--ice:#a4ecff;--aqua:#5de1c5;--lime:#a5e8b4;--warning:#e3c874;--danger:#fa8a9c;--shadow:0 18px 42px #0007;--font:'Arial Nova',Arial,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 82% 4%,#21495a31,transparent 35%),linear-gradient(130deg,#080e14,#0e1720 60%,#090e15);font:14px var(--font);color:var(--text)}button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.45}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--blue);outline-offset:3px}h1,h2,h3,p{margin-top:0}a{color:var(--ice)}[hidden]{display:none!important}
+#ambient{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}#ambient::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(128deg,transparent 0 42px,#6bc8fc0a 43px 44px,transparent 45px 102px);opacity:.55}#ambient canvas{display:block;width:100%;height:100%}
+#loginScreen{min-height:100vh;display:grid;place-items:center;padding:24px}#appScreen{max-width:1360px;margin:auto;padding:18px 20px 48px}
+.login-card{position:relative;width:min(94vw,425px);padding:23px 27px 25px;overflow:hidden;border:1px solid #5acafc8b;border-radius:18px;background:linear-gradient(155deg,#142634f2,#111e29f7);box-shadow:0 25px 90px #000a,0 0 55px #52d6e21b,inset 0 1px 0 #ffffff0a}
+.login-card::before{content:"";position:absolute;inset:10px;border:1px solid #90ecf522;border-radius:12px;pointer-events:none}
+.login-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:linear-gradient(90deg,#2878ba,#70f4d7,#7bcafa)}
+.login-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;gap:8px}.eyebrow{color:#a1dfec;text-transform:uppercase;letter-spacing:.16em;font-weight:800;font-size:10px}.signal{display:inline-flex;align-items:center;gap:7px;color:#b6e5dc;font-size:10px;letter-spacing:.08em;text-transform:uppercase}.signal::before{content:"";width:7px;height:7px;border-radius:50%;background:#6af5c5;box-shadow:0 0 14px #6af5c5;animation:dot 2.2s ease-in-out infinite}
+.login-ident{display:flex;align-items:center;gap:14px;margin-bottom:19px}.logo{display:grid;place-items:center;flex:0 0 59px;width:59px;height:59px;border-radius:14px;background:#0c2635;border:1px solid #6dddfb;box-shadow:0 0 20px #4ed8fc35}.logo svg{width:42px;height:42px}.login-ident h1{font-size:28px;letter-spacing:.06em;margin:0}.login-ident h1 em{font-style:normal;color:var(--blue)}.login-ident p{font-size:11px;letter-spacing:.07em;color:var(--muted);margin:5px 0 0}.login-intro{font-size:13px;line-height:1.5;color:#cce0e8;margin-bottom:18px}.micro-title{font-size:10px;letter-spacing:.18em;color:var(--aqua);font-weight:800;text-transform:uppercase}
+label{display:block;color:#d9edf3;font-size:12px;font-weight:750;margin-bottom:7px}.field{margin-bottom:14px}input,textarea,select{width:100%;min-height:41px;padding:11px 12px;border-radius:9px;border:1px solid #426777;background:var(--input);color:var(--text);outline:none}textarea{min-height:78px;resize:vertical;line-height:1.5}input:focus,textarea:focus,select:focus{border-color:#6ad7fa;box-shadow:0 0 0 3px #5acae61c}input::placeholder,textarea::placeholder{color:#7793a2}select option{background:#15232e}input[type="checkbox"]{min-height:0;width:17px;height:17px;accent-color:var(--aqua)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:39px;padding:10px 14px;border:1px solid #4d798c;border-radius:9px;background:#213b4a;color:#e9f6fb;font-weight:800;transition:filter .18s,border-color .18s,background .18s;white-space:normal}.btn:hover:not(:disabled){filter:brightness(1.14);border-color:#76ccf1}.btn.primary{background:linear-gradient(110deg,#77d8f1,#62dfc7);color:#092631;border-color:#a5f4e0}.btn.soft{background:#152a38}.btn.excel{background:#137747;border-color:#4cbc85;color:#fff}.btn.pdf{background:#b12d43;border-color:#f08997;color:#fff}.btn.danger{background:#48212e;border-color:#c56a81;color:#fff}.btn.small{min-height:31px;font-size:12px;padding:6px 9px}.btn.full{width:100%}.iconbtn{width:41px;padding:8px}.muted{color:var(--muted)}.message{font-size:12px;min-height:20px;margin:9px 0 0;color:#fec3c9}.message.good{color:#9ff1cb}.login-bottom{margin-top:22px;padding-top:15px;border-top:1px solid #5e99b72e;font-size:11px;color:#a6c3cf;display:flex;justify-content:space-between;gap:10px}
+.hero{position:relative;overflow:hidden;min-height:138px;border-radius:15px;border:1px solid #4992aa;background:linear-gradient(100deg,#101d27,#152833 60%,#101c26);padding:17px 22px;margin-bottom:18px;box-shadow:var(--shadow);display:flex;justify-content:space-between;align-items:center;gap:15px}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 83% 50%,transparent 0 36px,#65dbee36 37px 39px,transparent 40px 77px,#75ccec20 78px 81px,transparent 82px 128px),repeating-linear-gradient(125deg,transparent 0 42px,#73dbf709 43px 44px,transparent 45px 89px);pointer-events:none}
+.hero::after{content:"";position:absolute;inset:auto 0 0;height:4px;background:linear-gradient(90deg,#368fd3,#68e5c8,#95daeb)}
+.hero>div{position:relative;z-index:1}.hero-top{font-size:10px;color:#93dceb;letter-spacing:.16em;text-transform:uppercase;font-weight:800}.hero h1{font-size:clamp(21px,3vw,31px);margin:9px 0 5px}.hero h1 span{color:#78dafa}.hero p{font-size:12px;color:#bdd4dd;margin:0}.hero-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}.hero .logout{border-color:#e08490;background:#3b2030}.hero-sigil{position:absolute!important;right:195px;top:18px;width:90px;height:90px;border:2px solid #78d5f044;border-radius:50%;pointer-events:none}.hero-sigil::after{content:"◇";position:absolute;inset:0;display:grid;place-items:center;color:#6ff1da;font-size:40px;text-shadow:0 0 15px #6ef7cb9b}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 17px;padding:8px;border:1px solid #395c6b;border-radius:13px;background:#16232e}.nav button{flex:1 1 230px;padding:13px;border-radius:9px;border:1px solid #416a7c;background:#142a38;color:#c7e5ed;font-weight:900;text-align:left}.nav button.active{color:#08212f;background:linear-gradient(110deg,#75d4f4,#85ebce);border-color:#b5ffe9;box-shadow:0 0 18px #65ceef32}.nav button.locked:not(.active){border-color:#8b87b366;color:#c4c5e5}
+.columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.88fr);gap:16px}.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.panel{border-radius:14px;border:1px solid #3a6477;background:linear-gradient(150deg,#172833,#14222c);padding:17px;min-width:0;box-shadow:0 10px 28px #0004}.panel h2{font-size:17px;color:#99dff2;margin-bottom:6px}.panel h3{font-size:14px;color:#8be8d7;margin-bottom:10px}.panel .subline{font-size:12px;color:#afc8d3;line-height:1.45;margin:0 0 15px}.cardhead{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}.cardhead h2{margin:0}.actions{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.strip{border-left:3px solid #6edacf;background:#0e2c37;padding:10px 12px;border-radius:8px;font-size:12px;color:#c6e9f0;line-height:1.55}.stat{padding:13px;border:1px solid #48778a;border-radius:10px;background:linear-gradient(145deg,#102b39,#142934)}.stat b{font-size:23px;display:block;color:#8cebd3;margin-top:7px}.stat span{font-size:11px;color:#c3dae2}.maincontent>section{display:none}.maincontent>section.active{display:block}.stack{display:grid;gap:15px}.divider{height:1px;background:#5a83913c;margin:15px 0}.tablewrap{overflow:auto;border-radius:9px;border:1px solid #426777}.table{width:100%;border-collapse:collapse;min-width:580px;font-size:12px}.table th{background:#244353;color:#d8f4fa;padding:11px 10px;text-align:left;white-space:nowrap}.table td{padding:10px;border-top:1px solid #4267775e;vertical-align:top;overflow-wrap:anywhere}.table tr:nth-child(even) td{background:#ffffff06}.table .right{text-align:right;font-variant-numeric:tabular-nums}.table tfoot td{font-weight:800;background:#213c4c}.chip{display:inline-block;padding:3px 8px;font-size:11px;font-weight:800;border:1px solid #5ca1b1;border-radius:30px;background:#123644;color:#a9f7df}.chip.blue{color:#8dddfc;border-color:#5f9fc9}.chip.warn{color:#ffe6a1;border-color:#aa9752}.summary{font-size:12px;color:#cadfe8;line-height:1.6}.empty{padding:18px;border:1px dashed #538598;border-radius:10px;color:#8faeba;font-size:12px;text-align:center}.mini-list{display:grid;gap:9px}.mini-item{background:#102632;border:1px solid #3f6878;border-radius:9px;padding:10px 12px}.mini-item strong{color:#8ce5dc}.mini-item p{margin:5px 0 0;font-size:12px;color:#bcd5dd;overflow-wrap:anywhere}.formhint{font-size:11px;color:#92bfca;margin:-3px 0 10px}.kpirow{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:12px 0}.kpi{padding:12px;border:1px solid #4b7887;border-radius:10px;background:#102a36}.kpi strong{display:block;font-size:24px;color:#90e5d4}.kpi span{font-size:11px;color:#b1ced9}.section-label{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:#7bcfe8;font-weight:900;margin:4px 0 13px}.notice{border-left:3px solid #70d8e8;padding:10px 12px;color:#c6e3eb;font-size:12px;background:#102a37;border-radius:6px;line-height:1.5}.notice.warn{border-left-color:#dbc171;color:#eadfae}.pillbar{display:flex;gap:7px;flex-wrap:wrap}.pillbar span{font-size:11px;border:1px solid #4d8495;background:#103344;color:#b8e4f0;padding:5px 9px;border-radius:99px}.nowrap{white-space:nowrap}.hide{display:none!important}
+.report-block{border:1px solid #42798a;border-radius:11px;padding:14px;background:#112733}.report-heading{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}.report-heading h3{margin:0}.signature-input{display:grid;grid-template-columns:1.2fr 1fr 1fr auto;align-items:end;gap:8px;margin-bottom:8px}.signature-input .field{margin:0}.signature-input label{font-size:11px}.proof{display:grid;gap:10px}.proof p{margin:0}.proof .line{padding:9px 10px;border-left:3px solid #78cdec;background:#0e2633}.qty{font-variant-numeric:tabular-nums}.footer-app{text-align:center;color:#81a3b4;font-size:11px;margin-top:30px}.toast{position:fixed;right:15px;bottom:15px;z-index:99;background:#113343;border:1px solid #5ccde4;padding:12px 15px;border-radius:11px;box-shadow:var(--shadow);color:#e6faff;max-width:min(92vw,430px);font-size:12px}.modal-overlay{position:fixed;inset:0;z-index:60;display:grid;place-items:center;background:#040a0ee0;backdrop-filter:blur(9px);padding:18px}.modal{width:min(94vw,455px);border:1px solid #66c7df;border-radius:17px;padding:22px 24px;background:linear-gradient(145deg,#172b38,#101b25);box-shadow:0 26px 80px #000d}.modal h2{font-size:19px;color:#b3eaf5}.modal p{line-height:1.55;color:#bbd5df}.modal .actions{justify-content:flex-end}.lock-symbol{font-size:30px;color:#80e6d7;line-height:1;margin-bottom:12px}.brandline{height:3px;width:95px;background:linear-gradient(90deg,#4298d4,#65efd1);border-radius:5px;margin:10px 0 15px}
+@media(max-width:980px){.columns{grid-template-columns:1fr}.hero-sigil{display:none}}@media(max-width:720px){#appScreen{padding:9px 10px 30px}.hero{padding:13px;align-items:flex-start;flex-wrap:wrap;min-height:0}.hero-controls{justify-content:flex-start}.two,.three{grid-template-columns:1fr}.signature-input{grid-template-columns:1fr 1fr}.nav button{flex-basis:190px}.login-card{padding:21px}.kpirow{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+@keyframes dot{0%,100%{opacity:1}50%{opacity:.37}}
+
+/* BCMS95 LAB — Guias expansíveis e exemplos didáticos (sem salvamento automático) */
+.lab-guide{
+  --guide-accent:#66c8f3;
+  --guide-soft:#143143;
+  --guide-line:#44849c;
+  position:relative;
+  margin:0 0 16px;padding:13px 15px 15px;
+  border:1px dashed var(--guide-line);border-radius:15px;
+  background:linear-gradient(115deg,#0e1b25,#10232d);
+  box-shadow:inset 3px 0 var(--guide-accent),0 9px 25px #0003;
+}
+.lab-guide.report-guide{--guide-accent:#7de1c6;--guide-soft:#12332f;--guide-line:#458b7b}
+.lab-guide-title{display:flex;align-items:center;gap:10px;margin-bottom:10px;color:var(--guide-accent);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.14em}
+.lab-guide-title::before{content:"i";display:grid;place-items:center;font-size:13px;font-weight:900;width:25px;height:25px;border-radius:50%;color:#061824;background:var(--guide-accent)}
+.lab-guides{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.lab-guide details{border:1px solid var(--guide-line);border-radius:11px;overflow:hidden;background:#0e1a25}
+.lab-guide details[open]{background:linear-gradient(140deg,var(--guide-soft),#0d1b26)}
+.lab-guide summary{list-style:none;cursor:pointer;padding:12px;display:flex;align-items:center;gap:9px;color:var(--guide-accent);font-weight:800;font-size:13px}
+.lab-guide summary::-webkit-details-marker{display:none}
+.lab-guide summary .num{display:grid;place-items:center;flex:0 0 31px;height:31px;border-radius:9px;background:var(--guide-soft);border:1px solid var(--guide-line);font-size:11px}
+.lab-guide summary::after{content:"+";font-size:18px;margin-left:auto}
+.lab-guide details[open] summary::after{content:"−"}
+.lab-guide .guide-body{padding:0 13px 13px 52px;font-size:12px;line-height:1.55;color:#d0e6ed}
+.lab-guide .guide-body p{margin:0 0 7px}
+.lab-guide .guide-body ul{margin:0;padding-left:16px}
+.lab-guide .guide-body li+li{margin-top:5px}
+.example-box{
+  margin:10px 0 14px;padding:12px;border:1px solid #426c7d;border-left:3px solid #72cfee;
+  border-radius:11px;background:linear-gradient(105deg,#102c3b,#11242f);
+}
+.example-box.report-example{border-left-color:#7de1c6;background:linear-gradient(105deg,#0d302f,#13242c)}
+.example-box .example-title{display:flex;gap:8px;align-items:center;font-weight:900;color:#b5eafd;font-size:12px;margin-bottom:5px}
+.example-box.report-example .example-title{color:#b9f4e4}
+.example-box .example-sub{font-size:11px;color:#b7d0dc;line-height:1.5;margin-bottom:10px}
+.example-buttons{display:flex;flex-wrap:wrap;gap:7px}
+.btn.example{font-size:12px;min-height:32px;padding:6px 10px;background:#1d4153;border:1px solid #5a98b2;color:#e3f8ff;font-weight:800}
+.btn.example:hover:not(:disabled){background:#28566c;border-color:#83dbff}
+.report-example .btn.example{background:#1a4742;border-color:#65ab9d;color:#e3fff7}
+.example-disclaimer{margin:10px 0 0!important;font-size:11px;color:#b7d2dd;line-height:1.45}
+.example-disclaimer strong{color:#cbeef6}
+@media(max-width:740px){.lab-guides{grid-template-columns:1fr}.lab-guide .guide-body{padding-left:14px}.lab-guide summary{font-size:12px}}
+
+
+/* Conversor em primeiro plano e área opcional de projeto */
+#converter .converter-workspace{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(290px,.82fr);gap:16px;align-items:start}
+#converter .converter-main{display:grid;gap:15px}
+#converter .project-accordion{margin-top:0;border:1px solid #476b7e;border-radius:14px;background:#111f29;overflow:hidden}
+#converter .project-accordion>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:15px 17px;color:#9fe2ee;font-weight:900;font-size:15px}
+#converter .project-accordion>summary::-webkit-details-marker{display:none}
+#converter .project-accordion>summary .project-icon{color:#85dfce;font-size:22px;font-weight:700;line-height:1}
+#converter .project-accordion>summary .project-indicator{font-size:11px;font-weight:700;color:#b9d0da;margin-left:auto}
+#converter .project-accordion>summary::after{content:'+';font-size:20px;line-height:1;color:#8cdef0;margin-left:8px}
+#converter .project-accordion[open]>summary{border-bottom:1px solid #476b7e;background:#162e3c}
+#converter .project-accordion[open]>summary::after{content:'−'}
+#converter .project-accordion>.panel{border:0;border-radius:0;box-shadow:none;background:#152630}
+#converter .project-accordion .cardhead{display:none}
+#converter .conversion-panel{border-top:3px solid #62d6ed;background:linear-gradient(145deg,#162b39,#13232e)}
+#converter .convert-primary{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(160px,.85fr) minmax(160px,.7fr);gap:12px;align-items:end;padding:13px;border:1px solid #5d9bb0;background:#102e3d;border-radius:12px;margin-bottom:13px}
+#converter .convert-primary .field{margin:0}
+#converter .convert-primary .field:first-child input{font-size:19px;font-weight:800;color:#f5fcff;min-height:46px}
+#converter .conversion-followup{padding:12px;border:1px solid #3d6b7c;background:#112a36;border-radius:10px;margin-bottom:13px}
+#converter .conversion-followup summary{font-size:12px;font-weight:800;color:#a9e7ee;cursor:pointer}
+#converter .conversion-followup .two{margin-top:12px}
+#converter .auto-note{margin-top:12px;border-left:3px solid #79e6d1;background:#10303a;color:#d5f6ed;padding:10px 13px;font-size:12px;line-height:1.5;border-radius:8px}
+#converter .live-label{font-size:11px;color:#8bd8e7;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+#converter .convert-explanation{margin:0 0 10px;font-size:12px;color:#bcd6df}
+#converter .tolerance-row{margin-bottom:13px}
+#converter .tolerance-row input{max-width:240px}
+#converter .tol-hint{font-size:11px;color:#c7dae1;line-height:1.5;margin:4px 0 0}
+#converter .conversion-result-card{padding:13px;border:1px solid #58839a;border-radius:12px;background:#101f2b;margin-top:15px}
+#converter #conversionRows td{font-variant-numeric:tabular-nums}
+#converter .convert-hint{font-size:11px;color:#9cd1da;margin:8px 0 12px;line-height:1.4}
+#converter .converter-side{display:grid;gap:15px}
+#converter .projectless-indicator{margin-top:8px;font-size:12px;border-left:3px solid #76c8e4;background:#112e3b;padding:9px 12px;border-radius:6px;color:#c8e4ed}
+@media(max-width:980px){#converter .converter-workspace{grid-template-columns:1fr}#converter .convert-primary{grid-template-columns:repeat(2,minmax(0,1fr))}#converter .convert-primary .field:first-child{grid-column:1 / -1}}
+@media(max-width:580px){#converter .convert-primary{grid-template-columns:1fr}#converter .convert-primary .field:first-child{grid-column:auto}}
+
+
+/* BCMS95 LAB — PALETA FRIA NO PAINEL MECHA ORIGINAL.
+   O grafite é neutro e estável; mudam apenas os acentos e marcadores. */
+:root{
+ color-scheme:dark;
+ --bg:#111318;--surface:#25272d;--surface2:#292b31;--input:#17191e;
+ --line:#555960;--line2:#6e7680;--text:#f3f4f7;--muted:#bfc4cd;
+ --blue:#65baff;--ice:#acdfff;--aqua:#75dfcf;--lime:#a8dfbc;
+ --warning:#b6cdf7;--danger:#f5a6b7;
+}
+body{background:linear-gradient(133deg,#0c0d10 0%,#111318 49%,#0c0e12 100%)!important;color:var(--text)}
+#ambient::before{background:repeating-linear-gradient(128deg,transparent 0 42px,#70c2fc0a 43px 44px,transparent 45px 102px)!important}
+.login-card{background:linear-gradient(155deg,#292b31f2,#1d1f25f7)!important;border-color:#64bfff8b!important;box-shadow:0 25px 90px #000a,0 0 55px #52bfe21b,inset 0 1px 0 #ffffff0a!important}
+.login-card::before{border-color:#9bd5ff26!important}.login-card::after{background:linear-gradient(90deg,#337ece,#80e1f1,#66d6bf)!important}
+.login-ident .logo{background:#1b1d22!important;border-color:#78c6fa!important}
+.login-intro{color:#d3d7df!important}.login-bottom{color:#ccd2da!important}
+input,textarea,select{background:#17191e!important;border-color:#59626b!important;color:#f3f4f7!important}
+input:focus,textarea:focus,select:focus{border-color:#77c8fc!important;box-shadow:0 0 0 3px #5acbe61c!important}
+select option{background:#292b31!important}input::placeholder,textarea::placeholder{color:#a5adb9!important}
+.btn{background:#34383f!important;border-color:#657078!important;color:#f0f4f6!important}
+.btn:hover:not(:disabled){border-color:#80c9f3!important}
+.btn.primary{background:linear-gradient(110deg,#6bbfff,#7be0d0)!important;color:#091e2b!important;border-color:#a5e9f1!important}
+.btn.soft{background:#292d34!important;border-color:#5a7380!important}
+.btn.excel{background:#137747!important;border-color:#4cbc85!important;color:#fff!important}
+.btn.pdf{background:#b12d43!important;border-color:#f08997!important;color:#fff!important}
+.btn.danger{background:#49292f!important;border-color:#b76f83!important;color:#fff!important}
+.nav{background:#23262c!important;border-color:#5a6670!important}
+.nav button{background:#292d34!important;border-color:#687781!important;color:#e6ebf0!important}
+.nav button[data-tab="converter"]{color:#9bcfff!important;border-color:#548ec7!important;background:#29323e!important}
+.nav button[data-tab="tapeboard"]{color:#94e4d1!important;border-color:#4b9b91!important;background:#273732!important}
+.nav button[data-tab="converter"].active{color:#081e30!important;background:linear-gradient(110deg,#6bbcff,#9bd7ff)!important;border-color:#c2e8ff!important;box-shadow:0 0 18px #65b9ef32!important}
+.nav button[data-tab="tapeboard"].active{color:#082820!important;background:linear-gradient(110deg,#6bd7c0,#a6e9d3)!important;border-color:#bffce9!important;box-shadow:0 0 18px #65efc932!important}
+.panel{background:linear-gradient(155deg,#292b31,#22242a)!important;border-color:#555b64!important}
+.panel h2{color:#b5dcff!important}.panel h3{color:#a5e8d7!important}.panel .subline{color:#c3c9d2!important}
+.strip,.notice{background:#30343b!important;border-left-color:#7bc9ee!important;color:#e6eef3!important}
+.stat{background:linear-gradient(145deg,#2b2e35,#24272c)!important;border-color:#59636a!important}
+.stat b{color:#99e2d4!important}.stat span{color:#d1d7dd!important}
+.tablewrap{border-color:#596671!important}.table th{background:#343941!important;color:#d6f2ff!important}
+.table td{border-color:#4c5660!important}.table tbody tr:nth-child(even){background:#252932!important}
+.mini-item,.empty,.proof .line{background:#2a2d34!important;border-color:#58626c!important;color:#ebeff4!important}
+.modal-overlay{background:#08090bdc!important}.modal{background:linear-gradient(145deg,#2c3037,#1b1e24)!important;border-color:#77c9df!important}
+.login-card .signal,.chip{color:#b4e5e1!important}
+#converter .project-accordion{background:#25272d!important;border-color:#596b74!important}
+#converter .project-accordion>summary{color:#a9deff!important}
+#converter .project-accordion[open]>summary{background:#32353b!important;border-bottom-color:#667681!important}
+#converter .project-accordion>.panel{background:#292b31!important}
+#converter .conversion-panel{background:linear-gradient(145deg,#2a2d34,#22252b)!important;border-top-color:#74bfff!important}
+#converter .convert-primary{background:#32353b!important;border-color:#637c8b!important}
+#converter .conversion-followup{background:#2b2e35!important;border-color:#59656e!important}
+#converter .auto-note{background:#303c39!important;border-left-color:#85e8cd!important;color:#e6fff4!important}
+#converter .conversion-result-card{background:#26292f!important;border-color:#657784!important}
+#converter .projectless-indicator{background:#30353a!important;border-left-color:#87c8ee!important;color:#e9f4fa!important}
+.lab-guide{background:linear-gradient(115deg,#25282f,#2c3036)!important;--guide-accent:#8bd0ff;--guide-soft:#303943;--guide-line:#5d8295}
+.lab-guide.report-guide{--guide-accent:#8ce6ca;--guide-soft:#2c3a36;--guide-line:#60857a}
+.lab-guide details{background:#262a31!important}.lab-guide details[open]{background:linear-gradient(145deg,#333942,#2c3036)!important}
+.lab-guide .guide-body{color:#dce6ef!important}
+.example-box{background:linear-gradient(110deg,#292f37,#30343b)!important;border-color:#577b8e!important}
+.example-box.report-example{background:linear-gradient(110deg,#2a3532,#2d3337)!important;border-color:#558d7c!important}
+.btn.example{background:#344555!important;border-color:#5b99c2!important;color:#eaf8ff!important}
+.report-example .btn.example{background:#355047!important;border-color:#6db6a6!important;color:#eafff5!important}
+.example-box .example-sub,.example-disclaimer{color:#cfd8df!important}
+/* O fundo original grafite do banner NÃO muda; as cores dos sinais são frias. */
+.hero.mecha-hud-panel{position:relative;isolation:isolate;min-height:178px;overflow:hidden;
+ background:#191b20!important;border:1px solid #5688ae!important;border-radius:13px!important;
+ box-shadow:0 8px 28px #000a,inset 0 0 0 1px #8ec8ff15!important}
+.hero.mecha-hud-panel::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+ background:linear-gradient(90deg,#191b20f5 0%,#191b20e7 35%,#191b2099 57%,#191b201c 100%),
+ repeating-linear-gradient(130deg,transparent 0 25px,#76bdf111 25px 26px,transparent 26px 67px),
+ radial-gradient(circle at 78% 50%,#73bbf01a 0 5%,transparent 5.5% 100%)!important;
+ filter:none!important}
+.hero.mecha-hud-panel::after{content:''!important;inset:auto 0 0!important;height:6px!important;z-index:4!important;
+ background:repeating-linear-gradient(112deg,#14161b 0 31px,#4b9fcd 31px 34px,#14161b 34px 39px,#75dfd0 39px 42px)!important}
+.hero.mecha-hud-panel>div:not(.mecha-art){position:relative;z-index:5}
+.hero.mecha-hud-panel .hero-top{color:#a9ddff!important}
+.hero.mecha-hud-panel h1 span{color:#7dc9ff!important;text-shadow:0 0 13px #55b7ff34}
+.hero.mecha-hud-panel p{color:#e4e9ef!important}
+.hero.mecha-hud-panel .logout{background:#3c343d!important;border-color:#a88dba!important}
+.hero.mecha-hud-panel .hero-sigil{display:none!important}
+.mecha-art{position:absolute!important;inset:0;z-index:1!important;pointer-events:none;overflow:hidden}
+.mecha-art .mecha-emblem{position:absolute;right:15%;top:50%;width:145px;height:145px;margin-top:-72.5px;
+ border:1px solid #6fbffb6e;border-radius:50%;
+ background:repeating-conic-gradient(from 0deg,#74c9fa50 0 1.2deg,transparent 1.2deg 14deg);
+ box-shadow:0 0 27px #5ab6ff24,inset 0 0 30px #68c6ff26;animation:labMechaOrbit 36s linear infinite}
+.mecha-art .mecha-emblem::before{content:'';position:absolute;inset:13px;border-radius:50%;
+ background:radial-gradient(circle,transparent 0 16px,#82cff0 17px 18px,transparent 19px 36px,#6de3d777 37px 38px,transparent 39px 60px,#8ec8fe8a 61px 62px,transparent 63px);border:1px dashed #8acdf18a}
+.mecha-art .mecha-emblem::after{content:'';position:absolute;inset:calc(50% - 8px);width:16px;height:16px;border:2px solid #b7edff;background:#54b5df;box-shadow:0 0 14px #5cc9fa,0 0 27px #73cfef4c;border-radius:2px;transform:rotate(45deg)}
+.mecha-art .mecha-emblem>span{position:absolute;inset:-8px;border:2px solid transparent;border-top-color:#92cfff;border-bottom-color:#6de8d5;border-radius:50%;opacity:.95;animation:labMechaOrbit 11s linear infinite reverse}
+.mecha-art .mecha-emblem>i{position:absolute;inset:33px;border:1px solid #8cd9ed77;border-radius:50%;box-shadow:0 0 12px #64c8f030}
+.mecha-art .mecha-frame{position:absolute;right:29%;top:21%;width:150px;height:92px;opacity:.64;
+ background:linear-gradient(90deg,transparent 49%,#78c8ed40 50%,transparent 51%),linear-gradient(0deg,transparent 49%,#78c8ed40 50%,transparent 51%)}
+.mecha-art .mecha-frame::before,.mecha-art .mecha-frame::after{content:'';position:absolute;width:35px;height:20px;border-color:#7ad7ff;border-style:solid}
+.mecha-art .mecha-frame::before{top:0;left:0;border-width:2px 0 0 2px}
+.mecha-art .mecha-frame::after{bottom:0;right:0;border-width:0 2px 2px 0}
+.mecha-art .mecha-target{position:absolute;top:50%;left:50%;width:38px;height:38px;transform:translate(-50%,-50%);border:1px solid #a5f3e2;border-radius:50%;box-shadow:0 0 17px #55ded963}
+.mecha-art .mecha-target::after{content:'';position:absolute;top:50%;left:50%;width:7px;height:7px;transform:translate(-50%,-50%);background:#8cead2;border-radius:50%;box-shadow:0 0 13px #70dcc5}
+.mecha-art .mecha-beam{position:absolute;top:-65%;left:48%;height:220%;width:3px;background:linear-gradient(180deg,transparent,#73bdff00 24%,#a5e2ff9c 49%,#69d6c06d 54%,transparent 76%);transform:rotate(48deg);filter:drop-shadow(0 0 9px #61baf0);opacity:.7;animation:labMechaBeam 6.5s ease-in-out infinite}
+.mecha-art .mecha-pip{position:absolute;right:20px;bottom:20px;display:flex;gap:7px;align-items:center;border:1px solid #75bdd66b;background:#191b20e5;color:#cdeeff;font-size:9px;letter-spacing:.08em;font-weight:800;padding:5px 8px}
+.mecha-art .mecha-pip::before{content:'';width:7px;height:7px;border-radius:50%;background:#7debd7;box-shadow:0 0 10px #7debd7;animation:labMechaLed 2.4s ease-in-out infinite}
+@keyframes labMechaOrbit{from{rotate:0deg}to{rotate:360deg}}
+@keyframes labMechaBeam{0%,100%{opacity:.22;left:46%}50%{opacity:.8;left:56%}}
+@keyframes labMechaLed{0%,100%{opacity:1}50%{opacity:.44}}
+@media(max-width:1030px){.mecha-art .mecha-frame{display:none}.mecha-art .mecha-emblem{right:11%;opacity:.63}}
+@media(max-width:700px){.hero.mecha-hud-panel{min-height:190px}.mecha-art .mecha-emblem{right:-30px;top:58%;width:135px;height:135px;opacity:.44}.mecha-art .mecha-pip{display:none}}
+@media(prefers-reduced-motion:reduce){.mecha-art .mecha-emblem,.mecha-art .mecha-emblem>span,.mecha-art .mecha-beam,.mecha-art .mecha-pip::before{animation:none!important}}
+
+</style>
+</head>
+<body>
+<div id="ambient" aria-hidden="true"><canvas id="sky"></canvas></div>
+<div id="loginScreen">
+ <form id="loginForm" class="login-card" autocomplete="off">
+  <div class="login-head"><span class="eyebrow">BCMS95 / Acesso ao sistema</span><span class="signal">Painel ativo</span></div>
+  <div class="login-ident"><div class="logo"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="26" fill="none" stroke="#72e4f6" stroke-width="2"/><rect x="15" y="35" width="8" height="13" fill="#fff"/><rect x="28" y="27" width="8" height="21" fill="#fff"/><rect x="41" y="18" width="8" height="30" fill="#fff"/><path d="M13 34 25 26 34 27 49 13" stroke="#62f0d5" stroke-width="3.6" fill="none" stroke-linecap="round"/><path d="m49 7 2 5 5 2-5 2-2 5-2-5-5-2 5-2z" stroke="#8ce5ff" fill="#1a3342" stroke-width="1.5"/></svg></div><div><h1>BCMS95 <em>LAB</em></h1><p>CONVERSÃO DE CAPACITÂNCIA</p></div></div>
+  <p class="login-intro">Análise de componentes e elaboração de relatórios técnicos de Tapeboard em um ambiente de trabalho organizado por projetos.</p>
+  <div class="field"><label for="loginPassword">Senha de acesso</label><input type="password" id="loginPassword" autocomplete="current-password" placeholder="Insira a senha do sistema" required></div>
+  <button type="submit" class="btn primary full">Acessar conversor <span aria-hidden="true">›</span></button>
+  <p class="message" id="loginError" role="alert"></p>
+  <div class="login-bottom"><span>Ambiente BCMS95</span><span>Capacitância • Tapeboard</span></div>
+ </form>
+</div>
+<main id="appScreen" hidden>
+ <header class="hero mecha-hud-panel"><div class="mecha-art" aria-hidden="true"><div class="mecha-emblem"><span></span><i></i></div><div class="mecha-frame"><b class="mecha-target"></b></div><div class="mecha-beam"></div><div class="mecha-pip">BCMS95 LAB · SISTEMA ATIVO</div></div><div><div class="hero-top">BCMS95 / Laboratório de componentes</div><h1>Conversor de <span>Capacitância</span></h1><p>Registros por projeto · Inspeção documental · Relatório Tapeboard</p></div><div class="hero-controls"><span class="chip blue" id="heroProject">Nenhum projeto selecionado</span><button class="btn soft small" id="backupExport">Backup</button><button class="btn soft small" id="backupImport">Importar</button><button class="btn danger small" id="logout">Sair <span aria-hidden="true">↪</span></button></div></header>
+ <nav class="nav" aria-label="Módulos"><button class="active" data-tab="converter">01 · Conversor de Capacitância</button><button data-tab="tapeboard" class="locked" id="reportTabBtn">02 · Relatório Tapeboard <span id="tabLock" aria-hidden="true">🔒</span></button></nav>
+ <div class="maincontent">
+  <section id="converter" class="active">
+   <div class="lab-guide" aria-label="Orientações do conversor de capacitância">
+    <div class="lab-guide-title">Guia rápido · Conversão e identificação de componentes SMD</div>
+    <div class="lab-guides">
+     <details><summary><span class="num">01</span>Objetivo do conversor</summary><div class="guide-body">
+      <p>Padronizar os valores de capacitância encontrados em documentos técnicos, BOM, desenhos e referências de componentes utilizados em placas SMD e Tapeboard.</p>
+      <ul><li>Converter valores entre F, mF, µF, nF e pF sem alterar a capacitância.</li><li>Associar o resultado ao identificador do componente e ao projeto correspondente.</li></ul>
+     </div></details>
+     <details><summary><span class="num">02</span>Como utilizar na análise de Tapeboard?</summary><div class="guide-body">
+      <p>Utilize o conversor para comparar unidades e registrar equivalências para consulta e relatório.</p>
+      <ul><li>Informe um valor e uma unidade. A tabela, a tolerância e a observação técnica são atualizadas automaticamente; confira tudo com a BOM e o datasheet.</li><li>Clique em <strong>Memorizar / adicionar ao relatório</strong> somente após verificar o valor e selecionar o projeto.</li></ul>
+     </div></details>
+    </div>
+   </div>
+   <div class="converter-workspace">
+    <div class="converter-main">
+     <article class="panel conversion-panel"><div class="cardhead"><h2>Conversor de capacitância</h2><span class="chip">F · mF · µF · nF · pF</span></div><p class="subline">Informe o valor e sua unidade para ver imediatamente a tabela de equivalências e, se desejar, os limites com tolerância. Também é possível interpretar códigos compatíveis em pF.</p>
+      <div class="example-box"><div class="example-title">Exemplos práticos · Capacitores de placas SMD</div><div class="example-sub">Clique para preencher e converter um exemplo. O resultado não será memorizado automaticamente.</div>
+       <div class="example-buttons">
+        <button type="button" class="btn example" data-cap-example="104">104 · 100 nF</button>
+        <button type="button" class="btn example" data-cap-example="472">472 · 4,7 nF</button>
+        <button type="button" class="btn example" data-cap-example="1002">1002 · 10 nF</button>
+        <button type="button" class="btn example" data-cap-example="4R7">4R7 · 4,7 pF</button>
+       </div>
+       <p class="example-disclaimer"><strong>Atenção:</strong> são exemplos didáticos de codificação, não evidências de um material real. Muitos capacitores SMD não possuem marcação no corpo; confirme o valor pela BOM, Part Number e datasheet.</p>
+      </div>
+      <div class="live-label">Conversão imediata · Informe o valor e a unidade</div>
+      <div class="convert-primary">
+       <div class="field"><label for="capValue">Valor da capacitância</label><input id="capValue" inputmode="decimal" placeholder="Ex.: 0,1" autocomplete="off"></div>
+       <div class="field"><label for="capUnit">Unidade de origem</label><select id="capUnit"><option value="uF">µF — microfarad</option><option value="nF">nF — nanofarad</option><option value="pF">pF — picofarad</option><option value="mF">mF — milifarad</option><option value="F">F — farad</option></select></div>
+       <div class="field"><label for="capTolerance">Tolerância (±%)</label><input id="capTolerance" inputmode="decimal" placeholder="Ex.: 10" autocomplete="off"></div>
+      </div>
+      <p class="convert-explanation">O sistema converte enquanto você digita. A tolerância é opcional; quando informada, calcula os limites nominais mínimo e máximo.</p>
+      <details class="conversion-followup"><summary>Identificação do componente, código e observação (opcional)</summary>
+       <div class="two"><div class="field"><label for="componentName">Componente / posição na placa</label><input id="componentName" placeholder="Ex.: C105 / capacitor cerâmico"></div><div class="field"><label for="capCode">Código do capacitor (opcional)</label><input id="capCode" placeholder="Ex.: 104 ou 4R7" maxlength="12"></div></div>
+       <div class="field"><label for="conversionNote">Observação técnica personalizada</label><textarea id="conversionNote" placeholder="Opcional: escreva uma observação para substituir a automática no relatório."></textarea></div>
+      </details>
+      <div id="conversionResult" class="conversion-result-card hide">
+       <div class="section-label">Equivalências calculadas em tempo real</div><div class="three" id="convertedTop"></div>
+       <div class="tablewrap" style="margin-top:12px"><table class="table"><thead><tr><th>Unidade</th><th class="right">Valor nominal</th><th class="right">Mínimo (−%)</th><th class="right">Máximo (+%)</th></tr></thead><tbody id="conversionRows"></tbody></table></div>
+       <div id="automaticConversionNote" class="auto-note"></div>
+      </div>
+      <p class="formhint">Ao digitar um código reconhecido (104, 472, 1002, 4R7), seu equivalente em pF será usado na conversão. Confirme a interpretação na especificação do componente.</p>
+      <div class="actions"><button class="btn primary" id="convertBtn">Converter</button><button class="btn" id="memorizeBtn">Memorizar / adicionar ao relatório</button><button class="btn soft" id="clearConvert">Limpar</button></div><p class="message" id="conversionError" role="status"></p><div class="projectless-indicator" id="projectlessHint">Você pode converter sem projeto. Para memorizar e incluir no relatório, expanda “Projetos e identificação” e selecione ou crie um projeto.</div>
+
+     </article>
+     <details class="project-accordion" id="projectAccordion"><summary><span class="project-icon">▣</span>Projetos e identificação <span class="project-indicator">Opcional · Expandir para memorizar</span></summary>
+     <article class="panel"><div class="cardhead"><h2>Projetos e identificação</h2><span class="chip blue">Organização por projeto</span></div><p class="subline">Esta área é opcional para converter. Expanda somente quando quiser vincular uma conversão a um projeto ou montar o Relatório Tapeboard.</p>
+      <div class="field"><label for="projectSelect">Projeto ativo</label><select id="projectSelect"><option value="">Selecione ou crie um projeto</option></select></div>
+      <div class="example-box"><div class="example-title">Exemplo de identificação do projeto</div><div class="example-sub">Preenche somente os campos do formulário; você escolhe se deseja salvar.</div><div class="example-buttons"><button type="button" class="btn example" id="exampleProject">Preencher exemplo de Tapeboard SMD</button></div></div>
+      <div class="two"><div class="field"><label for="projectName">Nome do projeto / modelo</label><input id="projectName" placeholder="Ex.: Tapeboard — Projeto Orion"></div><div class="field"><label for="projectPN">Part Number / Código</label><input id="projectPN" placeholder="Código ou referência do projeto"></div></div>
+      <div class="two"><div class="field"><label for="projectDocument">NF / Documento de referência</label><input id="projectDocument" placeholder="Documento opcional"></div><div class="field"><label for="projectOwner">Responsável pela análise</label><input id="projectOwner" placeholder="Nome do responsável"></div></div>
+      <div class="actions"><button class="btn primary" id="projectNew">Novo projeto</button><button class="btn" id="projectSave">Salvar projeto</button><button class="btn danger" id="projectDelete">Excluir projeto</button></div><p class="message" id="projectMessage" role="status"></p>
+     </article>
+     </details>
+    </div>
+    <div class="converter-side">
+
+     <article class="panel"><div class="cardhead"><h2>Resumo do projeto</h2><span class="chip" id="projectTag">SEM PROJETO</span></div><div class="kpirow"><div class="kpi"><strong id="kpiConversions">0</strong><span>Conversões registradas</span></div><div class="kpi"><strong id="kpiNotes">0</strong><span>Observações manuais</span></div><div class="kpi"><strong id="kpiSignatures">0</strong><span>Assinaturas previstas</span></div></div><div class="strip">Cada projeto possui um histórico independente. Registros memorizados aparecem automaticamente no Relatório Tapeboard correspondente.</div></article>
+     <article class="panel"><div class="cardhead"><h2>Conversões memorizadas</h2><span class="chip blue">Consultar e editar</span></div><p class="subline">Expanda cada registro para ver suas equivalências ou selecione Editar para alterar os dados.</p><div id="conversionHistory" class="mini-list"></div></article>
+     <article class="panel"><div class="cardhead"><h2>Projetos cadastrados</h2><span class="chip" id="projectCount">0 projetos</span></div><div id="projectList" class="mini-list"></div></article>
+    </div>
+   </div>
+  </section>
+  <section id="tapeboard">
+   <div class="lab-guide report-guide" aria-label="Orientações do relatório Tapeboard">
+    <div class="lab-guide-title">Guia rápido · Inspeção e documentação de placas SMD</div>
+    <div class="lab-guides">
+     <details><summary><span class="num">01</span>Objetivo do Relatório Tapeboard</summary><div class="guide-body">
+      <p>Reunir as conversões verificadas e as observações técnicas de um projeto de placa SMD em um documento rastreável.</p>
+      <ul><li>Relacionar cada registro ao componente, à posição ou ao local da placa.</li><li>Apresentar evidências, classificação e validação com assinaturas.</li></ul>
+     </div></details>
+     <details><summary><span class="num">02</span>O que registrar na inspeção?</summary><div class="guide-body">
+      <p>Registre constatações objetivas, sempre vinculadas ao requisito aplicável.</p>
+      <ul><li>Ex.: referência serigráfica diferente da BOM ou divergência de valor nominal do capacitor.</li><li>Ex.: identificação do tape, orientação de embalagem e evidência fotográfica, quando exigidas pelo projeto.</li></ul>
+      <p>Uma divergência só deve ser classificada como não conforme após verificação da especificação ou desenho aplicável.</p>
+     </div></details>
+    </div>
+   </div>
+   <div class="columns">
+    <div class="stack">
+     <article class="panel"><div class="cardhead"><h2>Relatório Tapeboard</h2><span class="chip blue">Módulo restrito</span></div><p class="subline">Todas as conversões memorizadas do projeto ativo serão incluídas no relatório. Acrescente observações manuais conforme a inspeção.</p><div class="section-label">Projeto selecionado</div><div id="reportProjectInfo" class="strip">Selecione um projeto na primeira aba.</div><div class="divider"></div><h3>Nova observação manual</h3>
+      <div class="example-box report-example"><div class="example-title">Modelos de observação para Tapeboard SMD</div><div class="example-sub">Use como ponto de partida para redigir um registro verificável. Nenhum exemplo é salvo até clicar em <strong>Adicionar observação</strong>.</div>
+       <div class="example-buttons">
+        <button type="button" class="btn example" data-note-example="serigrafia">Serigrafia diferente</button>
+        <button type="button" class="btn example" data-note-example="capacitancia">Valor divergente da BOM</button>
+        <button type="button" class="btn example" data-note-example="tape">Identificação do tape</button>
+        <button type="button" class="btn example" data-note-example="conforme">Registro conforme</button>
+       </div>
+       <p class="example-disclaimer">Os textos são <strong>situações hipotéticas</strong>. Revise o componente, o requisito aplicável, a evidência e a classificação antes de memorizar ou emitir o relatório.</p>
+      </div>
+      <div class="two"><div class="field"><label for="manualComponent">Componente / Local</label><input id="manualComponent" placeholder="Ex.: C17, tape, serigrafia"></div><div class="field"><label for="manualCategory">Categoria da observação</label><select id="manualCategory"><option>Identificação / Serigrafia</option><option>Capacitância / Componente</option><option>Embalagem / Tape</option><option>Dimensional / Mecânica</option><option>Processo / Montagem</option><option>Outro</option></select></div></div>
+      <div class="field"><label for="manualText">Descrição da ocorrência / observação</label><textarea id="manualText" placeholder="Ex.: O componente C17 apresenta serigrafia divergente da amostra padrão."></textarea></div>
+      <div class="two"><div class="field"><label for="manualStatus">Classificação</label><select id="manualStatus"><option value="Informativo">Informativo</option><option value="Conforme">Conforme</option><option value="Não conforme">Não conforme</option><option value="Pendente de validação">Pendente de validação</option></select></div><div class="field"><label for="manualEvidence">Evidência / Referência (opcional)</label><input id="manualEvidence" placeholder="Ex.: foto 02 / BOM revisão B"></div></div>
+      <div class="actions"><button class="btn primary" id="addNote">Adicionar observação</button><button class="btn soft" id="clearNote">Limpar campos</button></div><p class="message" id="manualMessage"></p>
+     </article>
+     <article class="panel"><div class="cardhead"><h2>Lista de observações manuais</h2><span class="chip" id="manualCount">0 registros</span></div><div id="manualList" class="mini-list"></div></article>
+     <article class="panel"><div class="cardhead"><h2>Validação e assinaturas</h2><span class="chip blue">Quantidade livre</span></div><p class="subline">Adicione quantos nomes e campos de assinatura forem necessários. O PDF cria um espaço de assinatura para cada pessoa.</p>
+      <div class="two"><div class="field"><label for="sigName">Nome</label><input id="sigName" placeholder="Nome completo"></div><div class="field"><label for="sigRole">Função / Setor</label><input id="sigRole" placeholder="Ex.: Qualidade / Engenharia"></div></div>
+      <div class="field"><label for="sigDate">Data de validação (opcional)</label><input id="sigDate" type="date"></div><div class="actions"><button class="btn primary" id="addSignature">Adicionar assinatura</button></div><div id="signatureList" class="mini-list" style="margin-top:12px"></div>
+     </article>
+    </div>
+    <div class="stack">
+     <article class="panel"><div class="cardhead"><h2>Prévia do relatório</h2><span class="chip blue">A4 · PDF / Excel</span></div><div id="reportPreview" class="proof"></div><div class="divider"></div><div class="actions"><button class="btn pdf" id="printPdf">Gerar PDF</button><button class="btn excel" id="exportExcel">Exportar Excel (.xlsx)</button><button class="btn soft" id="saveReport">Salvar projeto</button></div><p class="message" id="exportMessage"></p></article>
+     <article class="panel"><h3>Critérios de apresentação</h3><p class="subline">Documento técnico em formato A4 vertical, com identificação do projeto, tabela de conversões, observações manuais, síntese do registro e campos de validação.</p><div class="notice">Referências de apresentação: ABNT NBR 14724:2024 para organização visual, margens e tipografia. A norma trata da apresentação de trabalhos acadêmicos, não estabelece critérios técnicos para inspeção de Tapeboard.</div></article>
+    </div>
+   </div>
+  </section>
+ </div>
+ <div class="footer-app">BCMS95 LAB · Conversão de capacitância e documentação de Tapeboard · Sincronização online · Banco de dados PostgreSQL</div>
+</main>
+<div class="modal-overlay" id="reportGate" hidden><div class="modal"><div class="lock-symbol" aria-hidden="true">◇</div><h2>Relatório Tapeboard</h2><div class="brandline"></div><p>Este módulo possui uma segunda etapa de acesso. Insira a senha específica para consultar e produzir os relatórios.</p><form id="reportGateForm"><div class="field"><label for="reportPassword">Senha do Relatório Tapeboard</label><input id="reportPassword" type="password" autocomplete="off" placeholder="Senha do módulo" required></div><p class="message" id="gateError" role="alert"></p><div class="actions"><button type="button" class="btn soft" id="gateCancel">Cancelar</button><button type="submit" class="btn primary">Desbloquear módulo</button></div></form></div></div>
+<input type="file" id="backupFile" accept="application/json,.json" hidden>
+<div id="toast" class="toast" hidden role="status"></div>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random().toString(36).slice(2);
+const STORE='bcms95-tapeboard-projects-v1'; // Usado somente para eventual migração de projetos antigos; não para salvar online.
+const UNITS={F:1,mF:1e-3,uF:1e-6,nF:1e-9,pF:1e-12};
+const UNITS_LABEL={F:'F',mF:'mF',uF:'µF',nF:'nF',pF:'pF'};
+let projects=[],activeId='',editingConversion='',editingNote='',tab='converter',reportUnlocked=false,latest=null,toastTimeout=null;
+function notify(msg){const box=$('toast');box.textContent=msg;box.hidden=false;clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>box.hidden=true,3800)}
+function now(){return new Date().toISOString()}
+function datebr(date){const d=new Date(date);return Number.isNaN(d.getTime())?'—':d.toLocaleDateString('pt-BR')}
+function datetime(date){const d=new Date(date);return Number.isNaN(d.getTime())?'—':d.toLocaleString('pt-BR')}
+function parseNumber(v){v=String(v||'').trim().replace(/\s/g,'');if(!v)return NaN;if(v.includes(','))v=v.replace(/\./g,'').replace(',','.');if(!/^(?:\+)?(?:\d+\.?\d*|\.\d+)(?:e[+-]?\d+)?$/i.test(v))return NaN;const n=Number(v);return Number.isFinite(n)&&n>=0?n:NaN}
+function formatNumber(n,digits=9){if(!Number.isFinite(n))return '—';if(n===0)return '0';const abs=Math.abs(n);if(abs<0.000001||abs>=1e12)return n.toExponential(6).replace('.',',');return new Intl.NumberFormat('pt-BR',{maximumFractionDigits:digits}).format(n)}
+function capCode(code){const raw=String(code||'').trim().toUpperCase();if(!raw)return null;let pf=null;if(/^\d{3}$/.test(raw))pf=Number(raw.slice(0,2))*10**Number(raw[2]);else if(/^\d{4}$/.test(raw))pf=Number(raw.slice(0,3))*10**Number(raw[3]);else if(/^\d{1,2}R\d{1,2}$/.test(raw))pf=Number(raw.replace('R','.'));if(pf===null||!Number.isFinite(pf)||pf<0)return null;return pf}
+function capValues(farad){return Object.fromEntries(Object.entries(UNITS).map(([unit,scale])=>{const n=farad/scale;return[unit,n&&Number.isFinite(n)?Number(n.toPrecision(12)):n]}))}
+function getActive(){return projects.find(p=>p.id===activeId)||null}
+function normalizeProject(p){return{id:String(p.id||uid()),name:String(p.name||'Projeto sem nome'),pn:String(p.pn||''),document:String(p.document||''),owner:String(p.owner||''),created:p.created||now(),updated:p.updated||now(),conversions:Array.isArray(p.conversions)?p.conversions:[],notes:Array.isArray(p.notes)?p.notes:[],signatures:Array.isArray(p.signatures)?p.signatures:[]}}
+// Banco remoto com controle de revisão: sem salvamento silencioso no dispositivo.
+let serverRevision=0, syncTail=Promise.resolve(), syncBlocked=false, ready=false;
+async function api(url,opts={}){
+ const res=await fetch(url,{credentials:'same-origin',cache:'no-store',...opts});
+ let data={};try{data=await res.json()}catch{}
+ if(!res.ok){const error=new Error(data.erro||'Não foi possível completar a solicitação.');error.status=res.status;throw error}
+ return data;
+}
+function persist(){
+ if(!ready){notify('Os registros ainda estão sendo carregados do banco.');return false}
+ if(syncBlocked){notify('Sincronização pausada para evitar perda de dados. Exporte backup e atualize a página.');return false}
+ const snapshot=JSON.parse(JSON.stringify(projects));
+ syncTail=syncTail.then(async()=>{
+   if(syncBlocked)return;
+   try{
+     const data=await api('/api/projects',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({projects:snapshot,revision:serverRevision})});
+     serverRevision=data.revision;
+   }catch(e){
+     syncBlocked=true;
+     if(e.status===409)notify('Conflito: outro dispositivo alterou os dados. Faça backup antes de recarregar.');
+     else notify('Falha ao salvar online. Exporte um backup antes de fechar o navegador: '+e.message);
+   }
+ }).catch(e=>{syncBlocked=true;notify('Erro de sincronização: '+e.message)});
+ return true;
+}
+async function hydrate(){
+ ready=false;syncBlocked=false;
+ try{
+   const data=await api('/api/projects');
+   serverRevision=data.revision;
+   projects=data.projects.map(normalizeProject);
+   activeId='';ready=true;drawAll();
+   let legacy=[];
+   try{legacy=JSON.parse(localStorage.getItem(STORE)||'[]')}catch{}
+   if(!projects.length && Array.isArray(legacy) && legacy.length && confirm('Foram encontrados '+legacy.length+' projeto(s) salvos apenas neste navegador. Importar para o banco online agora?')){
+      projects=legacy.map(normalizeProject);persist();drawAll();
+      notify('Importação solicitada. Aguarde a confirmação do salvamento online.');
+   }
+ }catch(e){ready=false;notify('Não foi possível carregar os projetos do banco: '+e.message);throw e}
+}
+function touch(p){p.updated=now();persist();drawAll()}
+function clearConversion(){editingConversion='';$('componentName').value='';$('capCode').value='';$('capValue').value='';$('capUnit').value='uF';$('capTolerance').value='';$('conversionNote').value='';$('automaticConversionNote').textContent='';$('conversionError').textContent='';$('conversionResult').classList.add('hide');$('memorizeBtn').textContent='Memorizar / adicionar ao relatório';latest=null}
+function clearManual(){editingNote='';$('manualComponent').value='';$('manualText').value='';$('manualCategory').selectedIndex=0;$('manualStatus').value='Informativo';$('manualEvidence').value='';$('addNote').textContent='Adicionar observação';$('manualMessage').textContent=''}
+function drawProjects(){const sel=$('projectSelect');sel.innerHTML='<option value="">Selecione ou crie um projeto</option>'+projects.map(p=>`<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('');sel.value=activeId||'';$('projectCount').textContent=projects.length+' projeto(s)';$('projectList').innerHTML=projects.length?projects.map(p=>`<div class="mini-item"><strong>${esc(p.name)}</strong><p>${esc(p.pn||'Sem PN')} · ${p.conversions.length} conversão(ões) · ${p.notes.length} observação(ões)</p><div class="actions" style="margin-top:8px"><button class="btn small soft" data-project="${esc(p.id)}">Selecionar</button></div></div>`).join(''):'<div class="empty">Nenhum projeto cadastrado.</div>'}
+function selectProject(id){activeId=id;clearConversion();clearManual();const p=getActive();$('projectName').value=p?.name||'';$('projectPN').value=p?.pn||'';$('projectDocument').value=p?.document||'';$('projectOwner').value=p?.owner||'';drawAll()}
+function saveProject(){const name=$('projectName').value.trim();if(!name){$('projectMessage').textContent='Informe o nome do projeto.';return null}let p=getActive();if(!p){p=normalizeProject({id:uid(),name});projects.unshift(p);activeId=p.id}p.name=name;p.pn=$('projectPN').value.trim();p.document=$('projectDocument').value.trim();p.owner=$('projectOwner').value.trim();p.updated=now();persist();$('projectMessage').textContent='Projeto preparado para sincronização online.';drawAll();return p}
+function drawHistory(){const p=getActive();const el=$('conversionHistory');if(!p||!p.conversions.length){el.innerHTML='<div class="empty">Nenhuma conversão memorizada neste projeto.</div>';return}el.innerHTML=p.conversions.map((c,i)=>`<details class="mini-item"><summary style="cursor:pointer;color:#a4f3df;font-weight:800">${String(i+1).padStart(2,'0')} · ${esc(c.component||'Componente não identificado')} — ${esc(c.origin||'')}</summary><p><b>Equivalências:</b> ${esc(formatNumber(c.values?.uF??c.farad*1e6))} µF · ${esc(formatNumber(c.values?.nF??c.farad*1e9))} nF · ${esc(formatNumber(c.values?.pF??c.farad*1e12))} pF · <b>Registro:</b> ${esc(datetime(c.updated||c.created))}</p><p>${c.tolerance===null||c.tolerance===undefined?'Tolerância não informada.':'Tolerância ±'+esc(formatNumber(c.tolerance))+'%. '}${esc(c.note||'Sem observação técnica.')}</p><div class="actions" style="margin-top:9px"><button class="btn small soft" data-edit-conv="${esc(c.id)}">Editar</button><button class="btn small danger" data-del-conv="${esc(c.id)}">Excluir</button></div></details>`).join('')}
+function drawManual(){const p=getActive();const el=$('manualList');$('manualCount').textContent=(p?.notes.length||0)+' registro(s)';if(!p||!p.notes.length){el.innerHTML='<div class="empty">Nenhuma observação manual adicionada.</div>';return}el.innerHTML=p.notes.map((n,i)=>`<div class="mini-item"><strong>${String(i+1).padStart(2,'0')} · ${esc(n.component||'Sem identificação')}</strong> <span class="chip ${n.status==='Não conforme'?'warn':''}">${esc(n.status||'Informativo')}</span><p>${esc(n.category)}</p><p>${esc(n.text)}</p>${n.evidence?`<p><b>Evidência:</b> ${esc(n.evidence)}</p>`:''}<div class="actions" style="margin-top:9px"><button class="btn small soft" data-edit-note="${esc(n.id)}">Editar</button><button class="btn small danger" data-del-note="${esc(n.id)}">Excluir</button></div></div>`).join('')}
+function drawSignatures(){const p=getActive();$('signatureList').innerHTML=p&&p.signatures.length?p.signatures.map((sig,i)=>`<div class="mini-item"><strong>${esc(sig.name)}</strong> <span class="muted">${esc(sig.role||'Sem função')}</span><p>${sig.date?'Data: '+esc(sig.date.split('-').reverse().join('/')):'Data a preencher na assinatura'}</p><button class="btn danger small" data-del-signature="${esc(sig.id)}">Excluir</button></div>`).join(''):'<div class="empty">Nenhum campo de assinatura configurado.</div>'}
+function drawReport(){const p=getActive();const e=$('reportPreview');if(!p){e.innerHTML='<div class="empty">Escolha ou crie um projeto na aba Conversor.</div>';$('reportProjectInfo').textContent='Selecione um projeto na primeira aba.';return}const conversions=p.conversions.length,notes=p.notes.length;const manualNc=p.notes.filter(x=>x.status==='Não conforme').length;$('reportProjectInfo').innerHTML=`<b>${esc(p.name)}</b> · PN ${esc(p.pn||'não informado')} · ${esc(p.owner||'Responsável não informado')}`;e.innerHTML=`<div class="line"><strong style="color:#a7edff">Relatório de Tapeboard — ${esc(p.name)}</strong><p>${esc(p.pn||'Sem Part Number')} · ${esc(p.document||'Sem documento')}</p></div><div class="line"><strong>${conversions} conversão(ões)</strong> memorizadas para composição da tabela técnica.</div><div class="line"><strong>${notes} observação(ões)</strong> manuais, das quais <strong>${manualNc} não conforme(s)</strong>.</div><div class="line"><strong>${p.signatures.length} assinatura(s)</strong> prevista(s) para validação.</div><div class="notice">O relatório é gerado com os dados atuais do projeto. Revise as informações antes da emissão.</div>`}
+function drawAll(){const p=getActive();drawProjects();$('heroProject').textContent=p?'Projeto: '+p.name:'Nenhum projeto selecionado';$('projectTag').textContent=p?'PROJETO ATIVO':'MODO RÁPIDO';$('projectlessHint').hidden=!!p;$('kpiConversions').textContent=p?.conversions.length||0;$('kpiNotes').textContent=p?.notes.length||0;$('kpiSignatures').textContent=p?.signatures.length||0;drawHistory();drawManual();drawSignatures();drawReport()}
+function calcConversion(){
+ const code=$('capCode').value.trim(),coded=code?capCode(code):null;
+ const raw=$('capValue').value.trim(),value=raw?parseNumber(raw):NaN;
+ let farad,origin;
+ if(raw){
+  if(!Number.isFinite(value))throw Error('Valor inválido. Use números como 0,1 ou 100.');
+  farad=value*UNITS[$('capUnit').value];origin=raw+' '+UNITS_LABEL[$('capUnit').value];
+  if(code&&coded!==null&&Math.abs(farad-coded*1e-12)>Math.max(farad,coded*1e-12,1e-30)*.001){$('conversionError').textContent='Atenção: o código informado não corresponde ao valor digitado. Confirme a especificação.'}
+ }else if(coded!==null){farad=coded*1e-12;origin=code+' (código: '+formatNumber(coded)+' pF)'}
+ else throw Error(code?'Código não reconhecido. Digite um valor com unidade ou um código válido.':'Informe o valor da capacitância ou um código reconhecido.');
+ if(!Number.isFinite(farad)||farad<0)throw Error('Capacitância inválida.');
+ const tolRaw=$('capTolerance').value.trim();let tolerance=null;
+ if(tolRaw){tolerance=parseNumber(tolRaw);if(!Number.isFinite(tolerance)||tolerance>100)throw Error('A tolerância deve ser um percentual entre 0 e 100 (ex.: 10).')}
+ const factor=tolerance===null?0:tolerance/100;
+ const values=capValues(farad),minimum=capValues(farad*(1-factor)),maximum=capValues(farad*(1+factor));
+ const concise=`${$('componentName').value.trim()?$('componentName').value.trim()+': ':''}Capacitância nominal ${origin}. Equivalente a ${formatNumber(values.uF)} µF, ${formatNumber(values.nF)} nF e ${formatNumber(values.pF)} pF${tolerance===null?'.':`. Tolerância ±${formatNumber(tolerance)}%: faixa de ${formatNumber(minimum.nF)} a ${formatNumber(maximum.nF)} nF.`}`;
+ latest={component:$('componentName').value.trim(),code,origin,farad,values,tolerance,minimum,maximum,note:$('conversionNote').value.trim()||concise,created:now(),updated:now()};
+ $('convertedTop').innerHTML=['uF','nF','pF'].map(k=>`<div class="stat"><span>${UNITS_LABEL[k]}</span><b style="font-size:19px">${esc(formatNumber(values[k],12))}</b></div>`).join('');
+ $('conversionRows').innerHTML=Object.keys(UNITS).map(k=>`<tr><td>${esc(UNITS_LABEL[k])}</td><td class="right">${esc(formatNumber(values[k],12))}</td><td class="right">${tolerance===null?'—':esc(formatNumber(minimum[k],12))}</td><td class="right">${tolerance===null?'—':esc(formatNumber(maximum[k],12))}</td></tr>`).join('');
+ $('automaticConversionNote').textContent=concise;
+ $('conversionResult').classList.remove('hide');return latest;
+}
+function refreshLiveConversion(){
+ const hasData=$('capValue').value.trim()||$('capCode').value.trim();
+ if(!hasData){$('conversionResult').classList.add('hide');$('conversionError').textContent='';latest=null;return}
+ try{$('conversionError').textContent='';calcConversion()}catch(e){$('conversionError').textContent=e.message;$('conversionResult').classList.add('hide');latest=null}
+}
+function saveConversion(){const p=getActive();if(!p){$('projectAccordion').open=true;$('conversionError').textContent='Para memorizar, selecione ou crie um projeto no painel expandido abaixo.';$('projectAccordion').scrollIntoView({behavior:'smooth',block:'center'});return}try{const calc=calcConversion();if(editingConversion){const i=p.conversions.findIndex(c=>c.id===editingConversion);if(i>=0)p.conversions[i]={...p.conversions[i],...calc,id:editingConversion};notify('Conversão atualizada.')}else{p.conversions.unshift({...calc,id:uid()});notify('Conversão adicionada; sincronização online iniciada.')}touch(p);clearConversion()}catch(e){$('conversionError').textContent=e.message}}
+function editConversion(id){const p=getActive(),c=p?.conversions.find(c=>c.id===id);if(!c)return;editingConversion=id;$('componentName').value=c.component||'';$('capCode').value=c.code||'';$('capValue').value=String(c.values?.[$('capUnit').value]??c.values?.uF??c.farad/1e-6);$('capUnit').value='uF';$('capValue').value=String(c.farad/1e-6);$('conversionNote').value=c.note||'';$('capTolerance').value=c.tolerance===null||c.tolerance===undefined?'':String(c.tolerance);$('memorizeBtn').textContent='Atualizar conversão memorizada';$('converter').querySelector('.conversion-followup').open=true;refreshLiveConversion();$('capValue').scrollIntoView({behavior:'smooth',block:'center'});notify('Edite os campos e clique em Atualizar conversão.')}
+function saveNote(){const p=getActive();if(!p){$('manualMessage').textContent='Selecione um projeto na primeira aba.';return}const text=$('manualText').value.trim();if(!text){$('manualMessage').textContent='Descreva a observação para adicionar.';return}const item={id:editingNote||uid(),component:$('manualComponent').value.trim(),category:$('manualCategory').value,status:$('manualStatus').value,text,evidence:$('manualEvidence').value.trim(),updated:now()};if(editingNote){const i=p.notes.findIndex(n=>n.id===editingNote);if(i>=0)p.notes[i]={...p.notes[i],...item}}else{p.notes.unshift({...item,created:now()})}touch(p);clearManual();notify('Observação adicionada; sincronização online iniciada.')}
+function setTab(name){if(name==='tapeboard'&&!reportUnlocked){$('reportGate').hidden=false;$('reportPassword').value='';$('gateError').textContent='';setTimeout(()=>$('reportPassword').focus(),50);return}tab=name;document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));document.querySelectorAll('.maincontent>section').forEach(s=>s.classList.toggle('active',s.id===name));}
+async function goLogin(){
+ try{await api('/api/auth/logout',{method:'POST'})}catch(e){notify('Não foi possível encerrar a sessão no servidor: '+e.message)}
+ projects=[];activeId='';ready=false;reportUnlocked=false;
+ $('loginPassword').value='';$('loginScreen').hidden=false;$('appScreen').hidden=true;$('reportGate').hidden=true;setTab('converter');
+}
+async function login(evt){
+ evt.preventDefault();const btn=$('loginScreen').querySelector('button[type="submit"]');
+ if(btn)btn.disabled=true;$('loginError').textContent='';
+ try{
+   await api('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:$('loginPassword').value})});
+   $('loginPassword').value='';await hydrate();
+   $('loginScreen').hidden=true;$('appScreen').hidden=false;reportUnlocked=false;drawAll();setTab('converter');
+ }catch(e){$('loginError').textContent=e.message}
+ finally{if(btn)btn.disabled=false}
+}
+async function unlockReport(evt){
+ evt.preventDefault();$('gateError').textContent='';
+ try{
+   await api('/api/auth/report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:$('reportPassword').value})});
+   // Aguarda conversões pendentes antes de trocar para a visão protegida.
+   await syncTail;
+   if(syncBlocked)throw Error('O salvamento anterior falhou. Exporte backup e recarregue para evitar perda de dados.');
+   const previousId=activeId;
+   const full=await api('/api/projects');
+   serverRevision=full.revision;
+   projects=full.projects.map(normalizeProject);
+   activeId=projects.some(p=>p.id===previousId)?previousId:'';
+   $('reportPassword').value='';reportUnlocked=true;$('reportGate').hidden=true;$('tabLock').textContent='✓';drawAll();setTab('tapeboard');
+ }catch(e){$('gateError').textContent=e.message}
+}
+function prepareBackup(){const backup={format:'BCMS95-LAB-Backup',version:1,exportedAt:now(),projects};const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'});downloadBlob(blob,'BCMS95_LAB_backup_'+new Date().toISOString().slice(0,10)+'.json')}
+function importBackup(file){if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const obj=JSON.parse(reader.result);if(obj.format!=='BCMS95-LAB-Backup'||!Array.isArray(obj.projects))throw Error('Arquivo não reconhecido.');if(!confirm(`Importar ${obj.projects.length} projeto(s)? Isso substituirá os registros atuais deste navegador.`))return;projects=obj.projects.map(normalizeProject);activeId='';persist();selectProject('');notify('Backup importado. Sincronização online iniciada.')}catch(e){notify('Falha ao importar: '+e.message)}};reader.readAsText(file)}
+function downloadBlob(blob,filename){const a=document.createElement('a');const u=URL.createObjectURL(blob);a.href=u;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+/* XLSX OOXML, gerado localmente sem serviços externos ou bibliotecas de terceiros. */
+const enc=new TextEncoder();
+function crc32(data){let c=0xffffffff;for(const b of data){c^=b;for(let k=0;k<8;k++)c=(c>>>1)^((c&1)?0xedb88320:0)}return(c^0xffffffff)>>>0}
+function u16(n){return[n&255,(n>>>8)&255]}function u32(n){return[n&255,(n>>>8)&255,(n>>>16)&255,(n>>>24)&255]}
+function zipStore(entries){const local=[],central=[];let offset=0;const time=0,date=0;for(const [name,str] of entries){const nameBytes=enc.encode(name),data=enc.encode(str),crc=crc32(data),localHead=new Uint8Array([...u32(0x04034b50),...u16(20),...u16(0),...u16(0),...u16(time),...u16(date),...u32(crc),...u32(data.length),...u32(data.length),...u16(nameBytes.length),...u16(0)]);local.push(localHead,nameBytes,data);const cent=new Uint8Array([...u32(0x02014b50),...u16(20),...u16(20),...u16(0),...u16(0),...u16(time),...u16(date),...u32(crc),...u32(data.length),...u32(data.length),...u16(nameBytes.length),...u16(0),...u16(0),...u16(0),...u16(0),...u32(0),...u32(offset)]);central.push(cent,nameBytes);offset+=localHead.length+nameBytes.length+data.length}const centralBytes=central.reduce((a,x)=>a+x.length,0);const end=new Uint8Array([...u32(0x06054b50),...u16(0),...u16(0),...u16(entries.length),...u16(entries.length),...u32(centralBytes),...u32(offset),...u16(0)]);return new Blob([...local,...central,end],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'})}
+function xxml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function xlcol(n){let s='';for(n++;n;n=Math.floor((n-1)/26))s=String.fromCharCode(65+(n-1)%26)+s;return s}
+function sheetXml(rows){const arr=rows.map((row,i)=>`<row r="${i+1}">${row.map((value,j)=>{const ref=xlcol(j)+(i+1);return typeof value==='number'&&Number.isFinite(value)?`<c r="${ref}"><v>${value}</v></c>`:`<c r="${ref}" t="inlineStr"><is><t xml:space="preserve">${xxml(value)}</t></is></c>`}).join('')}</row>`).join('');return`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0"/></sheetViews><sheetFormatPr defaultRowHeight="18"/><sheetData>${arr}</sheetData></worksheet>`}
+function excelWorkbook(sheets){const content=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>${sheets.map((_,i)=>`<Override PartName="/xl/worksheets/sheet${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')}</Types>`;const rels=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`;const wb=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>${sheets.map((s,i)=>`<sheet name="${xxml(s.name)}" sheetId="${i+1}" r:id="rId${i+1}"/>`).join('')}</sheets></workbook>`;const wr=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${sheets.map((s,i)=>`<Relationship Id="rId${i+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i+1}.xml"/>`).join('')}</Relationships>`;return zipStore([['[Content_Types].xml',content],['_rels/.rels',rels],['xl/workbook.xml',wb],['xl/_rels/workbook.xml.rels',wr],...sheets.map((s,i)=>[`xl/worksheets/sheet${i+1}.xml`,sheetXml(s.rows)])])}
+function reportSheets(p){const overview=[['BCMS95 LAB — RELATÓRIO DE TAPEBOARD'],['Projeto',p.name],['Part Number',p.pn],['Documento',p.document],['Responsável',p.owner],['Data de emissão',datebr(now())],['Conversões',p.conversions.length],['Observações',p.notes.length],['Assinaturas',p.signatures.length]];const conv=[['Item','Componente','Código','Valor informado','F','mF','µF','nF','pF','Tolerância (±%)','Mínimo (nF)','Máximo (nF)','Observação técnica','Data'],...p.conversions.map((c,i)=>[i+1,c.component,c.code,c.origin,c.farad,c.values?.mF??c.farad*1e3,c.values?.uF??c.farad*1e6,c.values?.nF??c.farad*1e9,c.values?.pF??c.farad*1e12,c.tolerance??'',c.minimum?.nF??'',c.maximum?.nF??'',c.note,datetime(c.updated||c.created)])];const notes=[['Item','Componente / Local','Categoria','Classificação','Observação','Evidência','Data'],...p.notes.map((n,i)=>[i+1,n.component,n.category,n.status,n.text,n.evidence,datetime(n.updated||n.created)])];const signatures=[['Item','Nome','Função / Setor','Data prevista','Assinatura'],...p.signatures.map((q,i)=>[i+1,q.name,q.role,q.date,''])];return[{name:'Identificacao',rows:overview},{name:'Conversoes',rows:conv},{name:'Observacoes',rows:notes},{name:'Assinaturas',rows:signatures}]}
+function exportXlsx(){const p=getActive();if(!p)return notify('Selecione um projeto antes de exportar.');downloadBlob(excelWorkbook(reportSheets(p)),'BCMS95_Tapeboard_'+safeFile(p.name)+'.xlsx');$('exportMessage').textContent='Excel (.xlsx) gerado com quatro planilhas.'}
+function safeFile(s){return String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9_-]+/gi,'_').slice(0,70)||'projeto'}
+function printReport(){const p=getActive();if(!p)return notify('Selecione um projeto antes de gerar o PDF.');const win=window.open('','_blank');if(!win)return notify('Permita pop-ups para imprimir ou salvar o PDF.');const linesConv=p.conversions.map((c,i)=>`<tr><td>${i+1}</td><td>${esc(c.component||'—')}</td><td>${esc(c.origin||'—')}${c.tolerance===null||c.tolerance===undefined?'':' · ±'+esc(formatNumber(c.tolerance))+'%'}</td><td>${esc(formatNumber(c.values?.uF??c.farad*1e6))}</td><td>${esc(formatNumber(c.values?.nF??c.farad*1e9))}</td><td>${esc(formatNumber(c.values?.pF??c.farad*1e12))}</td><td>${esc(c.note||'—')}</td></tr>`).join('');const linesNotes=p.notes.map((n,i)=>`<tr><td>${i+1}</td><td>${esc(n.component||'—')}</td><td>${esc(n.category||'—')}</td><td>${esc(n.status||'—')}</td><td>${esc(n.text||'—')}</td><td>${esc(n.evidence||'—')}</td></tr>`).join('');const sign=p.signatures.map(q=>`<div class="signature"><div class="signline"></div><b>${esc(q.name||'—')}</b><span>${esc(q.role||'Função não informada')}</span><span>Data: ${q.date?esc(q.date.split('-').reverse().join('/')):'____/____/________'}</span></div>`).join('');const html=`<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Relatório de Tapeboard — ${esc(p.name)}</title><style>@page{size:A4 portrait;margin:30mm 20mm 20mm 30mm}*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}body{font:10pt 'Arial Nova',Arial,sans-serif;color:#27323a;margin:0;background:white;line-height:1.38}h1{text-align:center;color:#214b5e;font-size:15pt;margin:0 0 7mm;text-transform:uppercase;border-bottom:2px solid #4a8094;padding-bottom:4mm}h2{font-size:11pt;color:#25506a;margin:7mm 0 2mm;border-bottom:1px solid #9fbdc8;padding-bottom:2mm}p{margin:2mm 0}.meta{display:grid;grid-template-columns:1fr 1fr;gap:2mm 4mm;padding:3mm;border:1px solid #b9ccd4;background:#f6fafb;font-size:9pt}.meta b{color:#224c5d}table{width:100%;table-layout:fixed;border-collapse:collapse;margin-top:3mm;font-size:8pt}th{background:#e9f3f7;color:#234757;text-align:left;border:1px solid #aebfc9;padding:2mm 1.5mm}td{border:1px solid #b9c7ce;padding:2mm 1.5mm;vertical-align:top;overflow-wrap:anywhere;white-space:pre-wrap}tr{break-inside:avoid;page-break-inside:avoid}thead{display:table-header-group}.note{font-size:8.3pt;color:#455963;margin-top:5mm;padding:3mm;border-left:2px solid #5b899b;background:#f7fafc}.stats{display:flex;gap:6mm;justify-content:space-between;margin:5mm 0;font-size:9pt}.stats span{border:1px solid #bdd3db;background:#f5fafc;padding:3mm;flex:1}.signatures{display:grid;grid-template-columns:1fr 1fr;gap:8mm 10mm;margin-top:9mm}.signature{font-size:8pt;text-align:center;break-inside:avoid;display:flex;flex-direction:column;gap:1mm}.signline{border-top:1px solid #3c505e;margin-top:12mm}.signature b{font-size:9pt}.foot{border-top:1px solid #bccfd8;margin-top:9mm;padding-top:3mm;font-size:8pt;color:#58717f}.screen-btn{background:#255b78;color:white;padding:10px 15px;border:0;border-radius:7px;cursor:pointer;margin-bottom:15px}@media print{.screen-btn{display:none}}@media screen{body{padding:22px;max-width:900px;margin:auto}}</style></head><body><button class="screen-btn" onclick="window.print()">Imprimir / Salvar PDF</button><h1>Relatório de Tapeboard — ${esc(p.name)}</h1><div class="meta"><div><b>Projeto:</b> ${esc(p.name)}</div><div><b>Part Number:</b> ${esc(p.pn||'Não informado')}</div><div><b>Documento:</b> ${esc(p.document||'Não informado')}</div><div><b>Responsável:</b> ${esc(p.owner||'Não informado')}</div><div><b>Emissão:</b> ${datebr(now())}</div><div><b>Sistema:</b> BCMS95 LAB</div></div><div class="stats"><span><b>Conversões:</b> ${p.conversions.length}</span><span><b>Observações:</b> ${p.notes.length}</span><span><b>Não conformes:</b> ${p.notes.filter(n=>n.status==='Não conforme').length}</span></div><h2>1. Conversões de capacitância</h2><table><thead><tr><th style="width:6%">Nº</th><th style="width:16%">Componente</th><th style="width:15%">Original</th><th style="width:9%">µF</th><th style="width:9%">nF</th><th style="width:9%">pF</th><th>Observação</th></tr></thead><tbody>${linesConv||'<tr><td colspan="7">Nenhuma conversão registrada.</td></tr>'}</tbody></table><h2>2. Observações de inspeção e Tapeboard</h2><table><thead><tr><th style="width:6%">Nº</th><th style="width:15%">Componente</th><th style="width:19%">Categoria</th><th style="width:14%">Status</th><th>Descrição</th><th style="width:17%">Evidência</th></tr></thead><tbody>${linesNotes||'<tr><td colspan="6">Nenhuma observação manual registrada.</td></tr>'}</tbody></table><h2>3. Validação e assinaturas</h2><div class="signatures">${sign||'<div class="signature"><div class="signline"></div><b>Responsável pela validação</b><span>Nome e data</span></div>'}</div><p class="note"><b>Sistema BCMS95 — desenvolvimento original e autoria de Brenda C. Muniz.</b> Documento gerado pelo BCMS95 LAB. Apresentação em formato A4 vertical, com margens e tipografia referenciadas na ABNT NBR 14724:2024. As conversões são operações matemáticas; a classificação de ocorrências depende da documentação técnica e dos critérios de inspeção aplicáveis ao projeto.</p><div class="foot">BCMS95 LAB · Conversão de capacitância · Relatório técnico de Tapeboard · ${datebr(now())}</div><script>window.onload=()=>setTimeout(()=>window.print(),450)<\/script></body></html>`;win.document.open();win.document.write(html);win.document.close();$('exportMessage').textContent='Janela de impressão aberta. Selecione “Salvar como PDF”.'}
+/* Luz galáctica única sob o cursor; anéis fixos com segmentos rotativos, visual frio. */
+(function initVisual(){const c=$('sky'),ctx=c.getContext('2d');if(!ctx)return;let w=0,h=0,dpr=1,t=0,raf=0,last=0;const mouse={x:.78,y:.43,tx:.78,ty:.43,on:false};const reduced=matchMedia('(prefers-reduced-motion: reduce)');const twopi=Math.PI*2;function resize(){w=window.innerWidth;h=window.innerHeight;dpr=Math.min(devicePixelRatio||1,2);c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}function arc(x,y,r,s,e,color,width){ctx.beginPath();ctx.arc(x,y,r,s,e);ctx.strokeStyle=color;ctx.lineWidth=width;ctx.stroke()}function draw(){ctx.clearRect(0,0,w,h);mouse.x+=(mouse.tx-mouse.x)*.09;mouse.y+=(mouse.ty-mouse.y)*.09;const cx=w*.79,cy=h*.44,R=Math.min(w,h)*.33;ctx.save();ctx.globalCompositeOperation='screen';for(let k=0;k<4;k++){const r=R*(.55+k*.24);arc(cx,cy,r,0,twopi,'rgba(81,193,233,.06)',1);for(let j=0;j<9+k*2;j++){const a=j*twopi/(9+k*2)+t*(k%2?-1:1)*(.12+k*.045);arc(cx,cy,r,a,a+.15+k*.014,j%3?'rgba(66,194,240,.36)':'rgba(111,239,204,.74)',j%3?1.6:2.4)}}const pX=mouse.x*w,pY=mouse.y*h;if(mouse.on){const puls=30+Math.sin(t*4)*7,g=ctx.createRadialGradient(pX,pY,0,pX,pY,puls*2);g.addColorStop(0,'rgba(227,255,249,1)');g.addColorStop(.12,'rgba(119,241,218,.77)');g.addColorStop(.35,'rgba(83,199,252,.29)');g.addColorStop(1,'rgba(67,179,246,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(pX,pY,puls*2,0,twopi);ctx.fill()}ctx.restore()}function frame(ms){if(document.hidden){raf=0;return}t+=Math.min((ms-last)/1000||0,.05);last=ms;draw();raf=requestAnimationFrame(frame)}function play(){if(!raf&&!reduced.matches){last=performance.now();raf=requestAnimationFrame(frame)}}function stop(){if(raf)cancelAnimationFrame(raf);raf=0;draw()}window.addEventListener('resize',()=>{resize();draw()},{passive:true});window.addEventListener('pointermove',e=>{if(e.pointerType==='touch')return;mouse.tx=e.clientX/Math.max(1,w);mouse.ty=e.clientY/Math.max(1,h);mouse.on=true},{passive:true});window.addEventListener('pointerleave',()=>mouse.on=false);document.addEventListener('visibilitychange',()=>document.hidden?stop():play());if(reduced.addEventListener)reduced.addEventListener('change',()=>reduced.matches?stop():play());resize();draw();play()})();
+/* Eventos e inicialização. */
+$('loginForm').addEventListener('submit',login);$('reportGateForm').addEventListener('submit',unlockReport);$('gateCancel').addEventListener('click',()=>$('reportGate').hidden=true);$('logout').addEventListener('click',goLogin);document.querySelectorAll('[data-tab]').forEach(btn=>btn.addEventListener('click',()=>setTab(btn.dataset.tab)));
+$('projectSelect').addEventListener('change',e=>selectProject(e.target.value));$('projectNew').addEventListener('click',()=>{selectProject('');$('projectName').focus();$('projectMessage').textContent='Informe o nome e clique em Salvar projeto.'});$('projectSave').addEventListener('click',()=>saveProject());$('projectDelete').addEventListener('click',()=>{const p=getActive();if(!p)return; if(!confirm('Excluir definitivamente o projeto '+p.name+' e todos os registros associados?'))return;projects=projects.filter(x=>x.id!==p.id);persist();selectProject('');notify('Projeto excluído.')});$('projectList').addEventListener('click',e=>{const b=e.target.closest('[data-project]');if(b)selectProject(b.dataset.project)});
+$('convertBtn').addEventListener('click',()=>{try{$('conversionError').textContent='';calcConversion()}catch(e){$('conversionError').textContent=e.message}});['capValue','capCode','capTolerance','conversionNote','componentName'].forEach(id=>$(id).addEventListener('input',refreshLiveConversion));$('capUnit').addEventListener('change',refreshLiveConversion);$('memorizeBtn').addEventListener('click',saveConversion);$('clearConvert').addEventListener('click',clearConversion);$('conversionHistory').addEventListener('click',e=>{const edit=e.target.closest('[data-edit-conv]'),del=e.target.closest('[data-del-conv]');if(edit)editConversion(edit.dataset.editConv);if(del){const p=getActive();if(confirm('Excluir esta conversão?')){p.conversions=p.conversions.filter(c=>c.id!==del.dataset.delConv);touch(p)}}});
+$('addNote').addEventListener('click',saveNote);$('clearNote').addEventListener('click',clearManual);$('manualList').addEventListener('click',e=>{const edit=e.target.closest('[data-edit-note]'),del=e.target.closest('[data-del-note]');const p=getActive();if(edit){const n=p?.notes.find(x=>x.id===edit.dataset.editNote);if(!n)return;editingNote=n.id;$('manualComponent').value=n.component||'';$('manualCategory').value=n.category||'Outro';$('manualStatus').value=n.status||'Informativo';$('manualText').value=n.text||'';$('manualEvidence').value=n.evidence||'';$('addNote').textContent='Atualizar observação';$('manualText').focus()}if(del&&confirm('Excluir esta observação?')){p.notes=p.notes.filter(x=>x.id!==del.dataset.delNote);touch(p)}});
+$('addSignature').addEventListener('click',()=>{const p=getActive();if(!p)return notify('Selecione um projeto.');const name=$('sigName').value.trim();if(!name)return notify('Informe o nome do signatário.');p.signatures.push({id:uid(),name,role:$('sigRole').value.trim(),date:$('sigDate').value});$('sigName').value='';$('sigRole').value='';$('sigDate').value='';touch(p);notify('Campo de assinatura adicionado.')} );$('signatureList').addEventListener('click',e=>{const b=e.target.closest('[data-del-signature]');const p=getActive();if(b&&p){p.signatures=p.signatures.filter(s=>s.id!==b.dataset.delSignature);touch(p)}});$('saveReport').addEventListener('click',()=>saveProject());$('printPdf').addEventListener('click',printReport);$('exportExcel').addEventListener('click',exportXlsx);
+$('backupExport').addEventListener('click',prepareBackup);$('backupImport').addEventListener('click',()=>$('backupFile').click());$('backupFile').addEventListener('change',e=>{importBackup(e.target.files?.[0]);e.target.value=''});
+
+/* Preenchimento didático: não salva registros e não altera a sessão de autenticação. */
+const capExamples={
+ '104':{component:'C105 (exemplo SMD)',code:'104',note:'Exemplo didático: código 104 = 100 nF (0,1 µF). Conferir BOM, PN e datasheet antes de validar.'},
+ '472':{component:'C207 (exemplo SMD)',code:'472',note:'Exemplo didático: código 472 = 4,7 nF (0,0047 µF). Comparar o valor previsto na BOM com o componente do projeto.'},
+ '1002':{component:'C310 (exemplo SMD)',code:'1002',note:'Exemplo didático: código 1002 = 10 nF (0,01 µF). Confirmar interpretação do código com o datasheet.'},
+ '4R7':{component:'C402 (exemplo SMD)',code:'4R7',note:'Exemplo didático: 4R7 = 4,7 pF. Aplicabilidade da marcação depende do componente/fabricante.'}
+};
+const noteExamples={
+ serigrafia:{
+  component:'C17 / placa SMD',
+  category:'Identificação / Serigrafia',
+  status:'Pendente de validação',
+  text:'Exemplo: a referência serigráfica na posição C17 difere da identificação prevista no desenho/BOM. Solicita-se confirmação documental antes da disposição do material.',
+  evidence:'Desenho / BOM revisão aplicável; foto da posição C17'
+ },
+ capacitancia:{
+  component:'C105 / placa SMD',
+  category:'Capacitância / Componente',
+  status:'Pendente de validação',
+  text:'Exemplo: o valor de capacitância identificado para C105 aparenta divergir do valor previsto na BOM. Confirmar PN, datasheet, método de identificação e requisito aplicável.',
+  evidence:'BOM / PN / datasheet e registro da conversão'
+ },
+ tape:{
+  component:'C207 / tape / embalagem',
+  category:'Embalagem / Tape',
+  status:'Pendente de validação',
+  text:'Exemplo: a identificação do tape/carretilha de C207 requer confirmação em relação ao PN e à orientação de alimentação prevista para o projeto.',
+  evidence:'Etiqueta do tape, embalagem e especificação de fornecimento'
+ },
+ conforme:{
+  component:'C310 / placa SMD',
+  category:'Capacitância / Componente',
+  status:'Conforme',
+  text:'Exemplo: o valor de capacitância de C310, após conversão, corresponde ao valor nominal especificado na BOM do projeto (sujeito à conferência real).',
+  evidence:'BOM revisão aplicável e datasheet do componente'
+ }
+};
+$('exampleProject').addEventListener('click',()=>{
+ if(getActive()){
+  if(!confirm('Existe um projeto selecionado. Preencher o exemplo substituirá apenas os campos visíveis, sem salvar alterações. Continuar?'))return;
+ }
+ $('projectName').value='Tapeboard SMD — Projeto Exemplo';
+ $('projectPN').value='TB-SMD-EXEMPLO';
+ $('projectDocument').value='BOM / desenho — exemplo didático';
+ $('projectOwner').value='';
+ $('projectMessage').textContent='Exemplo carregado. Revise as informações e clique em Salvar projeto se desejar utilizá-lo.';
+});
+document.querySelectorAll('[data-cap-example]').forEach(btn=>btn.addEventListener('click',()=>{
+ const example=capExamples[btn.dataset.capExample];
+ if(!example)return;
+ clearConversion();
+ $('componentName').value=example.component;
+ $('capCode').value=example.code;
+ $('conversionNote').value=example.note;
+ try{$('conversionError').textContent='';calcConversion();notify('Exemplo convertido. Para incluir no relatório, confirme e clique em Memorizar.')}
+ catch(err){$('conversionError').textContent=err.message}
+}));
+document.querySelectorAll('[data-note-example]').forEach(btn=>btn.addEventListener('click',()=>{
+ const example=noteExamples[btn.dataset.noteExample];
+ if(!example)return;
+ clearManual();
+ $('manualComponent').value=example.component;
+ $('manualCategory').value=example.category;
+ $('manualStatus').value=example.status;
+ $('manualText').value=example.text;
+ $('manualEvidence').value=example.evidence;
+ $('manualMessage').textContent='Exemplo preenchido, ainda não salvo. Substitua pelos dados reais da inspeção antes de adicionar.';
+}));
+
+(async()=>{
+ try{
+   const auth=await api('/api/auth/session');
+   if(auth.authenticated){
+     await hydrate();reportUnlocked=!!auth.report;
+     $('loginScreen').hidden=true;$('appScreen').hidden=false;
+     if(reportUnlocked)$('tabLock').textContent='✓';drawAll();
+   }else{projects=[];ready=false;$('loginScreen').hidden=false;$('appScreen').hidden=true}
+ }catch(e){$('loginError').textContent='A conexão com o servidor está indisponível: '+e.message}
+})();
+</script>
+</body>
+</html>
