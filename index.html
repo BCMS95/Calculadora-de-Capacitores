@@ -245,135 +245,180 @@ select option{background:#292b31!important}input::placeholder,textarea::placehol
 @keyframes labButtonFlux{to{background-position:220% 0}}
 @media(prefers-reduced-motion:reduce){.login-card::after,.login-card .signal::before,.login-card .logo,.login-card .btn.primary{animation:none!important}}
 
-/* BCMS95 LAB — IDENTIDADE VERMELHO + LARANJA | somete estilos; APIs Neon intactas */
+
+/* BCMS95 LAB — IDENTIDADE MECHA GRAFITE + LARANJA/VERMELHO
+   Mantém o grafite do sistema analítico, preserva movimentos do painel e
+   aplica somente a identidade visual do Capacitor LAB. */
 :root{
- --bg:#0c0d10;--surface:#222329;--surface2:#292a31;--input:#15171c;
- --line:#844b45;--line2:#a95a43;--text:#f8f3ef;--muted:#d0b9b2;
- --blue:#ff4357;--ice:#ffba72;--aqua:#ff9248;--lime:#ffae66;
- --warning:#ffc06c;--danger:#ff6574;
+ --bg:#0d0f13;--surface:#1a1d23;--surface2:#20242b;--input:#11151b;
+ --line:#5b4d45;--line2:#8d654a;--text:#f5f1eb;--muted:#d2c2b4;
+ --blue:#ff6a3d;--ice:#ffbc57;--aqua:#ff9045;--lime:#ffb34d;
+ --warning:#ffc463;--danger:#ff5948;
 }
-body{background:radial-gradient(ellipse at 78% 0%,#9e27231c,transparent 40%),linear-gradient(135deg,#08090c,#151319 62%,#0c0c10)!important}
-#ambient::before{background:repeating-linear-gradient(128deg,transparent 0 42px,#ff50520a 43px 44px,transparent 45px 102px)!important}
-/* Faixa principal: controles não invadem o radar nem os títulos. */
-#appScreen .hero.mecha-hud-panel{
- display:grid!important;grid-template-columns:minmax(260px,1fr) minmax(290px,420px);
- align-items:center!important;column-gap:24px;row-gap:15px;
- min-height:185px;padding:24px 26px!important;
- border:1px solid #f05b47!important;
- background:#19191e!important;
- box-shadow:0 14px 42px #000a,inset 0 0 0 1px #ff98551e!important;
-}
-.hero.mecha-hud-panel::before{background:linear-gradient(90deg,#17171ced 0%,#19171de6 38%,#201b1c88 61%,#17171ce0 100%),repeating-linear-gradient(132deg,transparent 0 26px,#ff454510 26px 27px,transparent 27px 71px)!important}
-.hero.mecha-hud-panel::after{background:linear-gradient(90deg,#ff4054,#ff8548 60%,#ffbf6f)!important;height:4px!important}
-#appScreen .hero .hero-copy{position:relative;z-index:6;min-width:0;max-width:650px}
-#appScreen .hero .hero-copy h1{font-size:clamp(23px,2.4vw,34px);line-height:1.15;letter-spacing:.01em;margin:11px 0 8px}
-#appScreen .hero .hero-copy h1 span{color:#ff6054!important;text-shadow:0 0 18px #fb3a4655!important}
-#appScreen .hero .hero-copy .hero-top{color:#ffb06d!important;letter-spacing:.14em}
-#appScreen .hero .hero-copy p{color:#f0dcd1!important;font-size:12px;line-height:1.5}
-#appScreen .hero .hero-controls{
- position:relative;z-index:9;display:grid!important;
- grid-template-columns:repeat(3,minmax(0,1fr));
- align-content:center;align-items:stretch;justify-content:end!important;
- gap:9px;min-width:0;
- padding:13px;border:1px solid #ae554b8a;border-radius:12px;
- background:linear-gradient(135deg,#242027f5,#211d22f5);
- box-shadow:0 10px 25px #0008,inset 0 0 0 1px #f7894b13;
-}
-#appScreen .hero .hero-controls #heroProject{
- grid-column:1/-1;display:block;min-width:0;max-width:100%;
- overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
- text-align:center;padding:9px 12px;border-radius:7px;
- border:1px solid #fa9258!important;background:#352725!important;
- color:#ffca8d!important;font-weight:900;font-size:12px;
-}
-#appScreen .hero .hero-controls .btn{
- width:100%;min-width:0;min-height:36px;padding:7px 9px;
- font-size:12px;font-weight:900;white-space:nowrap;
- border-color:#b66852!important;background:#34262a!important;color:#ffdfc3!important;
-}
-#appScreen .hero .hero-controls #backupExport{border-color:#f09852!important;background:#4d3025!important;color:#ffe0b5!important}
-#appScreen .hero .hero-controls #backupImport{border-color:#ff944b!important;background:#392720!important;color:#ffc88c!important}
-#appScreen .hero .hero-controls #logout{border-color:#fb6170!important;background:#54252c!important;color:#fff0ef!important}
-#appScreen .hero .hero-controls .btn:hover{filter:brightness(1.16)}
-/* Radar ornamental sempre atrás dos controles. */
-#appScreen .hero .mecha-art{z-index:1!important}
-#appScreen .hero .mecha-art .mecha-emblem{right:41%!important;opacity:.65}
-#appScreen .hero .mecha-art .mecha-emblem>span{border-top-color:#ff625f!important;border-bottom-color:#ffae5e!important}
-#appScreen .hero .mecha-art .mecha-emblem>i{border-color:#ff935177!important;box-shadow:0 0 12px #f64e5030!important}
-#appScreen .hero .mecha-art .mecha-pip{right:auto!important;left:43%!important;bottom:13px!important;color:#ffb77e!important;border-color:#a4514488!important;font-size:8px!important;opacity:.82}
-#appScreen .hero .mecha-art .mecha-pip::before{background:#ff5b50!important;box-shadow:0 0 11px #ff4c4c!important}
-#appScreen .hero .mecha-art .mecha-beam{background:linear-gradient(180deg,transparent,#ff434300 24%,#ff8c6d99 49%,#ff4d4d6d 54%,transparent 76%)!important}
-@media(max-width:1050px){
- #appScreen .hero.mecha-hud-panel{grid-template-columns:minmax(0,1fr) minmax(270px,360px)!important;padding:20px!important}
- #appScreen .hero .mecha-art .mecha-emblem{right:37%!important;opacity:.38}
- #appScreen .hero .mecha-art .mecha-pip{display:none!important}
-}
-@media(max-width:750px){
- #appScreen .hero.mecha-hud-panel{grid-template-columns:minmax(0,1fr)!important;row-gap:18px;padding:19px!important}
- #appScreen .hero .hero-controls{width:100%;grid-template-columns:repeat(3,minmax(0,1fr))}
- #appScreen .hero .mecha-art .mecha-emblem{right:-60px!important;top:30%!important;opacity:.28}
-}
-@media(max-width:420px){#appScreen .hero .hero-controls{gap:6px;padding:9px}#appScreen .hero .hero-controls .btn{font-size:11px;padding:7px 5px}}
-/* Todos os módulos, cabeçalhos e cartões na mesma identidade. */
-#appScreen .nav{border-color:#a8564c!important;background:#211f25!important;box-shadow:inset 0 1px 0 #ff71541c!important}
-#appScreen .nav button{background:#2c2429!important;border-color:#85504a!important;color:#ffd2c1!important}
-#appScreen .nav button[data-tab="converter"]{color:#ffaaa5!important;border-color:#cb5056!important;background:#352226!important}
-#appScreen .nav button[data-tab="tapeboard"]{color:#ffc591!important;border-color:#d57c42!important;background:#342821!important}
-#appScreen .nav button[data-tab="converter"].active{background:linear-gradient(105deg,#ff4357,#ff6a54)!important;border-color:#ff9a8a!important;color:#fff!important;box-shadow:0 0 20px #fa48512d!important}
-#appScreen .nav button[data-tab="tapeboard"].active{background:linear-gradient(105deg,#ff944b,#ffbc6c)!important;border-color:#ffdb96!important;color:#321809!important;box-shadow:0 0 20px #ff91402d!important}
-#appScreen .panel{background:linear-gradient(152deg,#29252a,#211f25)!important;border-color:#89534d!important}
-#appScreen .panel h2{color:#ffbd8a!important}#appScreen .panel h3{color:#ff806f!important}
-#appScreen .section-label,#appScreen .cardhead h2{color:#ff9a72!important}
-#appScreen .strip,#appScreen .notice{background:#32272a!important;border-left-color:#ff6658!important;color:#f5e6e2!important}
-#appScreen .stat,#appScreen .kpi{background:linear-gradient(135deg,#30262a,#272127)!important;border-color:#985b52!important}
-#appScreen .stat b,#appScreen .kpi strong{color:#ffb071!important}
-#appScreen .kpi span,#appScreen .stat span{color:#e4cfc7!important}
-#appScreen .tablewrap{border-color:#a15c50!important}
-#appScreen .table th{background:#442c2d!important;color:#ffe1c8!important}
-#appScreen .table td{border-top-color:#714747!important;color:#f8e9e2!important}
-#appScreen .table tfoot td{background:#3b292d!important}
-#appScreen .chip{background:#38282a!important;border-color:#db7254!important;color:#ffbe90!important}
-#appScreen .chip.blue{border-color:#ff5968!important;color:#ffaeaa!important}
-#appScreen .mini-item,#appScreen .empty{background:#292329!important;border-color:#80524e!important}
-#appScreen .mini-item strong{color:#ffaf75!important}
-#appScreen .report-block,#appScreen .proof .line{background:#292329!important;border-color:#ad674f!important}
-#appScreen .pillbar span{background:#372729!important;border-color:#b76a56!important;color:#ffd0a7!important}
-#appScreen .conversion-result-card,#appScreen .convert-primary,#appScreen .conversion-followup{border-color:#ad6a53!important;background:#2b2529!important}
-#appScreen .auto-note{border-left-color:#ff8055!important;background:#352b27!important;color:#ffe2d0!important}
-#appScreen .live-label{color:#ff9e72!important}
-#appScreen .projectless-indicator{border-left-color:#ff625f!important;background:#332428!important;color:#ffd9cc!important}
-#appScreen .lab-guide{--guide-accent:#ff5d66!important;--guide-soft:#34262a!important;--guide-line:#af6252!important;background:#292227!important;border-color:#af6252!important}
-#appScreen .lab-guide.report-guide{--guide-accent:#ff9b57!important;--guide-soft:#332922!important;--guide-line:#b67c4e!important}
-#appScreen .lab-guide details{border-color:var(--guide-line)!important;background:#242027!important}
+body{background:radial-gradient(ellipse at 78% 10%,#d66d1716,transparent 33%),radial-gradient(ellipse at 84% 52%,#ff8a2a10,transparent 24%),linear-gradient(135deg,#0b0c10,#14161b 58%,#0f1014)!important}
+#ambient::before{background:repeating-linear-gradient(128deg,transparent 0 42px,#fda25b10 43px 44px,transparent 45px 102px)!important}
+#appScreen{background:transparent!important}
+#appScreen .nav{border-color:#6a5848!important;background:linear-gradient(140deg,#17191f,#1d2026)!important;box-shadow:inset 0 1px 0 #ffffff0c!important}
+#appScreen .nav button{background:#24272f!important;border-color:#6a5a4e!important;color:#f1e6da!important}
+#appScreen .nav button[data-tab="converter"]{color:#ffd39d!important;border-color:#d28947!important;background:#282420!important}
+#appScreen .nav button[data-tab="tapeboard"]{color:#ffc0aa!important;border-color:#be614d!important;background:#272124!important}
+#appScreen .nav button[data-tab="converter"].active{background:linear-gradient(105deg,#ffb24e,#ff9442)!important;border-color:#ffd487!important;color:#23160a!important;box-shadow:0 0 20px #ff9e3b25!important}
+#appScreen .nav button[data-tab="tapeboard"].active{background:linear-gradient(105deg,#ff6c43,#ff4f45)!important;border-color:#ffac95!important;color:#fff7f4!important;box-shadow:0 0 20px #ff5a4025!important}
+#appScreen .panel{background:linear-gradient(152deg,#1c1f25,#15181d)!important;border-color:#6c584b!important;box-shadow:0 10px 26px #0008!important}
+#appScreen .panel h2{color:#ffc067!important}#appScreen .panel h3{color:#ff8b64!important}
+#appScreen .section-label,#appScreen .cardhead h2{color:#ffab69!important}
+#appScreen .strip,#appScreen .notice{background:#232026!important;border-left-color:#ff764f!important;color:#f5e6de!important}
+#appScreen .stat,#appScreen .kpi{background:linear-gradient(135deg,#26222a,#1d1f25)!important;border-color:#7a614f!important}
+#appScreen .stat b,#appScreen .kpi strong{color:#ffba63!important}
+#appScreen .kpi span,#appScreen .stat span{color:#ead5c7!important}
+#appScreen .tablewrap{border-color:#775f4f!important}
+#appScreen .table th{background:#2e2624!important;color:#ffe7cb!important}
+#appScreen .table td{border-top-color:#5f4b43!important;color:#f8ece5!important}
+#appScreen .table tfoot td{background:#252025!important}
+#appScreen .chip{background:#292329!important;border-color:#c2814d!important;color:#ffd09a!important}
+#appScreen .chip.blue{border-color:#ff6b54!important;color:#ffc0b2!important}
+#appScreen .mini-item,#appScreen .empty{background:#201d23!important;border-color:#70584a!important}
+#appScreen .mini-item strong{color:#ffb56f!important}
+#appScreen .report-block,#appScreen .proof .line{background:#211d23!important;border-color:#8b674f!important}
+#appScreen .pillbar span{background:#2b2328!important;border-color:#a56f50!important;color:#ffd2a4!important}
+#appScreen .conversion-result-card,#appScreen .convert-primary,#appScreen .conversion-followup{border-color:#93684e!important;background:#221f25!important}
+#appScreen .auto-note{border-left-color:#ff8852!important;background:#2f2524!important;color:#ffe2d0!important}
+#appScreen .live-label{color:#ffaf71!important}
+#appScreen .projectless-indicator{border-left-color:#ff6d54!important;background:#2d2226!important;color:#ffd9cc!important}
+#appScreen .lab-guide{--guide-accent:#ff6a4d!important;--guide-soft:#231f26!important;--guide-line:#93624d!important;background:#1f1b21!important;border-color:#93624d!important}
+#appScreen .lab-guide.report-guide{--guide-accent:#ffb253!important;--guide-soft:#221e1d!important;--guide-line:#9a734b!important}
+#appScreen .lab-guide details{border-color:var(--guide-line)!important;background:#19171d!important}
 #appScreen .lab-guide .guide-body{color:#f3e1db!important}
-#appScreen .example-box{border-color:#a96451!important;background:#35292a!important}
-#appScreen .example-box.report-example{border-color:#c5814f!important;background:#352b25!important}
+#appScreen .example-box{border-color:#8f6650!important;background:#2a2125!important}
+#appScreen .example-box.report-example{border-color:#ae7c4c!important;background:#2c241f!important}
 #appScreen .example-box .example-title{color:#ffac87!important}
-#appScreen .example-box.report-example .example-title{color:#ffbd83!important}
-#appScreen .btn.example{border-color:#c66b53!important;background:#452b2b!important;color:#ffe5d1!important}
-#appScreen .report-example .btn.example{border-color:#db8b4c!important;background:#493122!important;color:#ffdfbc!important}
-#appScreen .project-accordion{border-color:#9e5e4b!important;background:#272127!important}
-#appScreen .project-accordion>summary{color:#ffb17e!important}
-#appScreen .project-accordion>summary .project-icon{color:#ff6658!important}
-#appScreen .project-accordion>summary::after{color:#ff995e!important}
-#appScreen .conversion-panel{border-top-color:#ff5362!important}
-#appScreen input:focus,#appScreen textarea:focus,#appScreen select:focus{border-color:#ff975b!important;box-shadow:0 0 0 3px #ff66451f!important}
-#appScreen input[type="checkbox"]{accent-color:#ff8253!important}
-#appScreen .btn.primary{background:linear-gradient(105deg,#ff5360,#ff9a4f)!important;border-color:#ffba82!important;color:#240e10!important}
-#appScreen .btn.soft{background:#392a2e!important;border-color:#bd7256!important;color:#ffe3cb!important}
+#appScreen .example-box.report-example .example-title{color:#ffcf87!important}
+#appScreen .btn.example{border-color:#bc7653!important;background:#392626!important;color:#ffe5d1!important}
+#appScreen .report-example .btn.example{border-color:#d9974d!important;background:#402d1f!important;color:#ffdfbc!important}
+#appScreen .project-accordion{border-color:#8d644d!important;background:#1d1a20!important}
+#appScreen .project-accordion>summary{color:#ffb67a!important}
+#appScreen .project-accordion>summary .project-icon{color:#ff6c56!important}
+#appScreen .project-accordion>summary::after{color:#ffab62!important}
+#appScreen .conversion-panel{border-top-color:#ff694e!important}
+#appScreen input:focus,#appScreen textarea:focus,#appScreen select:focus{border-color:#ff9b58!important;box-shadow:0 0 0 3px #ff8b3f1f!important}
+#appScreen input[type="checkbox"]{accent-color:#ff9150!important}
+#appScreen .btn.primary{background:linear-gradient(105deg,#ff694a,#ffae4d)!important;border-color:#ffd08a!important;color:#251109!important}
+#appScreen .btn.soft{background:#2b262d!important;border-color:#a87754!important;color:#ffe4cb!important}
 #appScreen .btn.excel{background:#14794c!important;border-color:#4cbc85!important;color:#fff!important}
 #appScreen .btn.pdf{background:#b72e42!important;border-color:#f08997!important;color:#fff!important}
-#appScreen .btn.danger{background:#55242d!important;border-color:#e86d74!important;color:#fff!important}
-#appScreen a{color:#ffbb89!important}
-#appScreen .toast{background:#3d272a!important;border-color:#e57b59!important;color:#fff2eb!important}
-.modal{background:linear-gradient(145deg,#33282c,#201e24)!important;border-color:#fa845c!important}
-.modal h2{color:#ffbc86!important}.modal .lock-symbol{color:#ff995e!important}.modal .brandline{background:linear-gradient(90deg,#ff455d,#ffa35b)!important}
+#appScreen .btn.danger{background:#3c1820!important;border-color:#e66e5d!important;color:#fff!important}
+#appScreen a{color:#ffc48b!important}
+#appScreen .toast{background:#322125!important;border-color:#de8458!important;color:#fff2eb!important}
+.modal{background:linear-gradient(145deg,#2d2326,#1a191f)!important;border-color:#fa845c!important}
+.modal h2{color:#ffbc86!important}.modal .lock-symbol{color:#ff995e!important}.modal .brandline{background:linear-gradient(90deg,#ff4f45,#ffa14f)!important}
+
+/* Cabeçalho mecha igual ao sistema analítico, adaptado ao Capacitor LAB */
+.bcms-hero,.bcms-unified-header{position:relative;overflow:hidden}
+.bcms-header-compact.bcms-unified-header{
+  isolation:isolate!important;height:178px!important;min-height:178px!important;
+  background:#101115!important;border:1px solid #e47536!important;
+  box-shadow:0 9px 26px #0009,inset 0 1px 0 #f2b36826!important;
+  border-radius:11px!important;margin:0 0 13px!important;overflow:hidden!important;
+}
+.bcms-header-compact .bcms-hero-art{
+  position:absolute;inset:0;z-index:0;opacity:1!important;filter:none!important;
+  background:
+   radial-gradient(ellipse at 83% 50%,#ef70252c 0,transparent 27%),
+   conic-gradient(from -23deg at 81% 55%,transparent 0deg 25deg,#ffb4512c 25deg 26.4deg,transparent 26.4deg 148deg,#fa622521 148deg 149.4deg,transparent 149.4deg 360deg),
+   repeating-linear-gradient(137deg,transparent 0 39px,#ffad4422 40px 41px,transparent 42px 79px),
+   linear-gradient(111deg,#141519 0%,#212226 48%,#111317 100%)!important;
+}
+.bcms-header-compact.bcms-unified-header::before{
+  content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,#121317e8 0%,#14151ad1 32%,#11121669 55%,transparent 86%),linear-gradient(0deg,#080b0f7d 0%,transparent 45%)!important;
+}
+.bcms-header-compact.bcms-unified-header::after{
+  content:''!important;position:absolute;inset:0!important;z-index:4!important;pointer-events:none!important;
+  background:
+    linear-gradient(90deg,#ff9b46 0 12%,transparent 12% 88%,#ff9b46 88% 100%) top/100% 2px no-repeat,
+    linear-gradient(90deg,#ff6832 0 5%,transparent 5% 95%,#ff6832 95% 100%) bottom/100% 2px no-repeat,
+    linear-gradient(180deg,#ff9b4644,transparent 34%,transparent 70%,#fc7b3b33) left/2px 100% no-repeat,
+    linear-gradient(180deg,#ff9b4633,transparent 34%,transparent 70%,#fc7b3b33) right/2px 100% no-repeat!important;
+}
+.bcms-header-compact .bcms-hero-grid{position:absolute;inset:0;opacity:.63!important;z-index:1!important;mask-image:linear-gradient(90deg,transparent,#000 30%,#000 95%)!important;background-image:linear-gradient(#f18e2020 1px,transparent 1px),linear-gradient(90deg,#f18e2017 1px,transparent 1px)!important;background-size:35px 35px!important;pointer-events:none}
+.bcms-header-compact .bcms-header-emblem{display:block!important;position:absolute!important;left:auto!important;right:14.5%!important;top:50%!important;width:156px!important;height:156px!important;opacity:1!important;z-index:2!important;transform:translateY(-48%)!important;pointer-events:none!important;border:1px solid #ffa64065!important;border-radius:50%!important;background:repeating-conic-gradient(from 0deg,#ffb34f56 0 1.2deg,transparent 1.2deg 14deg)!important;box-shadow:0 0 27px #fa82312a,inset 0 0 30px #fa82312b!important;animation:mechaOrbit 36s linear infinite!important}
+.bcms-header-compact .bcms-header-emblem::before{content:''!important;position:absolute!important;inset:13px!important;border-radius:50%!important;background:radial-gradient(circle,transparent 0 16px,#ffa84c 17px 18px,transparent 19px 36px,#ff7e3a73 37px 38px,transparent 39px 60px,#ffb14a8a 61px 62px,transparent 63px)!important;border:1px dashed #fdb44a8a!important}
+.bcms-header-compact .bcms-header-emblem::after{content:''!important;position:absolute!important;inset:calc(50% - 8px)!important;width:16px!important;height:16px!important;border:2px solid #ffc04b!important;background:#ff6c2f!important;box-shadow:0 0 14px #ff682e,0 0 27px #ff9b344c!important;border-radius:2px!important;transform:rotate(45deg)!important}
+.bcms-header-compact .bcms-header-emblem>span{position:absolute!important;inset:-8px!important;border:2px solid transparent!important;border-top-color:#ff8e3b!important;border-bottom-color:#ef523a!important;border-radius:50%!important;opacity:.95!important;animation:mechaOrbit 11s linear infinite reverse!important}
+.bcms-header-compact .bcms-header-emblem>i{position:absolute;inset:33px;border:1px solid #ffb04d77;border-radius:50%;box-shadow:0 0 12px #ff8c3730}
+.bcms-header-compact .mecha-hud{position:absolute;z-index:2;right:24%;top:20%;width:170px;height:99px;pointer-events:none;opacity:.82;background:linear-gradient(90deg,transparent 49%,#ffac4840 50%,transparent 51%),linear-gradient(0deg,transparent 49%,#ffac4840 50%,transparent 51%)}
+.bcms-header-compact .mecha-hud::before,.bcms-header-compact .mecha-hud::after{content:'';position:absolute;width:38px;height:20px;border-color:#ffb356;border-style:solid}
+.bcms-header-compact .mecha-hud::before{top:0;left:0;border-width:2px 0 0 2px}
+.bcms-header-compact .mecha-hud::after{bottom:0;right:0;border-width:0 2px 2px 0}
+.bcms-header-compact .mecha-hud-target{position:absolute;top:50%;left:50%;width:38px;height:38px;transform:translate(-50%,-50%);border:1px solid #ffb15a;border-radius:50%;box-shadow:0 0 17px #ff9b3963}
+.bcms-header-compact .mecha-hud-pip{position:absolute;top:50%;left:50%;width:7px;height:7px;transform:translate(-50%,-50%);background:#ffb952;box-shadow:0 0 12px #ff8d36;border-radius:50%}
+.bcms-header-compact .mecha-rail{position:absolute;bottom:0;left:0;right:0;z-index:3;display:flex;align-items:end;gap:5px;height:10px;overflow:hidden;pointer-events:none}
+.bcms-header-compact .mecha-rail span{display:block;flex:1;height:3px;background:#ff7c3b;box-shadow:0 0 10px #ff8535;transform:skewX(-32deg)}
+.bcms-header-compact .mecha-rail span:nth-child(even){height:6px;background:#ffc451}
+.bcms-header-compact .mecha-rail span:nth-child(4){background:#ff4938;box-shadow:0 0 13px #ff6241}
+.bcms-header-compact .mecha-tracer{position:absolute;z-index:2;top:-65%;left:49%;height:220%;width:3px;background:linear-gradient(180deg,transparent,#ffa64a00 24%,#ffc14d9c 49%,#ff712f6d 54%,transparent 76%);transform:rotate(48deg);filter:drop-shadow(0 0 9px #ff8c3d);opacity:.7;animation:mechaBeam 6.5s ease-in-out infinite;pointer-events:none}
+.bcms-header-compact .mecha-status{position:absolute;right:19px;bottom:19px;z-index:5;display:flex;align-items:center;gap:7px;padding:5px 8px;border:1px solid #d68c4b70;background:#101216e5;color:#ffd5a5;font-size:9px;letter-spacing:.1em;font-weight:800;white-space:nowrap;pointer-events:none}
+.bcms-header-compact .mecha-status-led{display:inline-block;width:7px;height:7px;border-radius:50%;background:#fbc753;box-shadow:0 0 9px #ffc453;animation:mechaLed 2.4s ease-in-out infinite}
+.bcms-header-compact .mecha-status-divider{color:#ff7445}
+.bcms-header-compact .bcms-unified-main{position:absolute!important;left:23px!important;top:53%!important;transform:translateY(-50%)!important;max-width:calc(100% - 460px)!important;gap:15px!important;z-index:5!important;padding:0!important;display:flex;align-items:center}
+.bcms-header-compact .bcms-unified-main .bcms-logo{display:grid;place-items:center;flex:0 0 59px!important;width:59px!important;height:62px!important;background:#19191de8!important;border:1px solid #ffb249!important;border-radius:13px!important;box-shadow:inset 0 0 12px #ff8d341c,0 0 21px #ff8d3432!important}
+.bcms-header-compact .bcms-unified-main .bcms-logo svg{width:100%;height:100%}
+.bcms-header-compact .bcms-unified-identity{min-width:0}
+.bcms-header-compact .bcms-hero-title{display:flex;flex-direction:column;gap:5px!important;white-space:normal;margin:0!important}
+.bcms-header-compact .bcms-hero-title strong{font:900 clamp(34px,3.8vw,52px)/1 'Arial Nova',Arial,sans-serif!important;letter-spacing:.065em!important;text-shadow:0 0 15px #ff8b3424!important;color:#fff!important}
+.bcms-header-compact .bcms-hero-title>span{font-size:clamp(10px,.95vw,13px)!important;color:#f1e8dd!important;line-height:1.35!important}
+.bcms-header-compact .lab-project-chip{margin-top:7px;display:inline-flex;align-items:center;gap:8px;max-width:100%;padding:6px 10px;border:1px solid #b97d47;background:#191b20d9;color:#ffd39b;border-radius:999px;font-size:11px;font-weight:800;box-shadow:inset 0 0 0 1px #ffffff08}
+.bcms-header-compact .lab-project-chip::before{content:'';width:8px;height:8px;border-radius:50%;background:#ffbf59;box-shadow:0 0 10px #ffbf59}
+.bcms-header-compact .lab-project-chip #heroProject{display:inline-block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:min(52vw,320px);color:#fff2d8}
+.bcms-header-compact .bcms-unified-top{position:absolute!important;right:20px!important;left:auto!important;top:20px!important;z-index:8!important;padding:0!important}
+.bcms-header-compact .bcms-header-actions{display:flex!important;align-items:center!important;gap:9px!important;margin:0!important;width:auto!important;justify-content:flex-end!important}
+.bcms-header-compact .bcms-install-button{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:8px;background:#222126!important;border:1px solid #ffad52!important;color:#fff5e5!important;box-shadow:0 0 13px #ed893427,inset 0 0 10px #ffab3912!important}
+.bcms-header-compact .bcms-install-button:hover{background:#38302a!important;box-shadow:0 0 18px #ff9c4940!important}
+.bcms-header-compact .bcms-install-button svg,.bcms-header-compact .bcms-logout svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bcms-header-compact .bcms-logout{display:grid;place-items:center;width:40px;height:40px;border-radius:9px;background:#3e171e!important;border:1px solid #ff6d4f!important;color:#ffab96!important}
+@keyframes mechaOrbit{from{rotate:0deg}to{rotate:360deg}}
+@keyframes mechaBeam{0%,100%{opacity:.22;left:46%}50%{opacity:.8;left:56%}}
+@keyframes mechaLed{0%,100%{opacity:1;box-shadow:0 0 8px #ffb43d}50%{opacity:.48;box-shadow:0 0 3px #ffb43d}}
+@media(max-width:1060px){.bcms-header-compact .mecha-hud{right:26%;opacity:.5}.bcms-header-compact .bcms-header-emblem{right:17%;width:135px!important;height:135px!important}.bcms-header-compact .bcms-unified-main{max-width:calc(100% - 350px)!important}}
+@media(max-width:760px){
+ .bcms-header-compact.bcms-unified-header{height:205px!important;min-height:205px!important;padding:0!important}
+ .bcms-header-compact .bcms-unified-top{top:12px!important;right:13px!important;width:auto!important}
+ .bcms-header-compact .bcms-unified-main{left:15px!important;top:52%!important;max-width:calc(100% - 50px)!important;gap:10px!important}
+ .bcms-header-compact .bcms-unified-main .bcms-logo{width:49px!important;height:51px!important;flex-basis:49px!important}
+ .bcms-header-compact .bcms-hero-title strong{font-size:clamp(30px,7vw,43px)!important}
+ .bcms-header-compact .bcms-hero-title>span{font-size:11px!important;max-width:360px!important}
+ .bcms-header-compact .bcms-header-emblem{right:-48px!important;top:60%!important;width:138px!important;height:138px!important;opacity:.55!important}
+ .bcms-header-compact .mecha-hud{display:none!important}
+ .bcms-header-compact .mecha-status{right:13px;bottom:16px;font-size:8px}
+ .bcms-header-compact .bcms-header-actions{width:auto!important}
+ .bcms-header-compact .bcms-install-button{min-height:35px!important;padding:7px 9px!important;font-size:11px!important}
+ .bcms-header-compact .bcms-logout{width:37px!important;height:35px!important;min-width:37px!important;flex-basis:37px!important}
+}
+@media(max-width:420px){.bcms-header-compact .bcms-hero-title strong{font-size:30px!important}.bcms-header-compact .bcms-hero-title>span{font-size:10px!important}.bcms-header-compact .mecha-status{letter-spacing:0}.bcms-header-compact .bcms-unified-main{top:53%!important}}
+@media(prefers-reduced-motion:reduce){.bcms-header-compact .bcms-header-emblem,.bcms-header-compact .bcms-header-emblem>span,.bcms-header-compact .mecha-tracer,.bcms-header-compact .mecha-status-led{animation:none!important}}
+
 
 </style>
 </head>
 <body>
 <main id="appScreen" hidden>
- <header class="hero mecha-hud-panel"><div class="mecha-art" aria-hidden="true"><div class="mecha-emblem"><span></span><i></i></div><div class="mecha-frame"><b class="mecha-target"></b></div><div class="mecha-beam"></div><div class="mecha-pip">BCMS95 LAB · SISTEMA ATIVO</div></div><div class="hero-copy"><div class="hero-top">BCMS95 / Laboratório de componentes</div><h1>Conversor de <span>Capacitância</span></h1><p>Registros por projeto · Inspeção documental · Relatório Tapeboard</p></div><div class="hero-controls"><span class="chip blue" id="heroProject">Nenhum projeto selecionado</span><button class="btn soft small" id="backupExport">Backup</button><button class="btn soft small" id="backupImport">Importar</button><button class="btn danger small" id="logout">Sair <span aria-hidden="true">↪</span></button></div></header>
+ <header class="bcms-hero bcms-unified-header bcms-header-compact" aria-label="BCMS95 LAB — identificação e acesso">
+ <div class="bcms-hero-art" aria-hidden="true"></div>
+ <div class="bcms-hero-grid" aria-hidden="true"></div>
+ <div class="bcms-header-emblem" aria-hidden="true"><span></span><i></i></div>
+ <div class="mecha-rail" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+ <div class="mecha-hud" aria-hidden="true"><b class="mecha-hud-target"></b><b class="mecha-hud-pip"></b></div>
+ <div class="mecha-tracer" aria-hidden="true"></div>
+ <div class="mecha-status" aria-hidden="true"><span class="mecha-status-led"></span> SISTEMA ONLINE <span class="mecha-status-divider">//</span> CAPACITOR LAB</div>
+ <div class="bcms-unified-main">
+  <div class="symbol bcms-logo" aria-hidden="true"><svg viewBox="0 0 60 60" role="img"><defs><linearGradient id="bcmsLogoGlowLab" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD76A"/><stop offset="1" stop-color="#FF8A3D"/></linearGradient></defs><path d="M10 48H51" stroke="#ffd986" stroke-width="2.3" stroke-linecap="round"/><rect x="13" y="32" width="8" height="15" rx="1.1" fill="#ffffff"/><rect x="26" y="24" width="8" height="23" rx="1.1" fill="#ffffff"/><rect x="39" y="17" width="8" height="30" rx="1.1" fill="#ffffff"/><path d="M10 34L24 25L35 26L47 12" stroke="url(#bcmsLogoGlowLab)" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M47 6L49 11L54 12L50 16L51 21L47 18L43 21L44 16L40 12L45 11Z" fill="#2d2110" stroke="#FFD76A" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+  <div class="bcms-unified-identity">
+   <div class="bcms-hero-title"><strong>BCMS95</strong><span>Conversor de Capacitância · Registros por projeto · Relatório Tapeboard</span></div>
+   <div class="lab-project-chip">Projeto atual <span id="heroProject">Nenhum projeto selecionado</span></div>
+  </div>
+ </div>
+ <div class="bcms-unified-top"><div class="bcms-header-actions"><button type="button" class="btn bcms-install-button" id="backupImport" title="Importar projetos do laboratório"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V9m0 0 4 4m-4-4-4 4M4 4v4h16V4"/></svg>Importar</button><button type="button" id="logout" class="btn bcms-logout" aria-label="Logoff — encerrar sessão" title="Logoff — encerrar sessão"><svg class="logout-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"/><path d="M13 8l4 4-4 4M8 12h9"/></svg></button></div></div>
+</header>
  <nav class="nav" aria-label="Módulos"><button class="active" data-tab="converter">01 · Conversor de Capacitância</button><button data-tab="tapeboard" class="locked" id="reportTabBtn">02 · Relatório Tapeboard <span id="tabLock" aria-hidden="true">🔒</span></button></nav>
  <div class="maincontent">
   <section id="converter" class="active">
@@ -632,7 +677,7 @@ $('projectSelect').addEventListener('change',e=>selectProject(e.target.value));$
 $('convertBtn').addEventListener('click',()=>{try{$('conversionError').textContent='';calcConversion()}catch(e){$('conversionError').textContent=e.message}});['capValue','capCode','capTolerance','conversionNote','componentName'].forEach(id=>$(id).addEventListener('input',refreshLiveConversion));$('capUnit').addEventListener('change',refreshLiveConversion);$('memorizeBtn').addEventListener('click',saveConversion);$('clearConvert').addEventListener('click',clearConversion);$('conversionHistory').addEventListener('click',e=>{const edit=e.target.closest('[data-edit-conv]'),del=e.target.closest('[data-del-conv]');if(edit)editConversion(edit.dataset.editConv);if(del){const p=getActive();if(confirm('Excluir esta conversão?')){p.conversions=p.conversions.filter(c=>c.id!==del.dataset.delConv);touch(p)}}});
 $('addNote').addEventListener('click',saveNote);$('clearNote').addEventListener('click',clearManual);$('manualList').addEventListener('click',e=>{const edit=e.target.closest('[data-edit-note]'),del=e.target.closest('[data-del-note]');const p=getActive();if(edit){const n=p?.notes.find(x=>x.id===edit.dataset.editNote);if(!n)return;editingNote=n.id;$('manualComponent').value=n.component||'';$('manualCategory').value=n.category||'Outro';$('manualStatus').value=n.status||'Informativo';$('manualText').value=n.text||'';$('manualEvidence').value=n.evidence||'';$('addNote').textContent='Atualizar observação';$('manualText').focus()}if(del&&confirm('Excluir esta observação?')){p.notes=p.notes.filter(x=>x.id!==del.dataset.delNote);touch(p)}});
 $('addSignature').addEventListener('click',()=>{const p=getActive();if(!p)return notify('Selecione um projeto.');const name=$('sigName').value.trim();if(!name)return notify('Informe o nome do signatário.');p.signatures.push({id:uid(),name,role:$('sigRole').value.trim(),date:$('sigDate').value});$('sigName').value='';$('sigRole').value='';$('sigDate').value='';touch(p);notify('Campo de assinatura adicionado.')} );$('signatureList').addEventListener('click',e=>{const b=e.target.closest('[data-del-signature]');const p=getActive();if(b&&p){p.signatures=p.signatures.filter(s=>s.id!==b.dataset.delSignature);touch(p)}});$('saveReport').addEventListener('click',()=>saveProject());$('printPdf').addEventListener('click',printReport);$('exportExcel').addEventListener('click',exportXlsx);
-$('backupExport').addEventListener('click',prepareBackup);$('backupImport').addEventListener('click',()=>$('backupFile').click());$('backupFile').addEventListener('change',e=>{importBackup(e.target.files?.[0]);e.target.value=''});
+$('backupImport').addEventListener('click',()=>$('backupFile').click());$('backupFile').addEventListener('change',e=>{importBackup(e.target.files?.[0]);e.target.value=''});
 
 /* Preenchimento didático: não salva registros e não altera a sessão de autenticação. */
 const capExamples={
