@@ -578,12 +578,28 @@ html,body,button,input,select,textarea,summary,option,table,th,td,small,label,
 #appScreen .kpirow .kpi:nth-child(3) strong{color:#69d8a8!important}
 #appScreen .bcms-hero-title strong{color:#fff!important}
 
-/* Aba Conversor com o mesmo vermelho encarnado (#f32740) do card de códigos SMD. */
+/* Aba 01 segue o modelo dos pequenos cards de códigos SMD:
+   superfície grafite-vinho, borda vermelha e texto claro, sem preenchimento vermelho chapado. */
+#appScreen .nav button[data-tab="converter"],
 #appScreen .nav button[data-tab="converter"].active{
-  background:#f32740!important;
-  border-color:#f32740!important;
-  color:#fff!important;
-  box-shadow:inset 0 -3px #ff7282!important;
+ background:#4a2531!important;
+ background-image:none!important;
+ border:1px solid #c34f60!important;
+ border-left:4px solid #f32740!important;
+ color:#ffe6e8!important;
+ border-radius:9px!important;
+ box-shadow:none!important;
+ font-weight:900!important;
+}
+#appScreen .nav button[data-tab="converter"].active{
+ background:#562938!important;
+ border-color:#f32740!important;
+ border-left-color:#f32740!important;
+ box-shadow:inset 0 0 0 1px #ff65741b!important;
+}
+#appScreen .nav button[data-tab="converter"]:hover:not(:disabled){
+ background:#62313e!important;
+ border-color:#ff6574!important;
 }
 #appScreen .example-box:not(.report-example){border-left-color:#f32740!important;}
 </style>
