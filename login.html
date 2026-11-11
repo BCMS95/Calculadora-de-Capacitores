@@ -12,15 +12,15 @@
   --bg2:#111318;
   --panel:#15181eec;
   --panel2:#1b2028ee;
-  --line:#ff3d3d;
-  --line2:#ffac69;
-  --accent:#ff4b4b;
-  --accent2:#ffa45a;
+  --line:#ff3552;
+  --line2:#ff9b3d;
+  --accent:#ff3552;
+  --accent2:#ff9b3d;
   --text:#f5f1ea;
-  --muted:#d8c2ab;
+  --muted:#ffbbc1;
   --input:#0f1318;
-  --inputLine:#7d5230;
-  --ok:#48df89;
+  --inputLine:#b6223e;
+  --ok:#ff9b3d;
   --danger:#ff8f96;
 }
 *{box-sizing:border-box}
@@ -32,8 +32,8 @@ body{
   font:14px "Arial Nova",Arial,sans-serif;
   color:var(--text);
   background:
-    radial-gradient(circle at 18% 18%,#ff2a2a18 0 6%,transparent 7% 18%),
-    radial-gradient(circle at 76% 24%,#ff252514 0 4%,transparent 5% 12%),
+    radial-gradient(circle at 18% 18%,#ff355218 0 6%,transparent 7% 18%),
+    radial-gradient(circle at 76% 24%,#ff355214 0 4%,transparent 5% 12%),
     radial-gradient(circle at 50% 110%,#4d1a1310 0 20%,transparent 21% 45%),
     linear-gradient(180deg,#0c0d12 0%,#060709 100%);
 }
@@ -41,8 +41,8 @@ body::before{
   content:"";
   position:fixed; inset:0;
   background:
-    repeating-linear-gradient(125deg,transparent 0 28px,#ff3c3c10 28px 29px,transparent 29px 78px),
-    linear-gradient(90deg,#00000000 0%,#ff2d2d0c 35%,#00000000 70%);
+    repeating-linear-gradient(125deg,transparent 0 28px,#ff355210 28px 29px,transparent 29px 78px),
+    linear-gradient(90deg,#00000000 0%,#ff35520c 35%,#00000000 70%);
   opacity:.6;
   pointer-events:none;
 }
@@ -50,27 +50,27 @@ body::before{
 .ring,.beam,.spark,.gridline{position:absolute;pointer-events:none}
 .ring{
   right:-60px; top:30px; width:420px; height:420px; border-radius:50%;
-  border:2px solid #ff282832; box-shadow:0 0 25px #ff1c1c12,inset 0 0 30px #ff3d3d08;
+  border:2px solid #ff355232; box-shadow:0 0 25px #ff355212,inset 0 0 30px #ff355208;
 }
-.ring::before,.ring::after{content:"";position:absolute;border-radius:50%;inset:46px;border:2px solid #ff9c4b2c}
-.ring::after{inset:120px;border-color:#ff34343c}
+.ring::before,.ring::after{content:"";position:absolute;border-radius:50%;inset:46px;border:2px solid #ff9b3d2c}
+.ring::after{inset:120px;border-color:#ff35523c}
 .beam{
   inset:auto auto 0 0; width:100%; height:100%;
   background:
-    linear-gradient(130deg,transparent 48%,#ff2d2d18 50%,transparent 52%),
-    linear-gradient(145deg,transparent 22%,#ff2b2b11 24%,transparent 26%);
+    linear-gradient(130deg,transparent 48%,#ff355218 50%,transparent 52%),
+    linear-gradient(145deg,transparent 22%,#ff355211 24%,transparent 26%);
   filter:blur(1px);
   animation:sweep 9s linear infinite alternate;
 }
 .spark{
-  width:16px; height:16px; border-radius:50%; background:#ff4e4e55; box-shadow:0 0 18px #ff4d4d99,0 0 34px #ff292990;
+  width:16px; height:16px; border-radius:50%; background:#ff355255; box-shadow:0 0 18px #ff355299,0 0 34px #ff355290;
   left:18%; top:22%; animation:pulse 2.6s ease-in-out infinite alternate;
 }
 .spark.s2{width:10px;height:10px;left:77%;top:19%;animation-duration:3.3s}
 .spark.s3{width:9px;height:9px;left:67%;top:68%;animation-duration:4s}
 .gridline{
   inset:0;
-  background-image:linear-gradient(#ff454510 1px,transparent 1px),linear-gradient(90deg,#ff454510 1px,transparent 1px);
+  background-image:linear-gradient(#ff355210 1px,transparent 1px),linear-gradient(90deg,#ff355210 1px,transparent 1px);
   background-size:52px 52px; opacity:.18; mask-image:linear-gradient(180deg,#000 20%,transparent 100%);
 }
 .wrapper{position:relative;z-index:2;min-height:100%;display:grid;place-items:center;padding:28px}
@@ -80,21 +80,21 @@ body::before{
   padding:22px 24px 20px;
   border-radius:18px;
   background:linear-gradient(180deg,var(--panel) 0%,var(--panel2) 100%);
-  border:1px solid #ff444450;
-  box-shadow:0 24px 90px #0009, inset 0 0 0 1px #ffac6916, 0 0 45px #ff3a3a12;
+  border:1px solid #ff355250;
+  box-shadow:0 24px 90px #0009, inset 0 0 0 1px #ff9b3d16, 0 0 45px #ff355212;
   overflow:hidden;
 }
 .card::before{
   content:"";position:absolute;inset:0;
   background:
-    radial-gradient(circle at 84% 21%,#ff2a2a20 0 7%,transparent 8% 20%),
-    linear-gradient(90deg,#ff4c4c0d,#0000 44%),
+    radial-gradient(circle at 84% 21%,#ff355220 0 7%,transparent 8% 20%),
+    linear-gradient(90deg,#ff9b3d0d,#0000 44%),
     repeating-linear-gradient(135deg,transparent 0 34px,#ffffff05 34px 35px,transparent 35px 88px);
   pointer-events:none;
 }
 .card::after{
   content:"";position:absolute;inset:10px;
-  border:1px solid #ff9b4a22;
+  border:1px solid #ff9b3d22;
   border-radius:12px;
   clip-path:polygon(0 0,100% 0,100% 86%,96% 100%,0 100%);
   pointer-events:none;
@@ -107,26 +107,26 @@ body::before{
 .signal{
   display:flex; align-items:center; gap:8px;
   padding:6px 10px;
-  border:1px solid #ff4f4f6e;
+  border:1px solid #ff35526e;
   background:#110f13d8;
-  color:#ffd9b4;
+  color:#ffbbc1;
   font-size:10px; font-weight:800; letter-spacing:.14em; text-transform:uppercase;
 }
-.signal .led{width:8px;height:8px;border-radius:50%;background:#ff3030;box-shadow:0 0 10px #ff3636,0 0 18px #ff2b2b}
+.signal .led{width:8px;height:8px;border-radius:50%;background:#ff3552;box-shadow:0 0 10px #ff3552,0 0 18px #ff3552}
 .badge{
-  padding:6px 10px; border-radius:999px; border:1px solid #ffa65d90; color:#ffd4b1;
+  padding:6px 10px; border-radius:999px; border:1px solid #ff9b3d90; color:#ffcf9d;
   background:#2b2018d9; font-size:10px; font-weight:800; letter-spacing:.14em; text-transform:uppercase;
 }
 .identity{position:relative;z-index:2;display:grid;grid-template-columns:62px 1fr;gap:14px;align-items:center;margin-bottom:16px}
 .logo{
   width:62px; height:62px; display:grid; place-items:center;
-  border-radius:15px; border:1px solid #ff5252; background:#151217e0;
-  box-shadow:inset 0 0 16px #ff4d4d18, 0 0 20px #ff2d2d12;
+  border-radius:15px; border:1px solid #ff3552; background:#151217e0;
+  box-shadow:inset 0 0 16px #ff355218, 0 0 20px #ff355212;
 }
 .logo svg{width:42px;height:42px}
 .title h1{margin:0;color:#fff;font-size:30px;line-height:1;letter-spacing:.03em}
-.title h1 em{font-style:normal;color:#ff4f4f;text-shadow:0 0 14px #ff4f4f44}
-.title .sub{margin:7px 0 0;color:#f1a9a9;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:800}
+.title h1 em{font-style:normal;color:#ff3552;text-shadow:0 0 14px #ff355244}
+.title .sub{margin:7px 0 0;color:#ffcf9d;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:800}
 .title .mini{margin:6px 0 0;color:#d8cdc2;font-size:12px}
 .form-grid{position:relative;z-index:2}
 label{display:block;margin:12px 0 7px;color:#f3e1d0;font-weight:700;letter-spacing:.02em}
@@ -138,32 +138,32 @@ input{
   transition:.2s border-color,.2s box-shadow,.2s transform;
 }
 input::placeholder{color:#8f8a84}
-input:focus{border-color:#ff5d5d;box-shadow:0 0 0 3px #ff424220,0 0 18px #ff424218;transform:translateY(-1px)}
+input:focus{border-color:#ff9b3d;box-shadow:0 0 0 3px #ff355220,0 0 18px #ff355218;transform:translateY(-1px)}
 button{
   border:0; outline:none; cursor:pointer; font:inherit;
 }
 #go{
   position:relative; z-index:2; width:100%; margin-top:18px; padding:14px 16px; border-radius:11px;
-  border:1px solid #ffa962; color:#1f1208; font-weight:900; letter-spacing:.03em;
-  background:linear-gradient(90deg,#ffae6b,#ff4f4f 52%,#ff4747);
-  box-shadow:0 8px 24px #ff3a3a24, inset 0 1px 0 #fff5;
+  border:1px solid #ff9b3d; color:#1f1208; font-weight:900; letter-spacing:.03em;
+  background:linear-gradient(90deg,#ff9b3d,#ff3552 52%,#ff3552);
+  box-shadow:0 8px 24px #ff355224, inset 0 1px 0 #fff5;
 }
 #go:hover{filter:brightness(1.03);transform:translateY(-1px)}
 #go:disabled{opacity:.65;cursor:wait;transform:none}
 .error{position:relative;z-index:2;color:var(--danger);font-size:12px;min-height:18px;margin:12px 0 0;text-align:center;font-weight:700}
 .foot{
   position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;
-  color:#d5c5b3;text-align:center;font-size:11px;margin:18px 0 0;padding-top:14px;border-top:1px solid #ff43431f
+  color:#d5c5b3;text-align:center;font-size:11px;margin:18px 0 0;padding-top:14px;border-top:1px solid #ff35521f
 }
-.foot .ok{display:inline-flex;align-items:center;gap:6px;color:#ffe6bf}
+.foot .ok{display:inline-flex;align-items:center;gap:6px;color:#ffcf9d}
 .foot .ok::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok)}
 .corner{
   position:absolute; width:18px; height:18px; border-color:#fff3; z-index:2;
 }
 .c1{top:12px;left:12px;border-top:2px solid #fff7;border-left:2px solid #fff7;border-top-left-radius:8px}
 .c2{top:12px;right:12px;border-top:2px solid #fff7;border-right:2px solid #fff7;border-top-right-radius:8px}
-.c3{bottom:12px;left:12px;border-bottom:2px solid #ff4e4e55;border-left:2px solid #ff4e4e55;border-bottom-left-radius:8px}
-.c4{bottom:12px;right:12px;border-bottom:2px solid #ff4e4e55;border-right:2px solid #ff4e4e55;border-bottom-right-radius:8px}
+.c3{bottom:12px;left:12px;border-bottom:2px solid #ff355255;border-left:2px solid #ff355255;border-bottom-left-radius:8px}
+.c4{bottom:12px;right:12px;border-bottom:2px solid #ff355255;border-right:2px solid #ff355255;border-bottom-right-radius:8px}
 @keyframes pulse{from{transform:scale(.95);opacity:.5}to{transform:scale(1.1);opacity:1}}
 @keyframes sweep{from{transform:translateX(-1.5%) translateY(-1%)}to{transform:translateX(1.5%) translateY(1%)}}
 @media (max-width:560px){
@@ -184,19 +184,19 @@ button{
 #mecha-bg .ring,#mecha-bg .beam,#mecha-bg .spark{display:none}
 #mecha-bg .gridline{opacity:.24}
 #mecha-bg .mecha-side{position:absolute;left:clamp(12px,4vw,60px);top:50%;transform:translateY(-50%);
-  width:min(19vw,225px);height:52vh;min-height:300px;border-left:1px solid #ff3d3d38;
-  background:repeating-linear-gradient(180deg,transparent 0 22px,#ff46461c 23px 24px,transparent 25px 44px);
+  width:min(19vw,225px);height:52vh;min-height:300px;border-left:1px solid #ff355238;
+  background:repeating-linear-gradient(180deg,transparent 0 22px,#ff35521c 23px 24px,transparent 25px 44px);
   mask-image:linear-gradient(180deg,transparent,#000 17% 83%,transparent);opacity:.55}
-#mecha-bg .mecha-side::after{content:"";position:absolute;top:8%;left:15px;height:65%;border-left:2px solid #ffa45a55}
+#mecha-bg .mecha-side::after{content:"";position:absolute;top:8%;left:15px;height:65%;border-left:2px solid #ff9b3d55}
 #mecha-bg .mecha-edge{position:absolute;right:2vw;bottom:6vh;width:clamp(80px,14vw,175px);height:120px;
-  border-bottom:2px solid #ff4646a0;border-right:2px solid #ff464677;clip-path:polygon(18% 0,100% 0,100% 100%,0 100%);
+  border-bottom:2px solid #ff3552a0;border-right:2px solid #ff355277;clip-path:polygon(18% 0,100% 0,100% 100%,0 100%);
   opacity:.55}
 .card{transition:box-shadow .25s ease,border-color .25s ease;transform-style:preserve-3d}
-.card:hover{border-color:#ff5b5b91;box-shadow:0 26px 90px #000b,inset 0 0 0 1px #ffac6918,0 0 45px #ff3a3a25}
+.card:hover{border-color:#ff355291;box-shadow:0 26px 90px #000b,inset 0 0 0 1px #ff9b3d18,0 0 45px #ff355225}
 .card .topbar,.card .identity,.card .form-grid{transform:translateZ(8px)}
 .card .logo{animation:mechaLogoEnergy 4s ease-in-out infinite alternate}
-@keyframes mechaLogoEnergy{from{box-shadow:inset 0 0 10px #ff4d4d12,0 0 5px #ff2d2d10}
-to{box-shadow:inset 0 0 22px #ff4d4d2c,0 0 22px #ff4e4e35}}
+@keyframes mechaLogoEnergy{from{box-shadow:inset 0 0 10px #ff355212,0 0 5px #ff355210}
+to{box-shadow:inset 0 0 22px #ff35522c,0 0 22px #ff9b3d35}}
 @media(max-width:720px){#mecha-bg .mecha-side{display:none}#mecha-bg .mecha-edge{opacity:.24}}
 @media(prefers-reduced-motion:reduce){.card .logo{animation:none}.card{transition:none}}
 
@@ -224,13 +224,13 @@ to{box-shadow:inset 0 0 22px #ff4d4d2c,0 0 22px #ff4e4e35}}
     <div class="identity">
       <div class="logo" aria-hidden="true">
         <svg viewBox="0 0 60 60" role="img" aria-label="BCMS95: gráfico e estrela">
-          <defs><linearGradient id="bcmsLoginGlow" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffad6a"/><stop offset="1" stop-color="#ff3d3d"/></linearGradient></defs>
-          <path d="M10 48H51" stroke="#ffbc86" stroke-width="2.3" stroke-linecap="round"/>
+          <defs><linearGradient id="bcmsLoginGlow" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff9b3d"/><stop offset="1" stop-color="#ff3552"/></linearGradient></defs>
+          <path d="M10 48H51" stroke="#ff9b3d" stroke-width="2.3" stroke-linecap="round"/>
           <rect x="13" y="32" width="8" height="15" rx="1.1" fill="#ffffff"/>
           <rect x="26" y="24" width="8" height="23" rx="1.1" fill="#ffffff"/>
           <rect x="39" y="17" width="8" height="30" rx="1.1" fill="#ffffff"/>
           <path d="M10 34L24 25L35 26L47 12" stroke="url(#bcmsLoginGlow)" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M47 6L49 11L54 12L50 16L51 21L47 18L43 21L44 16L40 12L45 11Z" fill="#2d2110" stroke="#ffad6a" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M47 6L49 11L54 12L50 16L51 21L47 18L43 21L44 16L40 12L45 11Z" fill="#2d2110" stroke="#ff9b3d" stroke-width="1.8" stroke-linejoin="round"/>
         </svg>
       </div>
       <div class="title">
@@ -241,7 +241,8 @@ to{box-shadow:inset 0 0 22px #ff4d4d2c,0 0 22px #ff4e4e35}}
     </div>
 
     <div class="form-grid">
-      
+      <label for="user">Usuário</label>
+      <div class="input-wrap"><input id="user" name="username" autocomplete="username" required maxlength="80" autofocus placeholder="Informe seu usuário"></div>
 
       <label for="pass">Senha</label>
       <div class="input-wrap"><input id="pass" name="password" type="password" autocomplete="current-password" required placeholder="Informe sua senha"></div>
@@ -271,7 +272,7 @@ to{box-shadow:inset 0 0 22px #ff4d4d2c,0 0 22px #ff4e4e35}}
  const particles=Array.from({length:55},(_,i)=>({
    x:rand(i+2),y:rand(i+200),r:1.1+rand(i+600)*2,
    speed:.008+rand(i+700)*.018,phase:rand(i+80)*TAU,
-   hue:i%7===0?27:0
+   hue:i%7===0?28:354
  }));
  function resize(){
    w=window.innerWidth; h=window.innerHeight;
@@ -305,20 +306,20 @@ to{box-shadow:inset 0 0 22px #ff4d4d2c,0 0 22px #ff4e4e35}}
    ctx.save();ctx.globalCompositeOperation='screen';
    // luz suave de fundo, sem prejudicar o formulário
    const halo=ctx.createRadialGradient(coreX,coreY,8,coreX,coreY,R*1.65);
-   halo.addColorStop(0,'rgba(255,61,61,.14)');
-   halo.addColorStop(.45,'rgba(255,39,39,.035)');
-   halo.addColorStop(1,'rgba(255,39,39,0)');
+   halo.addColorStop(0,'rgba(255,56,82,.14)');
+   halo.addColorStop(.45,'rgba(255,56,82,.035)');
+   halo.addColorStop(1,'rgba(255,56,82,0)');
    ctx.fillStyle=halo;ctx.fillRect(coreX-R*2,coreY-R*2,R*4,R*4);
    // anéis mecanizados, segmentos contrarrotativos
    for(let k=0;k<4;k++){
      const radius=R*(.54+k*.22);
-     arc(coreX,coreY,radius,0,TAU,`rgba(255,${55+k*12},69,${.06+k*.025})`,1);
+     arc(coreX,coreY,radius,0,TAU,`rgba(255,${55+k*10},79,${.06+k*.025})`,1);
      const count=6+k*3;
      for(let j=0;j<count;j++){
        const a=t*(k%2?-1:1)*(.095+k*.04)+j*TAU/count+k;
        const span=(TAU/count)*(.32+(j%3)*.12);
        arc(coreX,coreY,radius,a,a+span,
-         j%3===0?'rgba(255,172,105,.8)':'rgba(255,48,48,.51)',j%3===0?2.6:1.7);
+         j%3===0?'rgba(255,155,61,.8)':'rgba(255,53,82,.51)',j%3===0?2.6:1.7);
      }
    }
    // segmentos externos tipo blindagem
@@ -326,30 +327,30 @@ to{box-shadow:inset 0 0 22px #ff4d4d2c,0 0 22px #ff4e4e35}}
      const a=t*.074+j*TAU/12;
      const inR=R*1.28,outR=R*(1.36+(j%3)*.027);
      line(coreX+Math.cos(a)*inR,coreY+Math.sin(a)*inR,
-       coreX+Math.cos(a)*outR,coreY+Math.sin(a)*outR,'rgba(255,153,69,.45)',1.5);
+       coreX+Math.cos(a)*outR,coreY+Math.sin(a)*outR,'rgba(255,156,62,.45)',1.5);
    }
-   drawHex(coreX,coreY,R*.36,-t*.1,'rgba(255,154,72,.3)',1.2);
-   drawHex(coreX,coreY,R*.25,t*.145,'rgba(255,60,60,.64)',1.6);
-   drawHex(coreX,coreY,R*.16,Math.PI/6,'rgba(255,166,93,.9)',2.2);
+   drawHex(coreX,coreY,R*.36,-t*.1,'rgba(255,154,60,.3)',1.2);
+   drawHex(coreX,coreY,R*.25,t*.145,'rgba(255,53,82,.64)',1.6);
+   drawHex(coreX,coreY,R*.16,Math.PI/6,'rgba(255,155,61,.9)',2.2);
    // única interação com o mouse: luz galáctica pulsante
    const cx=px;
    const cy=py;
    const pulse=30+Math.sin(t*4.1)*6;
    const g=ctx.createRadialGradient(cx,cy,0,cx,cy,pulse*1.9);
-   g.addColorStop(0,'rgba(255,246,186,.98)');
-   g.addColorStop(.12,'rgba(255,172,104,.82)');
-   g.addColorStop(.32,'rgba(255,71,71,.42)');
-   g.addColorStop(.62,'rgba(255,42,42,.16)');
-   g.addColorStop(1,'rgba(255,0,0,0)');
+   g.addColorStop(0,'rgba(255,231,199,.98)');
+   g.addColorStop(.12,'rgba(255,155,61,.82)');
+   g.addColorStop(.32,'rgba(255,53,82,.42)');
+   g.addColorStop(.62,'rgba(255,53,82,.16)');
+   g.addColorStop(1,'rgba(255,53,82,0)');
    ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,pulse*1.9,0,TAU);ctx.fill();
-   ctx.beginPath();ctx.arc(cx,cy,pulse*.18,0,TAU);ctx.fillStyle='rgba(255,240,190,.95)';ctx.fill();
+   ctx.beginPath();ctx.arc(cx,cy,pulse*.18,0,TAU);ctx.fillStyle='rgba(255,231,199,.95)';ctx.fill();
    // feixes diagonais vivos com movimento contínuo
    for(let j=0;j<5;j++){
      const shift=(t*14+j*130)%(w+320)-160;
      const fade=ctx.createLinearGradient(shift-145,0,shift+130,h);
-     fade.addColorStop(0,'rgba(255,47,47,0)');
-     fade.addColorStop(.55,j%2?'rgba(255,164,90,.055)':'rgba(255,45,45,.07)');
-     fade.addColorStop(1,'rgba(255,47,47,0)');
+     fade.addColorStop(0,'rgba(255,53,82,0)');
+     fade.addColorStop(.55,j%2?'rgba(255,155,61,.055)':'rgba(255,53,82,.07)');
+     fade.addColorStop(1,'rgba(255,53,82,0)');
      line(shift-180,0,shift+145,h,fade,j%2?1.7:2.4);
    }
    // partículas independentes, profundidade e leve atração pelo ponteiro
@@ -360,7 +361,7 @@ to{box-shadow:inset 0 0 22px #ff4d4d2c,0 0 22px #ff4e4e35}}
      const alpha=.24+.35*(.5+.5*Math.sin(t*1.2+p.phase));
      ctx.fillStyle=`hsla(${p.hue},100%,68%,${alpha})`;
      ctx.beginPath();ctx.arc(x,y,p.r,0,TAU);ctx.fill();
-     if(i%11===0){arc(x,y,p.r*3,0,TAU,`rgba(255,156,75,${alpha*.12})`,1)}
+     if(i%11===0){arc(x,y,p.r*3,0,TAU,`rgba(255,155,61,${alpha*.12})`,1)}
    }
    ctx.restore();
  }
@@ -393,6 +394,7 @@ document.getElementById('form').addEventListener('submit',async e=>{
       headers:{'Content-Type':'application/json'},
       credentials:'same-origin',
       body:JSON.stringify({
+        username:document.getElementById('user').value.trim(),
         password:document.getElementById('pass').value
       })
     });
@@ -406,10 +408,6 @@ document.getElementById('form').addEventListener('submit',async e=>{
     b.disabled=false;
   }
 });
-fetch('/api/auth/session',{credentials:'same-origin',cache:'no-store'})
- .then(res=>res.ok?res.json():null)
- .then(data=>{if(data?.authenticated)location.replace('/')})
- .catch(()=>{});
 </script>
 </body>
 </html>
