@@ -892,6 +892,23 @@ html,body,button,input,select,textarea,option,summary,table,svg text{
 @media(max-width:980px){#appScreen .simple-layout{grid-template-columns:1fr}}
 @media(max-width:680px){#appScreen .lab-module-nav{padding:10px}#appScreen .lab-module-selector{width:100%;flex-wrap:wrap}#appScreen #labModuleSelect{width:100%;min-width:0}#appScreen .simple-fields{grid-template-columns:1fr}#appScreen .simple-ref-grid{grid-template-columns:1fr}#appScreen .simple-code-controls{flex-wrap:wrap}#appScreen .simple-code-btn{width:100%}}
 
+
+/* IDENTIDADE UNIFICADA DAS DUAS ÁREAS PROTEGIDAS — VERDE NEON */
+#appScreen .lab-module-selector[data-mode=converter],#appScreen .lab-module-selector[data-mode=tapeboard]{border:1px solid #39ff14!important;background:#1b2420!important}
+#appScreen .lab-module-selector[data-mode=converter] .lab-module-led,#appScreen .lab-module-selector[data-mode=tapeboard] .lab-module-led{background:#39ff14!important;box-shadow:0 0 13px #39ff1499!important}
+#appScreen .lab-module-selector[data-mode=converter]>label,#appScreen .lab-module-selector[data-mode=tapeboard]>label{color:#c6ffb8!important}
+#appScreen .lab-module-selector[data-mode=converter] #labModuleSelect,#appScreen .lab-module-selector[data-mode=tapeboard] #labModuleSelect{border-color:#39ff14!important;color:#eaffdf!important}
+#appScreen .module-project-panel{display:flex;flex-direction:column;gap:10px;padding:13px 16px;margin:0 0 17px;background:#1c2222!important;border:1px solid #39ff14a8!important;border-left:4px solid #39ff14!important;border-radius:11px;box-shadow:inset 0 0 0 1px #39ff1411!important}
+#appScreen .module-project-title{display:flex;align-items:center;gap:9px;color:#bdffb1;font:700 11px 'Arial Nova',Arial,sans-serif!important;letter-spacing:.07em}
+#appScreen .module-project-title i{width:9px;height:9px;border-radius:50%;background:#39ff14;box-shadow:0 0 11px #39ff1499}
+#appScreen .module-project-panel .lab-project-chip{padding:0!important;border:0!important;box-shadow:none!important;background:transparent!important;width:100%;max-width:660px!important}
+#appScreen .module-project-panel .lab-project-chip::before{display:none!important}
+#appScreen .module-project-panel .lab-project-chip select,#appScreen .module-project-panel .project-context-picker select{width:100%!important;max-width:620px!important;min-height:43px!important;background:#141c1c!important;color:#f1ffeb!important;border:1px solid #39ff14!important;font-size:13px!important}
+#appScreen .module-project-panel .header-project-label{font-size:12px!important}
+#appScreen .module-project-panel .project-context-picker{padding:0!important;margin:0!important;border:0!important;background:transparent!important;max-width:660px!important}
+#appScreen .module-project-panel .project-context-picker label{color:#c9ffbf!important}
+#appScreen .module-project-panel .project-picker-hint{color:#bed8ba!important}
+@media(max-width:760px){#appScreen .module-project-panel{padding:12px!important}#appScreen .module-project-panel .lab-project-chip{max-width:100%!important}#appScreen .module-project-panel .lab-project-chip select{width:100%!important}}
 </style>
 </head>
 <body>
@@ -908,7 +925,7 @@ html,body,button,input,select,textarea,option,summary,table,svg text{
 <div aria-hidden="true" class="symbol bcms-logo"><svg role="img" viewbox="0 0 60 60"><defs><lineargradient id="bcmsLogoGlowLab" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#FFD76A"></stop><stop offset="1" stop-color="#FF8A3D"></stop></lineargradient></defs><path d="M10 48H51" stroke="#ffd986" stroke-linecap="round" stroke-width="2.3"></path><rect fill="#ffffff" height="15" rx="1.1" width="8" x="13" y="32"></rect><rect fill="#ffffff" height="23" rx="1.1" width="8" x="26" y="24"></rect><rect fill="#ffffff" height="30" rx="1.1" width="8" x="39" y="17"></rect><path d="M10 34L24 25L35 26L47 12" fill="none" stroke="url(#bcmsLogoGlowLab)" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.2"></path><path d="M47 6L49 11L54 12L50 16L51 21L47 18L43 21L44 16L40 12L45 11Z" fill="#2d2110" stroke="#FFD76A" stroke-linejoin="round" stroke-width="1.8"></path></svg></div>
 <div class="bcms-unified-identity">
 <div class="bcms-hero-title"><strong>BCMS95</strong><span>Conversor de Capacitância · Registros por projeto · Relatório Tapeboard</span></div>
-<div class="lab-project-chip"><label class="header-project-label" for="headerProjectSelect">Projeto ativo</label><select aria-label="Selecionar projeto ativo, disponível em todo o sistema" class="project-context-select" id="headerProjectSelect"><option value="">Selecione um projeto</option></select><span aria-live="polite" class="visually-hidden" id="heroProject">Nenhum projeto selecionado</span></div>
+<span id="heroProject" class="visually-hidden" aria-live="polite">Nenhum projeto selecionado</span>
 </div>
 </div>
 <div class="bcms-unified-top"><div class="bcms-header-actions"><button aria-label="Logoff — encerrar sessão" class="btn bcms-logout" id="logout" title="Logoff — encerrar sessão" type="button"><svg aria-hidden="true" class="logout-ico" fill="none" viewbox="0 0 24 24"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path><path d="M13 8l4 4-4 4M8 12h9"></path></svg></button></div></div>
@@ -919,7 +936,7 @@ html,body,button,input,select,textarea,option,summary,table,svg text{
     <label for="labModuleSelect">Área de trabalho</label>
     <select id="labModuleSelect" aria-label="Selecionar área do sistema">
       <option value="simple">00 · Consulta Simples de Capacitância</option>
-      <option value="converter">01 · Conversão por Projeto</option>
+      <option value="converter">01 · Conversão por Projeto 🔒</option>
       <option value="tapeboard">02 · Relatório Tapeboard — protegido</option>
     </select>
   </div>
@@ -959,6 +976,7 @@ html,body,button,input,select,textarea,option,summary,table,svg text{
  </article>
 </section>
 <section class="active" id="converter">
+<div class="module-project-panel"><div class="module-project-title"><i></i> PROJETO · CONVERSÃO E HISTÓRICO</div><div class="lab-project-chip"><label class="header-project-label" for="headerProjectSelect">Projeto da conversão</label><select aria-label="Selecionar projeto para conversão e registros" class="project-context-select" id="headerProjectSelect"><option value="">Selecione um projeto</option></select></div></div>
 <div aria-label="Orientações do conversor de capacitância" class="lab-guide">
 <div class="lab-guide-title">Ajuda e exemplos — Conversor</div>
 <div class="lab-guides">
@@ -1020,6 +1038,7 @@ html,body,button,input,select,textarea,option,summary,table,svg text{
 </div>
 </section>
 <section id="tapeboard">
+<div class="module-project-panel"><div class="module-project-title"><i></i> PROJETO · RELATÓRIO TAPEBOARD</div><div class="project-context-picker" data-purpose="tapeboard-observations"><label for="tapeboardProjectSelect">Projeto do relatório e observações</label><select aria-label="Selecionar projeto para observações do Tapeboard" class="project-context-select" id="tapeboardProjectSelect"><option value="">Selecione um projeto salvo</option></select><p class="project-picker-hint">Use a lista de projetos já salvos no Neon; a seleção também atualiza a prévia e os registros.</p></div></div>
 <div aria-label="Orientações do relatório Tapeboard" class="lab-guide report-guide">
 <div class="lab-guide-title">Ajuda e exemplos — Tapeboard</div>
 <div class="lab-guides">
@@ -1036,7 +1055,7 @@ html,body,button,input,select,textarea,option,summary,table,svg text{
 </div>
 <div class="columns">
 <div class="stack">
-<article class="panel"><div class="cardhead"><h2>Relatório Tapeboard</h2><span class="chip blue">Módulo restrito</span></div><p class="subline">Todas as conversões memorizadas do projeto ativo serão incluídas no relatório. Acrescente observações manuais conforme a inspeção.</p><div class="section-label">Projeto selecionado</div><div class="project-context-picker" data-purpose="tapeboard-observations"><label for="tapeboardProjectSelect">Selecionar projeto para registrar observações</label><select aria-label="Selecionar projeto para observações do Tapeboard" class="project-context-select" id="tapeboardProjectSelect"><option value="">Selecione um projeto salvo</option></select><p class="project-picker-hint">Use a lista de projetos já salvos no Neon; a seleção também atualiza a prévia e os registros.</p></div><div class="strip project-info-strip" id="reportProjectInfo">Nenhum projeto selecionado. Escolha um projeto acima para continuar.</div><div class="divider"></div><h3>Nova observação manual</h3>
+<article class="panel"><div class="cardhead"><h2>Relatório Tapeboard</h2><span class="chip blue">Módulo restrito</span></div><p class="subline">Todas as conversões memorizadas do projeto ativo serão incluídas no relatório. Acrescente observações manuais conforme a inspeção.</p><div class="strip project-info-strip" id="reportProjectInfo">Nenhum projeto selecionado. Escolha um projeto acima para continuar.</div><div class="divider"></div><h3>Nova observação manual</h3>
 <div class="example-box report-example"><div class="example-title">Modelos de observação para Tapeboard SMD</div><div class="example-sub">Use como ponto de partida para redigir um registro verificável. Nenhum exemplo é salvo até clicar em <strong>Adicionar observação</strong>.</div>
 <div class="example-buttons">
 <button class="btn example" data-note-example="serigrafia" type="button">Serigrafia diferente</button>
@@ -1066,7 +1085,7 @@ html,body,button,input,select,textarea,option,summary,table,svg text{
 </div>
 <div class="footer-app">BCMS95 LAB · Conversão de capacitância e documentação de Tapeboard · Sincronização online · Banco de dados PostgreSQL</div>
 </main>
-<div class="modal-overlay" hidden="" id="reportGate"><div class="modal"><div aria-hidden="true" class="lock-symbol">◇</div><h2>Relatório Tapeboard</h2><div class="brandline"></div><p>Este módulo possui uma segunda etapa de acesso. Insira a senha específica para consultar e produzir os relatórios.</p><form id="reportGateForm"><div class="field"><label for="reportPassword">Senha do Relatório Tapeboard</label><input autocomplete="off" id="reportPassword" placeholder="Senha do módulo" required="" type="password"/></div><p class="message" id="gateError" role="alert"></p><div class="actions"><button class="btn soft" id="gateCancel" type="button">Cancelar</button><button class="btn primary" type="submit">Desbloquear módulo</button></div></form></div></div>
+<div class="modal-overlay" hidden="" id="reportGate"><div class="modal"><div aria-hidden="true" class="lock-symbol">◇</div><h2>Áreas protegidas do BCMS95 LAB</h2><div class="brandline"></div><p>Conversão por Projeto e Relatório Tapeboard usam a mesma senha adicional. Após desbloquear, as duas áreas ficam disponíveis nesta sessão.</p><form id="reportGateForm"><div class="field"><label for="reportPassword">Senha das áreas 01 e 02</label><input autocomplete="off" id="reportPassword" placeholder="Senha do módulo" required="" type="password"/></div><p class="message" id="gateError" role="alert"></p><div class="actions"><button class="btn soft" id="gateCancel" type="button">Cancelar</button><button class="btn primary" type="submit">Desbloquear módulo</button></div></form></div></div>
 <div class="toast" hidden="" id="toast" role="status"></div>
 <script>
 'use strict';
@@ -1077,6 +1096,7 @@ const STORE='bcms95-tapeboard-projects-v1'; // Usado somente para eventual migra
 const UNITS={F:1,mF:1e-3,uF:1e-6,nF:1e-9,pF:1e-12};
 const UNITS_LABEL={F:'F',mF:'mF',uF:'µF',nF:'nF',pF:'pF'};
 let projects=[],activeId='',editingConversion='',editingNote='',tab='converter',reportUnlocked=false,latest=null,toastTimeout=null;
+let requestedProtectedTab='converter';
 function notify(msg){const box=$('toast');box.textContent=msg;box.hidden=false;clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>box.hidden=true,3800)}
 function now(){return new Date().toISOString()}
 function datebr(date){const d=new Date(date);return Number.isNaN(d.getTime())?'—':d.toLocaleDateString('pt-BR')}
@@ -1183,7 +1203,20 @@ function refreshLiveConversion(){
 function saveConversion(){const p=getActive();if(!p){$('projectAccordion').open=true;$('conversionError').textContent='Para memorizar, selecione ou crie um projeto no painel expandido abaixo.';$('projectAccordion').scrollIntoView({behavior:'smooth',block:'center'});return}try{const calc=calcConversion();if(editingConversion){const i=p.conversions.findIndex(c=>c.id===editingConversion);if(i>=0)p.conversions[i]={...p.conversions[i],...calc,id:editingConversion};notify('Conversão atualizada.')}else{p.conversions.unshift({...calc,id:uid()});notify('Conversão adicionada; sincronização online iniciada.')}touch(p);clearConversion()}catch(e){$('conversionError').textContent=e.message}}
 function editConversion(id){const p=getActive(),c=p?.conversions.find(c=>c.id===id);if(!c)return;editingConversion=id;$('componentName').value=c.component||'';$('capCode').value=c.code||'';$('capValue').value=String(c.values?.[$('capUnit').value]??c.values?.uF??c.farad/1e-6);$('capUnit').value='uF';$('capValue').value=String(c.farad/1e-6);$('conversionNote').value=c.note||'';$('capTolerance').value=c.tolerance===null||c.tolerance===undefined?'':String(c.tolerance);$('memorizeBtn').textContent='Atualizar conversão memorizada';$('converter').querySelector('.conversion-followup').open=true;refreshLiveConversion();$('capValue').scrollIntoView({behavior:'smooth',block:'center'});notify('Edite os campos e clique em Atualizar conversão.')}
 function saveNote(){const p=getActive();if(!p){$('manualMessage').textContent='Selecione um projeto na lista acima.';return}const text=$('manualText').value.trim();if(!text){$('manualMessage').textContent='Descreva a observação para adicionar.';return}const item={id:editingNote||uid(),component:$('manualComponent').value.trim(),category:$('manualCategory').value,status:$('manualStatus').value,text,evidence:$('manualEvidence').value.trim(),updated:now()};if(editingNote){const i=p.notes.findIndex(n=>n.id===editingNote);if(i>=0)p.notes[i]={...p.notes[i],...item}}else{p.notes.unshift({...item,created:now()})}touch(p);clearManual();notify('Observação adicionada; sincronização online iniciada.')}
-function setTab(name){if(name==='tapeboard'&&!reportUnlocked){if($('labModuleSelect'))$('labModuleSelect').value=tab;$('reportGate').hidden=false;$('reportPassword').value='';$('gateError').textContent='';setTimeout(()=>$('reportPassword').focus(),50);return}tab=name;document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));document.querySelectorAll('.maincontent>section').forEach(s=>s.classList.toggle('active',s.id===name));if($('labModuleSelect')){$('labModuleSelect').value=name;$('labModuleSelector').dataset.mode=name;$('labModuleHelper').textContent=name==='simple'?'Conversão rápida, sem projeto e sem salvar dados.':name==='converter'?'Conversões, identificação e histórico vinculados ao projeto ativo.':'Observações, assinaturas e relatórios do projeto; acesso protegido.'}}
+function setTab(name){
+ if((name==='converter'||name==='tapeboard')&&!reportUnlocked){
+  requestedProtectedTab=name;
+  if($('labModuleSelect'))$('labModuleSelect').value=tab;
+  $('reportGate').hidden=false;$('reportPassword').value='';$('gateError').textContent='';
+  setTimeout(()=>$('reportPassword').focus(),50);return;
+ }
+ tab=name;
+ document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));
+ document.querySelectorAll('.maincontent>section').forEach(s=>s.classList.toggle('active',s.id===name));
+ if($('labModuleSelect')){$('labModuleSelect').value=name;$('labModuleSelector').dataset.mode=name;
+ $('labModuleHelper').textContent=name==='simple'?'Conversão rápida, sem projeto e sem salvar dados.':name==='converter'?'Área protegida · Conversões e histórico vinculados ao projeto.':'Área protegida · Observações, assinaturas e relatórios.'}
+}
+
 async function goLogin(){
  try{await api('/api/auth/logout',{method:'POST'});}catch(e){console.warn('Falha no logout',e)}
  window.location.replace('/login.html');
@@ -1191,18 +1224,14 @@ async function goLogin(){
 async function unlockReport(evt){
  evt.preventDefault();$('gateError').textContent='';
  try{
-   await api('/api/auth/report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:$('reportPassword').value})});
-   // Aguarda conversões pendentes antes de trocar para a visão protegida.
-   await syncTail;
-   if(syncBlocked)throw Error('O salvamento anterior falhou. Exporte backup e recarregue para evitar perda de dados.');
-   const previousId=activeId;
-   const full=await api('/api/projects');
-   serverRevision=full.revision;
-   projects=full.projects.map(normalizeProject);
-   activeId=projects.some(p=>p.id===previousId)?previousId:'';
-   $('reportPassword').value='';reportUnlocked=true;$('reportGate').hidden=true;$('tabLock').textContent='✓';drawAll();setTab('tapeboard');
+  await api('/api/auth/report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:$('reportPassword').value})});
+  // A senha é verificada pelo servidor e a sessão vale para os dois módulos.
+  await hydrate();
+  reportUnlocked=true;$('reportPassword').value='';$('reportGate').hidden=true;
+  $('tabLock').textContent='✓';setTab(requestedProtectedTab);
  }catch(e){$('gateError').textContent=e.message}
 }
+
 function prepareBackup(){const backup={format:'BCMS95-LAB-Backup',version:1,exportedAt:now(),projects};const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'});downloadBlob(blob,'BCMS95_LAB_backup_'+new Date().toISOString().slice(0,10)+'.json')}
 function importBackup(file){if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const obj=JSON.parse(reader.result);if(obj.format!=='BCMS95-LAB-Backup'||!Array.isArray(obj.projects))throw Error('Arquivo não reconhecido.');if(!confirm(`ATENÇÃO: importar ${obj.projects.length} projeto(s) substituirá os projetos do BANCO DE DADOS ONLINE (Neon), acessados por todos os dispositivos. Antes de continuar, exporte um Backup dos dados atuais. Deseja substituir os registros online?`))return;projects=obj.projects.map(normalizeProject);activeId='';persist();selectProject('');notify('Backup importado. Sincronização online iniciada.')}catch(e){notify('Falha ao importar: '+e.message)}};reader.readAsText(file)}
 function downloadBlob(blob,filename){const a=document.createElement('a');const u=URL.createObjectURL(blob);a.href=u;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000)}
@@ -1379,11 +1408,9 @@ simpleCalculate();
  try{
    const auth=await api('/api/auth/session');
    if(!auth.authenticated){window.location.replace('/login.html');return;}
-   await hydrate();
-   $('appScreen').hidden=false;
    reportUnlocked=!!auth.report;
-   if(reportUnlocked)$('tabLock').textContent='✓';
-   drawAll();
+   if(reportUnlocked){await hydrate();$('tabLock').textContent='✓';}
+   $('appScreen').hidden=false;
    setTab('simple');
  }catch(e){
    console.error('Falha na inicialização do BCMS95 LAB:',e);
