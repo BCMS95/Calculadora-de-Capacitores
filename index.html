@@ -1062,6 +1062,15 @@ html,body,button,input,select,textarea,option,summary,table,svg text{
 #appScreen #libraryPdfFrame{display:block;width:100%;height:min(78vh,930px);min-height:470px;border:1px solid #616b74;background:#f8f9fb;border-radius:7px}
 @media(max-width:900px){#appScreen .library-toolbar-row{grid-template-columns:1fr 1fr}#appScreen .library-toolbar-actions{grid-column:1/-1}}
 @media(max-width:720px){#appScreen .library-list,#appScreen .library-fields,#appScreen .library-toolbar-row{grid-template-columns:1fr}#appScreen .library-toolbar-actions{grid-column:1/-1}#appScreen #libraryPdfFrame{min-height:440px}}
+
+/* Biblioteca Técnica: seleção única de documentos, sem campo de pesquisa ou filtro */
+#appScreen .library-toolbar-row{grid-template-columns:minmax(240px,1fr) auto!important;align-items:end}
+#appScreen #libraryDocumentSelect{min-height:44px!important;width:100%!important;background:#151b21!important;color:#eff6ef!important;border:1px solid #748575!important;border-radius:8px!important;font:650 13px 'Arial Nova',Arial,sans-serif!important;padding:10px 12px!important}
+#appScreen #libraryDocumentSelect:focus{border-color:#39ff14!important;outline:2px solid #39ff1433!important;outline-offset:2px}
+#appScreen #libraryDocumentSelect optgroup{color:#1a3e26;font-weight:750}
+#appScreen #libraryDocumentSelect option{color:#eef5f0;background:#252b32;font-weight:500}
+#appScreen #libraryAdminList[hidden]{display:none!important}
+@media(max-width:760px){#appScreen .library-toolbar-row{grid-template-columns:1fr!important}#appScreen .library-toolbar-actions{grid-column:1!important}}
 </style>
 </head>
 <body>
@@ -1238,7 +1247,7 @@ html,body,button,input,select,textarea,option,summary,table,svg text{
 <section aria-label="Biblioteca Técnica" id="library">
 <div class="library-head"><div><div class="library-kicker">BCMS95 LAB / REFERÊNCIAS</div><h2>Biblioteca Técnica</h2><p>Consulte normas, datasheets, manuais e procedimentos cadastrados. Leitura liberada para usuários do sistema.</p></div><span class="library-access">CONSULTA LIBERADA</span></div>
 <article class="panel library-toolbar">
-<div class="library-toolbar-row"><div class="field"><label for="librarySearch">Pesquisar documentos</label><input id="librarySearch" placeholder="Título, código, revisão ou descrição" type="search"/></div><div class="field"><label for="libraryFilter">Categoria</label><select id="libraryFilter"><option value="">Todas as categorias</option><option>Norma técnica</option><option>Datasheet</option><option>Procedimento</option><option>Manual</option><option>Especificação</option><option>Outros</option></select></div><div class="library-toolbar-actions"><button class="btn soft" id="libraryRefresh" type="button">Atualizar lista</button><button class="btn library-manager" id="libraryUnlock" type="button">Gerenciar PDFs · protegido</button></div></div>
+<div class="library-toolbar-row"><div class="field"><label for="libraryDocumentSelect">Documentos disponíveis para consulta</label><select id="libraryDocumentSelect" aria-label="Selecione um documento PDF para visualizar"><option value="">Selecione um documento cadastrado</option></select></div><div class="library-toolbar-actions"><button class="btn soft" id="libraryRefresh" type="button">Atualizar lista</button><button class="btn library-manager" id="libraryUnlock" type="button">Gerenciar PDFs · protegido</button></div></div>
 <div class="library-quick-status"><span id="libraryCount">0 documentos</span><span>PDFs disponíveis nos computadores autorizados · Armazenamento online Neon</span></div>
 <p aria-live="polite" class="library-message" id="libraryMessage" role="status"></p>
 </article>
@@ -1255,7 +1264,7 @@ html,body,button,input,select,textarea,option,summary,table,svg text{
 <div class="actions"><button class="btn library-add" id="librarySave" type="submit">Adicionar PDF à biblioteca</button><button class="btn soft" hidden="" id="libraryCancelEdit" type="button">Cancelar edição</button></div>
 </form>
 </article>
-<article class="panel library-results"><div class="cardhead"><h2>Documentos disponíveis</h2><span class="chip" id="libraryVisibleCount">—</span></div>
+<article class="panel library-results" id="libraryAdminList" hidden=""><div class="cardhead"><h2>Documentos disponíveis</h2><span class="chip" id="libraryVisibleCount">—</span></div>
 <div class="library-list" id="libraryList"><p class="library-empty">Carregando documentos…</p></div></article>
 <article class="panel library-viewer" hidden="" id="libraryViewer"><div class="library-viewer-top"><div><h2 id="libraryViewerTitle">Visualização de documento</h2><p id="libraryViewerMeta"></p></div><div class="actions"><a class="btn soft" href="#" id="libraryOpenNew" rel="noopener" target="_blank">Abrir em nova guia</a><button class="btn soft" id="libraryCloseViewer" type="button">Fechar visualização</button></div></div><iframe id="libraryPdfFrame" loading="lazy" title="Visualizador de PDF da Biblioteca Técnica"></iframe></article>
 <p class="library-legal">A biblioteca organiza documentos de referência e não substitui a consulta às fontes oficiais ou ao datasheet vigente. Apenas inclua documentos cuja disponibilização seja permitida pelo titular dos direitos.</p>
@@ -1585,6 +1594,7 @@ function libraryError(err){
 function setLibraryManager(){
  $('libraryAdmin').hidden=!reportUnlocked;
  $('libraryUnlock').hidden=reportUnlocked;
+ $('libraryAdminList').hidden=!reportUnlocked;
 }
 async function loadLibrary(){
  $('libraryMessage').textContent='Consultando documentos no banco Neon…';
@@ -1598,15 +1608,43 @@ async function loadLibrary(){
  }catch(e){libraryError(e);}
 }
 function renderLibrary(){
- const search=$('librarySearch').value.trim().toLocaleLowerCase('pt-BR');
- const category=$('libraryFilter').value;
- const filtered=libraryDocs.filter(d=>(!category||d.category===category)&&
-  [d.title,d.code,d.revision,d.description,d.filename,d.category].join(' ').toLocaleLowerCase('pt-BR').includes(search));
  $('libraryCount').textContent=`${libraryDocs.length} documento(s)`;
- $('libraryVisibleCount').textContent=`${filtered.length} resultado(s)`;
+ $('libraryVisibleCount').textContent=`${libraryDocs.length} documento(s)`;
+ const select=$('libraryDocumentSelect');
+ const previousId=select.value;
+ select.replaceChildren();
+ const placeholder=document.createElement('option');
+ placeholder.value='';
+ placeholder.textContent=libraryDocs.length?'Selecione um documento PDF':'Nenhum PDF cadastrado';
+ select.append(placeholder);
+ const docs=[...libraryDocs].sort((a,b)=>
+  (a.category||'').localeCompare(b.category||'','pt-BR')||
+  (a.title||'').localeCompare(b.title||'','pt-BR'));
+ const groups=new Map();
+ for(const d of docs){
+  const category=d.category||'Outros';
+  if(!groups.has(category))groups.set(category,[]);
+  groups.get(category).push(d);
+ }
+ for(const [category,items] of groups){
+  const group=document.createElement('optgroup');group.label=category;
+  for(const d of items){
+   const option=document.createElement('option');option.value=String(d.id);
+   option.textContent=[d.code,d.title,d.revision?'Rev. '+d.revision:''].filter(Boolean).join(' · ');
+   group.append(option);
+  }
+  select.append(group);
+ }
+ if(libraryDocs.some(d=>String(d.id)===previousId))select.value=previousId;
+ select.disabled=!libraryDocs.length;
+ // A lista de cartões é exclusiva para gerenciar cadastros;
+ // a consulta comum é feita somente pela lista suspensa acima.
  const root=$('libraryList');root.replaceChildren();
- if(!filtered.length){const p=document.createElement('p');p.className='library-empty';p.textContent=libraryDocs.length?'Nenhum documento corresponde à pesquisa.':'Nenhum PDF cadastrado. A consulta ficará disponível assim que um administrador adicionar documentos.';root.append(p);return}
- filtered.forEach(d=>{
+ if(!libraryDocs.length){
+  const p=document.createElement('p');p.className='library-empty';
+  p.textContent='Nenhum PDF cadastrado.';root.append(p);return;
+ }
+ for(const d of docs){
   const article=document.createElement('article');article.className='library-item';
   const head=document.createElement('div');head.className='library-item-head';
   const icon=document.createElement('span');icon.className='library-pdf-icon';icon.textContent='PDF';
@@ -1617,15 +1655,16 @@ function renderLibrary(){
    `${Math.round((Number(d.bytes)||0)/1024)} KB`,d.updated_at?new Date(d.updated_at).toLocaleDateString('pt-BR'):''].filter(Boolean).join(' · ');
   wrap.append(title,meta);head.append(icon,wrap);article.append(head);
   if(d.description){const p=document.createElement('p');p.className='library-item-desc';p.textContent=d.description;article.append(p)}
-  const actions=document.createElement('div');actions.className='library-item-actions';
-  const view=document.createElement('button');view.type='button';view.className='btn view-pdf';view.textContent='Visualizar PDF';view.addEventListener('click',()=>openLibraryPdf(d));actions.append(view);
   if(reportUnlocked){
+   const actions=document.createElement('div');actions.className='library-item-actions';
    const edit=document.createElement('button');edit.type='button';edit.className='btn edit-pdf';edit.textContent='Editar cadastro';edit.addEventListener('click',()=>editLibraryDoc(d));actions.append(edit);
    const del=document.createElement('button');del.type='button';del.className='btn delete-pdf';del.textContent='Excluir';del.addEventListener('click',()=>deleteLibraryDoc(d));actions.append(del);
+   article.append(actions);
   }
-  article.append(actions);root.append(article);
- });
+  root.append(article);
+ }
 }
+
 function openLibraryPdf(d){
  const url='/api/library/file?id='+encodeURIComponent(d.id);
  $('libraryViewerTitle').textContent=d.title;
@@ -1681,8 +1720,11 @@ async function submitLibraryDoc(e){
  }catch(err){libraryError(err)}finally{libraryBusy=false;btn.disabled=false;btn.textContent=$('libraryEditId').value?'Salvar alterações do cadastro':'Adicionar PDF à biblioteca'}
 }
 $('libraryRefresh').addEventListener('click',loadLibrary);
-$('librarySearch').addEventListener('input',renderLibrary);
-$('libraryFilter').addEventListener('change',renderLibrary);
+$('libraryDocumentSelect').addEventListener('change',e=>{
+ const d=libraryDocs.find(d=>String(d.id)===e.target.value);
+ if(d)openLibraryPdf(d);
+ else {$('libraryPdfFrame').removeAttribute('src');$('libraryViewer').hidden=true;}
+});
 $('libraryUnlock').addEventListener('click',()=>{
  if(reportUnlocked){setLibraryManager();return}
  requestedProtectedTab='library';$('reportGate').hidden=false;
@@ -1690,7 +1732,7 @@ $('libraryUnlock').addEventListener('click',()=>{
 });
 $('libraryForm').addEventListener('submit',submitLibraryDoc);
 $('libraryCancelEdit').addEventListener('click',resetLibraryForm);
-$('libraryCloseViewer').addEventListener('click',()=>{$('libraryPdfFrame').removeAttribute('src');$('libraryViewer').hidden=true});
+$('libraryCloseViewer').addEventListener('click',()=>{$('libraryPdfFrame').removeAttribute('src');$('libraryViewer').hidden=true;$('libraryDocumentSelect').value=''});
 setLibraryManager();
 
 $('labModuleSelect').addEventListener('change',e=>setTab(e.target.value));
