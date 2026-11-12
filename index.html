@@ -818,6 +818,80 @@ html,body,button,input,select,textarea,option,summary,table,svg text{
  #appScreen .header-project-label{font-size:10px!important}
 }
 @media(max-width:420px){#appScreen .lab-project-chip{padding:5px!important;max-width:calc(100vw - 82px)!important}}
+
+/* Navegação compacta: padrão do seletor de projeto, uma área por vez. */
+#appScreen .lab-module-nav{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 17px;padding:12px 14px;border:1px solid #4b525d;border-radius:13px;background:#191d23!important;}
+#appScreen .lab-legacy-nav{display:none!important}
+#appScreen .lab-module-selector{display:flex;align-items:center;gap:11px;padding:7px 10px;min-width:min(100%,560px);border:1px solid #ff9951;border-radius:10px;background:#222329;transition:border-color .18s}
+#appScreen .lab-module-selector[data-mode=converter]{border-color:#f32740;background:#282126}
+#appScreen .lab-module-selector[data-mode=tapeboard]{border-color:#39ff14;background:#202923}
+#appScreen .lab-module-led{width:9px;height:9px;flex:none;border-radius:50%;background:#ff9a42;box-shadow:0 0 10px #ff9a4290}
+#appScreen .lab-module-selector[data-mode=converter] .lab-module-led{background:#f32740;box-shadow:0 0 10px #f3274090}
+#appScreen .lab-module-selector[data-mode=tapeboard] .lab-module-led{background:#39ff14;box-shadow:0 0 10px #39ff1490}
+#appScreen .lab-module-selector>label{margin:0;white-space:nowrap;color:#f5d0a8;font-size:12px;font-weight:700}
+#appScreen .lab-module-selector[data-mode=converter]>label{color:#ffb8be}
+#appScreen .lab-module-selector[data-mode=tapeboard]>label{color:#baffae}
+#appScreen #labModuleSelect{width:min(100%,370px);min-width:230px;min-height:40px;border:1px solid #806447!important;border-radius:8px;background:#151a1f!important;color:#fff5ed!important;font:700 13px 'Arial Nova',Arial,sans-serif!important;padding:9px 12px}
+#appScreen .lab-module-selector[data-mode=converter] #labModuleSelect{border-color:#af4252!important}
+#appScreen .lab-module-selector[data-mode=tapeboard] #labModuleSelect{border-color:#52bb54!important}
+#appScreen #labModuleSelect:focus-visible{outline:2px solid #ffab64;outline-offset:2px}
+#appScreen #labModuleSelect option{background:#20242b;color:#f5f4f2}
+#appScreen .lab-module-helper{margin:0;color:#bac4d1;font-size:12px;max-width:420px;line-height:1.5}
+/* Consulta simples: identidade laranja, vermelho e grafite, sem Neon ou projeto. */
+#appScreen #simple{--simple-orange:#ff9b43;--simple-red:#ef4250;color:#f2f3f7}
+#appScreen .lab-simple-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin:0 0 16px;padding:17px 20px;border:1px solid #916441;border-left:4px solid #ff9b43;border-radius:11px;background:#1b1e23}
+#appScreen .lab-simple-eyebrow{font-size:10px;letter-spacing:.17em;font-weight:800;color:#ffb975;margin-bottom:8px}
+#appScreen .lab-simple-heading h2{font:700 clamp(20px,2vw,25px) 'Arial Nova',Arial,sans-serif;margin:0 0 8px;color:#fff}
+#appScreen .lab-simple-heading p{margin:0;color:#c6cbd3;font-size:12px}
+#appScreen .simple-badge{font:700 10px 'Arial Nova',Arial,sans-serif;color:#ffcb91;background:#31251e;padding:8px;border:1px solid #8e623b;border-radius:6px}
+#appScreen .simple-layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.8fr);gap:16px;margin-bottom:16px;align-items:start}
+#appScreen .simple-reference-stack{display:grid;gap:15px}
+#appScreen #simple .panel{background:#1e2229!important;border:1px solid #4c5360!important;border-radius:12px;padding:19px!important}
+#appScreen #simple .panel h3{font-size:16px!important;color:#ffbc80!important;font-weight:750!important;margin:0 0 14px}
+#appScreen #simple .simple-workspace{border-top:3px solid #ff9b43!important}
+#appScreen .simple-fields{display:grid;grid-template-columns:1fr 1.2fr 1.1fr;gap:12px}
+#appScreen #simple .field{margin-bottom:10px}
+#appScreen #simple label{color:#edf0f3!important;font:600 12px 'Arial Nova',Arial,sans-serif!important}
+#appScreen #simple input,#appScreen #simple select{background:#12171e!important;color:#fff!important;border:1px solid #856950!important}
+#appScreen #simple input:focus,#appScreen #simple select:focus{border-color:#ffa85a!important;box-shadow:0 0 0 3px #ff9b4320!important}
+#appScreen .simple-divider{position:relative;text-align:center;margin:10px 0 18px;border-bottom:1px solid #424850;height:12px}
+#appScreen .simple-divider span{position:relative;top:4px;background:#1e2229;padding:0 10px;color:#abb3be;font-size:11px}
+#appScreen .simple-code-controls{display:flex;align-items:end;gap:10px}
+#appScreen .simple-code-controls .field{flex:1;min-width:0}
+#appScreen .simple-code-btn{background:#9b4c23!important;border:1px solid #ffa95d!important;color:#fff!important;min-height:41px}
+#appScreen .simple-examples{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px}
+#appScreen .simple-examples button{padding:7px 12px;background:#2a2424;border:1px solid #a95b47;border-radius:7px;color:#ffd2aa;font:700 12px 'Arial Nova',Arial,sans-serif;cursor:pointer}
+#appScreen .simple-examples button:hover{border-color:#ff9b43;color:white}
+#appScreen .simple-error{color:#ff8893;min-height:18px;margin:4px 0 8px;font-size:12px}
+#appScreen .simple-result{background:#171a20;border:1px solid #8d6141;border-left:4px solid #ff9b43;border-radius:11px;padding:14px;margin-top:10px}
+#appScreen .simple-result-title{color:#ffba78;font:750 12px 'Arial Nova',Arial,sans-serif;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px}
+#appScreen .simple-main-figures{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-bottom:12px}
+#appScreen .simple-figure{background:#252932;border:1px solid #685344;border-radius:8px;padding:12px;min-width:0}
+#appScreen .simple-figure span{font-size:11px;color:#ffa868;display:block}
+#appScreen .simple-figure strong{font-size:20px;font-weight:750;color:#fff;display:block;margin-top:4px;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+#appScreen .simple-result-table{min-width:420px}
+#appScreen #simple .table th{background:#3b2d24!important;color:#ffd5a9!important}
+#appScreen .simple-range{font-size:12px;color:#ffd5b8;margin-top:12px;background:#2b2625;border-radius:7px;padding:10px 12px;border-left:3px solid #ef4250;line-height:1.5}
+#appScreen .simple-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:13px}
+#appScreen .simple-clear-btn{background:#303038!important;color:#e9e9ef!important;border:1px solid #686873!important}
+#appScreen .simple-actions span{color:#aeb7c0;font-size:11px}
+#appScreen .simple-math-panel{border-top:3px solid #ef4250!important}
+#appScreen .simple-math-panel p,#appScreen .simple-warning-panel p{font-size:12px;color:#d3d9e2;line-height:1.6}
+#appScreen .simple-formula{border:1px solid #6c544d;background:#292426;padding:12px;border-radius:8px;color:#ffce9f;font-size:12px;margin:10px 0;overflow-wrap:anywhere}
+#appScreen .simple-warning-panel{border-left:3px solid #ed5861!important}
+#appScreen .simple-warning-panel h3{color:#ff8690!important}
+#appScreen .simple-code-reference{border-top:3px solid #ff9b43!important}
+#appScreen .simple-code-reference .cardhead h2{color:#fff!important;font-size:19px!important}
+#appScreen .simple-ref-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+#appScreen .simple-ref-group{min-width:0;background:#24282f;border:1px solid #4c5360;border-radius:9px;padding:13px}
+#appScreen .simple-ref-group h3{color:#ffb77c!important;font-size:14px!important;margin:0 0 8px}
+#appScreen .simple-ref-group p{color:#c6cdd7;font-size:12px;line-height:1.6}
+#appScreen .simple-ref-group .table{min-width:350px;font-size:11px}
+#appScreen .simple-ref-group .table th{padding:9px}
+#appScreen .simple-ref-note{color:#ffd4aa!important;margin:10px 0 0!important;font-size:11px!important}
+@media(max-width:980px){#appScreen .simple-layout{grid-template-columns:1fr}}
+@media(max-width:680px){#appScreen .lab-module-nav{padding:10px}#appScreen .lab-module-selector{width:100%;flex-wrap:wrap}#appScreen #labModuleSelect{width:100%;min-width:0}#appScreen .simple-fields{grid-template-columns:1fr}#appScreen .simple-ref-grid{grid-template-columns:1fr}#appScreen .simple-code-controls{flex-wrap:wrap}#appScreen .simple-code-btn{width:100%}}
+
 </style>
 </head>
 <body>
@@ -839,8 +913,51 @@ html,body,button,input,select,textarea,option,summary,table,svg text{
 </div>
 <div class="bcms-unified-top"><div class="bcms-header-actions"><button aria-label="Logoff — encerrar sessão" class="btn bcms-logout" id="logout" title="Logoff — encerrar sessão" type="button"><svg aria-hidden="true" class="logout-ico" fill="none" viewbox="0 0 24 24"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path><path d="M13 8l4 4-4 4M8 12h9"></path></svg></button></div></div>
 </header>
-<nav aria-label="Módulos" class="nav"><button class="active" data-tab="converter">01 · Conversor de Capacitância</button><button class="locked" data-tab="tapeboard" id="reportTabBtn">02 · Relatório Tapeboard <span aria-hidden="true" id="tabLock">🔒</span></button></nav>
+<nav aria-label="Navegação entre áreas do laboratório" class="lab-module-nav">
+  <div class="lab-module-selector" id="labModuleSelector">
+    <span class="lab-module-led" aria-hidden="true"></span>
+    <label for="labModuleSelect">Área de trabalho</label>
+    <select id="labModuleSelect" aria-label="Selecionar área do sistema">
+      <option value="simple">00 · Consulta Simples de Capacitância</option>
+      <option value="converter">01 · Conversão por Projeto</option>
+      <option value="tapeboard">02 · Relatório Tapeboard — protegido</option>
+    </select>
+  </div>
+  <p class="lab-module-helper" id="labModuleHelper">Conversão rápida, sem projeto e sem salvar dados.</p>
+  <div class="lab-legacy-nav" aria-hidden="true"><button data-tab="simple" type="button">00 · Consulta Simples</button><button class="active" data-tab="converter" type="button">01 · Conversor de Capacitância</button><button class="locked" data-tab="tapeboard" id="reportTabBtn" type="button">02 · Relatório Tapeboard <span id="tabLock">🔒</span></button></div>
+</nav>
 <div class="maincontent">
+<section id="simple">
+ <div class="lab-simple-heading"><div><div class="lab-simple-eyebrow">BCMS95 LAB / UTILITÁRIO</div><h2>Consulta Simples de Capacitância</h2><p>Converta um valor ou interprete uma marcação usual de capacitor SMD/PTH. Não exige projeto e não grava registros.</p></div><span class="simple-badge">CONSULTA INDEPENDENTE</span></div>
+ <div class="simple-layout">
+  <article class="panel simple-workspace" aria-label="Conversão simples">
+   <h3>Conversão imediata</h3>
+   <div class="simple-fields">
+    <div class="field"><label for="simpleValue">Valor nominal</label><input id="simpleValue" autocomplete="off" inputmode="decimal" placeholder="Ex.: 0,1" value="0,1"/></div>
+    <div class="field"><label for="simpleUnit">Grandeza / unidade</label><select id="simpleUnit"><option value="uF">µF — microfarad</option><option value="nF">nF — nanofarad</option><option value="pF">pF — picofarad</option><option value="mF">mF — milifarad</option><option value="F">F — farad</option></select></div>
+    <div class="field"><label for="simpleTolerance">Tolerância percentual (±%)</label><input id="simpleTolerance" autocomplete="off" inputmode="decimal" placeholder="Ex.: 10" value="10"/></div>
+   </div>
+   <div class="simple-divider"><span>ou interpretar marcação</span></div>
+   <div class="simple-code-controls"><div class="field"><label for="simpleCode">Código impresso (opcional)</label><input id="simpleCode" autocomplete="off" placeholder="104K, 472, 1002, 4R7, 4n7"/></div><button class="btn simple-code-btn" id="simpleDecode" type="button">Interpretar código</button></div>
+   <div class="simple-examples" aria-label="Exemplos para consulta"><button data-simple-example="104K" type="button">104K</button><button data-simple-example="472" type="button">472</button><button data-simple-example="1002" type="button">1002</button><button data-simple-example="4R7" type="button">4R7</button><button data-simple-example="4n7" type="button">4n7</button></div>
+   <p class="simple-error" id="simpleError" role="status" aria-live="polite"></p>
+   <div class="simple-result" id="simpleResult" aria-live="polite"><div class="simple-result-title">Resultado calculado</div><div class="simple-main-figures" id="simpleKeyResults"></div><div class="tablewrap"><table class="table simple-result-table"><thead><tr><th>Unidade</th><th>Nominal</th><th>Mínimo</th><th>Máximo</th></tr></thead><tbody id="simpleRows"></tbody></table></div><div class="simple-range" id="simpleRange"></div></div>
+   <div class="simple-actions"><button type="button" class="btn simple-clear-btn" id="simpleClear">Limpar consulta</button><span>Os dados desta consulta não são enviados ao Neon.</span></div>
+  </article>
+  <div class="simple-reference-stack">
+   <article class="panel simple-math-panel"><h3>Como é feito o cálculo?</h3><p>A unidade-base é o <strong>farad (F)</strong>. Para converter, multiplique o valor pela escala da unidade de origem e divida pela escala da unidade de destino.</p><div class="simple-formula">C<sub>destino</sub> = C<sub>origem</sub> × (fator de origem ÷ fator de destino)</div><p><strong>Exemplo:</strong> 0,1 µF × 1.000 = 100 nF = 100.000 pF.</p><p>Para tolerância simétrica: <strong>mínimo = nominal × (1 − t/100)</strong> e <strong>máximo = nominal × (1 + t/100)</strong>.</p><div class="simple-formula" id="simpleMathDetail">Com 0,1 µF e ±10%: 90 a 110 nF.</div></article>
+   <article class="panel simple-warning-panel"><h3>Orientação de engenharia / IQC</h3><p>Marcação de capacitor varia conforme tecnologia, fabricante e série. Muitos capacitores cerâmicos SMD não apresentam marcação no corpo. Para inspecionar ou aprovar material, confira sempre <strong>BOM, PN, datasheet e identificação da embalagem</strong>; esta consulta não determina conformidade.</p></article>
+  </div>
+ </div>
+ <article class="panel simple-code-reference"><div class="cardhead"><h2>Tabela de referência — códigos de capacitores SMD e PTH</h2><span class="chip">Leitura técnica</span></div>
+  <div class="simple-ref-grid">
+   <div class="simple-ref-group"><h3>1. Código numérico de capacitância</h3><p>Em esquemas usuais de 3 dígitos, os dois primeiros são significativos e o último indica a potência de 10, em <strong>pF</strong>. Em 4 dígitos, os três primeiros são significativos.</p><div class="tablewrap"><table class="table"><thead><tr><th>Marcação</th><th>Cálculo em pF</th><th>Equivalência</th></tr></thead><tbody><tr><td>101</td><td>10 × 10¹</td><td>100 pF</td></tr><tr><td>102</td><td>10 × 10²</td><td>1 nF</td></tr><tr><td>103</td><td>10 × 10³</td><td>10 nF</td></tr><tr><td>104</td><td>10 × 10⁴</td><td>100 nF = 0,1 µF</td></tr><tr><td>105</td><td>10 × 10⁵</td><td>1 µF</td></tr><tr><td>472</td><td>47 × 10²</td><td>4,7 nF</td></tr><tr><td>474</td><td>47 × 10⁴</td><td>470 nF</td></tr><tr><td>1002</td><td>100 × 10²</td><td>10 nF</td></tr><tr><td>4R7</td><td>R = vírgula decimal</td><td>4,7 pF (quando a codificação é em pF)</td></tr><tr><td>4n7</td><td>n = nanofarad</td><td>4,7 nF</td></tr></tbody></table></div></div>
+   <div class="simple-ref-group"><h3>2. Letras de tolerância</h3><p>Letras após a marcação nominal podem indicar tolerância, conforme o sistema de codificação do fabricante.</p><div class="tablewrap"><table class="table"><thead><tr><th>Letra</th><th>Tolerância</th><th>Observação</th></tr></thead><tbody><tr><td>B</td><td>±0,10 pF</td><td>Absoluta</td></tr><tr><td>C</td><td>±0,25 pF</td><td>Absoluta</td></tr><tr><td>D</td><td>±0,5 pF</td><td>Absoluta</td></tr><tr><td>F</td><td>±1%</td><td>Percentual</td></tr><tr><td>G</td><td>±2%</td><td>Percentual</td></tr><tr><td>J</td><td>±5%</td><td>Percentual</td></tr><tr><td>K</td><td>±10%</td><td>Percentual</td></tr><tr><td>M</td><td>±20%</td><td>Percentual</td></tr><tr><td>Z</td><td>−20% / +80%</td><td>Assimétrica; não usar como ±%</td></tr></tbody></table></div><p class="simple-ref-note">Ex.: <strong>104K</strong> = 100 nF ±10%. A calculadora usa tolerância percentual simétrica; para B/C/D/Z, consulte o datasheet.</p></div>
+   <div class="simple-ref-group"><h3>3. Letras de grandeza e dielétrico</h3><div class="tablewrap"><table class="table"><thead><tr><th>Marca</th><th>Significado usual</th></tr></thead><tbody><tr><td>p / n / u / µ</td><td>pF / nF / µF (letra substitui a vírgula)</td></tr><tr><td>R</td><td>Separador decimal na codificação aplicável, como 4R7</td></tr><tr><td>C0G / NP0</td><td>Dielétrico cerâmico de elevada estabilidade</td></tr><tr><td>X7R / X5R</td><td>Classe de dielétrico e faixa de temperatura; não é tolerância nominal</td></tr><tr><td>Y5V</td><td>Classe de dielétrico, com variação térmica ampla</td></tr></tbody></table></div></div>
+   <div class="simple-ref-group"><h3>4. Código de tensão (quando aplicável)</h3><p>Algumas séries indicam tensão por código alfanumérico. O padrão deve ser confirmado pelo fabricante.</p><div class="tablewrap"><table class="table"><thead><tr><th>Código</th><th>Tensão típica</th></tr></thead><tbody><tr><td>1A</td><td>10 V</td></tr><tr><td>1C</td><td>16 V</td></tr><tr><td>1E</td><td>25 V</td></tr><tr><td>1H</td><td>50 V</td></tr><tr><td>2A</td><td>100 V</td></tr></tbody></table></div><p class="simple-ref-note">Os códigos variam entre famílias e não substituem a leitura do PN e do datasheet. Em capacitores eletrolíticos PTH a tensão frequentemente aparece impressa diretamente (ex.: 25 V).</p></div>
+  </div>
+ </article>
+</section>
 <section class="active" id="converter">
 <div aria-label="Orientações do conversor de capacitância" class="lab-guide">
 <div class="lab-guide-title">Ajuda e exemplos — Conversor</div>
@@ -1066,7 +1183,7 @@ function refreshLiveConversion(){
 function saveConversion(){const p=getActive();if(!p){$('projectAccordion').open=true;$('conversionError').textContent='Para memorizar, selecione ou crie um projeto no painel expandido abaixo.';$('projectAccordion').scrollIntoView({behavior:'smooth',block:'center'});return}try{const calc=calcConversion();if(editingConversion){const i=p.conversions.findIndex(c=>c.id===editingConversion);if(i>=0)p.conversions[i]={...p.conversions[i],...calc,id:editingConversion};notify('Conversão atualizada.')}else{p.conversions.unshift({...calc,id:uid()});notify('Conversão adicionada; sincronização online iniciada.')}touch(p);clearConversion()}catch(e){$('conversionError').textContent=e.message}}
 function editConversion(id){const p=getActive(),c=p?.conversions.find(c=>c.id===id);if(!c)return;editingConversion=id;$('componentName').value=c.component||'';$('capCode').value=c.code||'';$('capValue').value=String(c.values?.[$('capUnit').value]??c.values?.uF??c.farad/1e-6);$('capUnit').value='uF';$('capValue').value=String(c.farad/1e-6);$('conversionNote').value=c.note||'';$('capTolerance').value=c.tolerance===null||c.tolerance===undefined?'':String(c.tolerance);$('memorizeBtn').textContent='Atualizar conversão memorizada';$('converter').querySelector('.conversion-followup').open=true;refreshLiveConversion();$('capValue').scrollIntoView({behavior:'smooth',block:'center'});notify('Edite os campos e clique em Atualizar conversão.')}
 function saveNote(){const p=getActive();if(!p){$('manualMessage').textContent='Selecione um projeto na lista acima.';return}const text=$('manualText').value.trim();if(!text){$('manualMessage').textContent='Descreva a observação para adicionar.';return}const item={id:editingNote||uid(),component:$('manualComponent').value.trim(),category:$('manualCategory').value,status:$('manualStatus').value,text,evidence:$('manualEvidence').value.trim(),updated:now()};if(editingNote){const i=p.notes.findIndex(n=>n.id===editingNote);if(i>=0)p.notes[i]={...p.notes[i],...item}}else{p.notes.unshift({...item,created:now()})}touch(p);clearManual();notify('Observação adicionada; sincronização online iniciada.')}
-function setTab(name){if(name==='tapeboard'&&!reportUnlocked){$('reportGate').hidden=false;$('reportPassword').value='';$('gateError').textContent='';setTimeout(()=>$('reportPassword').focus(),50);return}tab=name;document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));document.querySelectorAll('.maincontent>section').forEach(s=>s.classList.toggle('active',s.id===name));}
+function setTab(name){if(name==='tapeboard'&&!reportUnlocked){if($('labModuleSelect'))$('labModuleSelect').value=tab;$('reportGate').hidden=false;$('reportPassword').value='';$('gateError').textContent='';setTimeout(()=>$('reportPassword').focus(),50);return}tab=name;document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));document.querySelectorAll('.maincontent>section').forEach(s=>s.classList.toggle('active',s.id===name));if($('labModuleSelect')){$('labModuleSelect').value=name;$('labModuleSelector').dataset.mode=name;$('labModuleHelper').textContent=name==='simple'?'Conversão rápida, sem projeto e sem salvar dados.':name==='converter'?'Conversões, identificação e histórico vinculados ao projeto ativo.':'Observações, assinaturas e relatórios do projeto; acesso protegido.'}}
 async function goLogin(){
  try{await api('/api/auth/logout',{method:'POST'});}catch(e){console.warn('Falha no logout',e)}
  window.location.replace('/login.html');
@@ -1179,6 +1296,85 @@ document.querySelectorAll('[data-note-example]').forEach(btn=>btn.addEventListen
  $('manualMessage').textContent='Exemplo preenchido, ainda não salvo. Substitua pelos dados reais da inspeção antes de adicionar.';
 }));
 
+
+/* Consulta simples: não altera latest, activeId, projects nem o armazenamento Neon. */
+const simpleUnits={F:1,mF:1e-3,uF:1e-6,nF:1e-9,pF:1e-12};
+const simpleNames={F:'F',mF:'mF',uF:'µF',nF:'nF',pF:'pF'};
+function simpleParseMarking(value){
+ const raw=String(value||'').trim().toUpperCase().replace(/\s+/g,'');
+ if(!raw)throw Error('Digite um código antes de interpretar.');
+ let code=raw, tol=null, toleranceLabel='';
+ const last=raw.slice(-1);
+ const toleranceMap={F:1,G:2,J:5,K:10,M:20};
+ if(toleranceMap[last]!==undefined && raw.length>2 && /[0-9]/.test(raw[raw.length-2])){
+   tol=toleranceMap[last];toleranceLabel=last;code=raw.slice(0,-1);
+ }else if(/[BCDZ]$/.test(raw) && raw.length>2 && /[0-9]/.test(raw[raw.length-2])){
+   throw Error('Código com tolerância absoluta ou assimétrica ('+last+'). Consulte o datasheet para interpretar a faixa.');
+ }
+ let pf=null;
+ if(/^\d{3}$/.test(code)){
+   const exponent=Number(code.slice(-1));
+   if(exponent===9)pf=Number(code.slice(0,2))/10;
+   else if(exponent===8)pf=Number(code.slice(0,2))/100;
+   else pf=Number(code.slice(0,2))*10**exponent;
+ }else if(/^\d{4}$/.test(code)){
+   const exponent=Number(code.slice(-1));
+   if(exponent>7)throw Error('Código de quatro dígitos não reconhecido neste formato. Confirme a especificação do fabricante.');
+   pf=Number(code.slice(0,3))*10**exponent;
+ }else if(/^\d{1,3}R\d{1,3}$/.test(code)){
+   pf=Number(code.replace('R','.'));
+ }else{
+   const match=code.match(/^(\d*)([PNUµ])(\d+)$/);
+   if(match){const n=Number((match[1]||'0')+'.'+match[3]);pf=n*({P:1,N:1e3,U:1e6,'µ':1e6}[match[2]]);}
+   else if(/^\d{1,2}$/.test(code))pf=Number(code);
+ }
+ if(!Number.isFinite(pf)||pf<0)throw Error('Marcação não reconhecida. Use, por exemplo: 104K, 472, 1002, 4R7 ou 4n7.');
+ return {pf,tol,toleranceLabel};
+}
+function simpleCalculate(){
+ const valueRaw=$('simpleValue').value.trim();
+ const inputUnit=$('simpleUnit').value;
+ const toleranceRaw=$('simpleTolerance').value.trim();
+ const err=$('simpleError');err.textContent='';
+ if(!valueRaw){$('simpleKeyResults').innerHTML='';$('simpleRows').innerHTML='';$('simpleRange').textContent='Informe um valor para começar.';$('simpleMathDetail').textContent='';return;}
+ const nominal=parseNumber(valueRaw);
+ if(!Number.isFinite(nominal)){$('simpleKeyResults').innerHTML='';$('simpleRows').innerHTML='';err.textContent='Valor inválido. Use número positivo, com vírgula ou ponto decimal.';return;}
+ let tolerance=null;
+ if(toleranceRaw!==''){
+  tolerance=parseNumber(toleranceRaw);
+  if(!Number.isFinite(tolerance)||tolerance>100){err.textContent='Tolerância percentual inválida (use 0 a 100).';$('simpleKeyResults').innerHTML='';$('simpleRows').innerHTML='';return;}
+ }
+ const farads=nominal*simpleUnits[inputUnit];
+ if(!Number.isFinite(farads)){err.textContent='Valor fora do intervalo numérico suportado.';return;}
+ const factor=tolerance===null?0:tolerance/100;
+ $('simpleKeyResults').innerHTML=['uF','nF','pF'].map(unit=>`<div class="simple-figure"><span>${simpleNames[unit]}</span><strong>${esc(formatNumber(farads/simpleUnits[unit],12))}</strong></div>`).join('');
+ $('simpleRows').innerHTML=Object.keys(simpleUnits).map(unit=>{
+  const scale=simpleUnits[unit];
+  return `<tr><td>${simpleNames[unit]}</td><td>${esc(formatNumber(Number((farads/scale).toPrecision(12)),12))}</td><td>${tolerance===null?'—':esc(formatNumber(Number((farads*(1-factor)/scale).toPrecision(12)),12))}</td><td>${tolerance===null?'—':esc(formatNumber(Number((farads*(1+factor)/scale).toPrecision(12)),12))}</td></tr>`;
+ }).join('');
+ const nF=farads/1e-9;
+ const range=tolerance===null?'Tolerância não informada.':`Tolerância ±${formatNumber(tolerance)}%: ${formatNumber(nF*(1-factor),12)} a ${formatNumber(nF*(1+factor),12)} nF.`;
+ $('simpleRange').textContent=`${formatNumber(nominal,12)} ${simpleNames[inputUnit]} = ${formatNumber(nF,12)} nF. ${range}`;
+ $('simpleMathDetail').textContent=`C = ${formatNumber(nominal,12)} ${simpleNames[inputUnit]} = ${formatNumber(nF,12)} nF. ${tolerance===null?'Informe a tolerância para calcular limites.':`Mín = ${formatNumber(nF,12)} × (1 − ${formatNumber(tolerance)}/100) = ${formatNumber(nF*(1-factor),12)} nF; máx = ${formatNumber(nF*(1+factor),12)} nF.`}`;
+}
+function simpleDecode(){
+ try{
+   const code=$('simpleCode').value;
+   const {pf,tol}=simpleParseMarking(code);
+   $('simpleValue').value=String(pf).replace('.',',');$('simpleUnit').value='pF';
+   $('simpleTolerance').value=tol===null?'':String(tol);
+   simpleCalculate();
+ }catch(err){$('simpleError').textContent=err.message;}
+}
+$('labModuleSelect').addEventListener('change',e=>setTab(e.target.value));
+['simpleValue','simpleTolerance'].forEach(id=>$(id).addEventListener('input',simpleCalculate));
+$('simpleUnit').addEventListener('change',simpleCalculate);
+$('simpleCode').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();simpleDecode()}});
+$('simpleDecode').addEventListener('click',simpleDecode);
+$('simpleClear').addEventListener('click',()=>{$('simpleValue').value='';$('simpleTolerance').value='';$('simpleCode').value='';simpleCalculate();$('simpleValue').focus()});
+document.querySelectorAll('[data-simple-example]').forEach(btn=>btn.addEventListener('click',()=>{$('simpleCode').value=btn.dataset.simpleExample;simpleDecode()}));
+simpleCalculate();
+
 (async()=>{
  try{
    const auth=await api('/api/auth/session');
@@ -1188,6 +1384,7 @@ document.querySelectorAll('[data-note-example]').forEach(btn=>btn.addEventListen
    reportUnlocked=!!auth.report;
    if(reportUnlocked)$('tabLock').textContent='✓';
    drawAll();
+   setTab('simple');
  }catch(e){
    console.error('Falha na inicialização do BCMS95 LAB:',e);
    const box=document.getElementById('toast');
