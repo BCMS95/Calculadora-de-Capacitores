@@ -909,6 +909,111 @@ html,body,button,input,select,textarea,option,summary,table,svg text{
 #appScreen .module-project-panel .project-context-picker label{color:#c9ffbf!important}
 #appScreen .module-project-panel .project-picker-hint{color:#bed8ba!important}
 @media(max-width:760px){#appScreen .module-project-panel{padding:12px!important}#appScreen .module-project-panel .lab-project-chip{max-width:100%!important}#appScreen .module-project-panel .lab-project-chip select{width:100%!important}}
+
+/* BCMS95 LAB — ÁREAS 01 E 02: EXCLUSIVAMENTE VERDE NEON + GRAFITE.
+   Sem alterar a Consulta Simples, o cabeçalho Mecha, PDF ou indicadores técnicos de reprovação. */
+#appScreen .lab-module-selector[data-mode="converter"],
+#appScreen .lab-module-selector[data-mode="tapeboard"]{
+ background:#1b2220!important;border-color:#39ff14!important;
+ box-shadow:inset 0 0 0 1px #39ff141a!important;
+}
+#appScreen .lab-module-selector[data-mode="converter"] #labModuleSelect,
+#appScreen .lab-module-selector[data-mode="tapeboard"] #labModuleSelect{
+ color:#dfffd9!important;background:#121b16!important;border:1px solid #39ff14!important;
+ box-shadow:none!important;
+}
+#appScreen #labModuleSelect option[value="converter"],
+#appScreen #labModuleSelect option[value="tapeboard"]{
+ color:#baffac!important;background:#1c2521!important;
+}
+#appScreen #converter .module-project-panel,
+#appScreen #tapeboard .module-project-panel{
+ background:#1c2421!important;border-color:#39ff14a8!important;
+}
+/* Painéis e expansíveis vinculados a projetos: fundos grafite, sem bordas vermelhas. */
+#appScreen #converter .project-management,
+#appScreen #converter .project-accordion,
+#appScreen #tapeboard .project-context-picker,
+#appScreen #tapeboard .report-project-picker{
+ background:#20252a!important;border-color:#39ff1499!important;border-left:4px solid #39ff14!important;
+}
+#appScreen #converter .project-accordion>summary,
+#appScreen #converter .project-accordion[open]>summary{
+ background:#202a24!important;border-color:#39ff1477!important;color:#c6ffbf!important;
+}
+#appScreen #converter .project-accordion .project-icon,
+#appScreen #converter .project-accordion>summary::after,
+#appScreen #converter .project-accordion .project-indicator{
+ color:#39ff14!important;
+}
+#appScreen #converter .project-accordion label,
+#appScreen #converter .project-accordion .example-title,
+#appScreen #converter .project-accordion .section-label,
+#appScreen #tapeboard .module-project-title,
+#appScreen #converter .module-project-title{
+ color:#baffaf!important;
+}
+#appScreen #converter .project-accordion input,
+#appScreen #converter .project-accordion select,
+#appScreen #tapeboard .project-context-picker select,
+#appScreen #tapeboard .report-project-picker select{
+ color:#f0ffee!important;background:#121a17!important;border-color:#39ff148f!important;
+}
+#appScreen #converter .project-accordion input:focus,
+#appScreen #converter .project-accordion select:focus,
+#appScreen #tapeboard .project-context-picker select:focus,
+#appScreen #tapeboard .report-project-picker select:focus{
+ border-color:#39ff14!important;box-shadow:0 0 0 3px #39ff142a!important;
+}
+/* Ações dos projetos, inclusive Novo/Excluir: paleta unificada verde+grafite. */
+#appScreen #projectNew,#appScreen #projectDelete{
+ background:#26382c!important;color:#c3ffb9!important;
+ border:1px solid #39ff14b5!important;box-shadow:none!important;
+}
+#appScreen #projectNew:hover,#appScreen #projectDelete:hover{
+ background:#31513a!important;color:#fff!important;border-color:#8fff7e!important;
+}
+#appScreen #projectSave,#appScreen #saveReport,
+#appScreen #memorizeBtn,#appScreen #addNote,#appScreen #addSignature{
+ background:#39ff14!important;color:#11200c!important;
+ border-color:#adff9f!important;box-shadow:0 0 12px #39ff1438!important;
+}
+/* Identidade comum para as áreas protegidas (sem colorir a Consulta Simples). */
+#appScreen #converter .conversion-panel{border-left-color:#39ff14!important;border-top-color:#39ff14!important}
+#appScreen #converter .conversion-result-card{
+ background:#1d2620!important;border-color:#39ff1477!important;
+ border-left:4px solid #39ff14!important;
+}
+#appScreen #converter .conversion-followup{background:#22292a!important;border-color:#4d7050!important}
+#appScreen #converter .conversion-followup summary,
+#appScreen #converter .conversion-result-card .section-label,
+#appScreen #converter .conversion-panel .section-label,
+#appScreen #converter .conversion-panel .live-label,
+#appScreen #converter .projectless-indicator{
+ color:#aaff9d!important;
+}
+#appScreen #converter .projectless-indicator{background:#1e2a22!important;border-left-color:#39ff14!important}
+#appScreen #converter .auto-note{background:#1c2b21!important;border-left-color:#39ff14!important;color:#c9ffc0!important}
+#appScreen #converter .btn.primary:not(#projectNew):not(#projectDelete),
+#appScreen #tapeboard .btn.primary{
+ background:#39ff14!important;border-color:#b0ffa4!important;color:#102408!important;
+ box-shadow:0 0 11px #39ff1433!important;
+}
+#appScreen #converter .btn.soft,#appScreen #tapeboard .btn.soft{
+ background:#252b2b!important;border-color:#568a58!important;color:#c8ffc3!important;
+}
+#appScreen #converter .chip.blue,#appScreen #tapeboard .chip.blue{
+ background:#223028!important;border-color:#39ff1485!important;color:#baffae!important;
+}
+#appScreen #converter .kpi strong,#appScreen #converter .stat b{
+ color:#baffae!important;
+}
+/* A navegação antiga permanece oculta mas não introduz vermelho se ativada. */
+#appScreen .lab-legacy-nav button[data-tab="converter"],
+#appScreen .lab-legacy-nav button[data-tab="tapeboard"]{
+ background:#202922!important;color:#baffae!important;border-color:#39ff14!important;
+}
+
 </style>
 </head>
 <body>
@@ -936,12 +1041,12 @@ html,body,button,input,select,textarea,option,summary,table,svg text{
     <label for="labModuleSelect">Área de trabalho</label>
     <select id="labModuleSelect" aria-label="Selecionar área do sistema">
       <option value="simple">00 · Consulta Simples de Capacitância</option>
-      <option value="converter">01 · Conversão por Projeto 🔒</option>
+      <option value="converter">01 · Conversão por Projeto — protegido</option>
       <option value="tapeboard">02 · Relatório Tapeboard — protegido</option>
     </select>
   </div>
   <p class="lab-module-helper" id="labModuleHelper">Conversão rápida, sem projeto e sem salvar dados.</p>
-  <div class="lab-legacy-nav" aria-hidden="true"><button data-tab="simple" type="button">00 · Consulta Simples</button><button class="active" data-tab="converter" type="button">01 · Conversor de Capacitância</button><button class="locked" data-tab="tapeboard" id="reportTabBtn" type="button">02 · Relatório Tapeboard <span id="tabLock">🔒</span></button></div>
+  <div class="lab-legacy-nav" aria-hidden="true"><button data-tab="simple" type="button">00 · Consulta Simples</button><button class="active" data-tab="converter" type="button">01 · Conversor de Capacitância</button><button class="locked" data-tab="tapeboard" id="reportTabBtn" type="button">02 · Relatório Tapeboard <span id="tabLock">protegido</span></button></div>
 </nav>
 <div class="maincontent">
 <section id="simple">
