@@ -1,0 +1,24 @@
+BCMS95 LAB — Biblioteca Técnica, consulta liberada e gerenciamento protegido
+
+ARQUIVOS QUE DEVEM SER ENVIADOS PARA O MESMO REPOSITÓRIO GITHUB:
+- index.html -> raiz (substituir o arquivo existente)
+- api/library.js -> novo arquivo na pasta api
+- api/library/file.js -> novo arquivo na pasta api/library (criar esta subpasta)
+
+O arquivo db/biblioteca_tecnica.sql é REFERÊNCIA OPCIONAL.
+A API tenta criar automaticamente a tabela lab_documents no MESMO NEON do projeto.
+Se a conexão do Neon não permitir CREATE TABLE, execute uma única vez o SQL no projeto Neon atual.
+Não altere login.html, middleware.js, api/auth/, api/projects.js, package.json ou DATABASE_URL.
+
+PERMISSÕES:
+- Login principal: consultar metadados, pesquisar e abrir PDFs.
+- Senha adicional das áreas 01 e 02: adicionar, editar identificação e excluir PDFs.
+- Qualquer pessoa que souber essa senha adicional também poderá administrar os PDFs.
+
+LIMITES:
+- Até 2 MB por PDF; 80 documentos; soma máxima 48 MB, para controlar custos do Neon.
+- PDFs ficam em bytea numa tabela separada dos projetos.
+- Para arquivos grandes ou dezenas de normas extensas, recomenda-se armazenamento de objetos como Vercel Blob e atualização futura.
+- Somente distribua normas e documentos para os quais tenha autorização de compartilhamento.
+
+VALIDAÇÕES REALIZADAS: sintaxe JavaScript das novas APIs e do index.html, integridade dos IDs originais, rotas e permissões por inspeção de código. NÃO foi possível testar gravação real no Neon ou publicação na Vercel a partir deste ambiente.

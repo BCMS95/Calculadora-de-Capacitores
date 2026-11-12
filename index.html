@@ -1014,6 +1014,54 @@ html,body,button,input,select,textarea,option,summary,table,svg text{
  background:#202922!important;color:#baffae!important;border-color:#39ff14!important;
 }
 
+
+/* BIBLIOTECA TÉCNICA — GRAFITE SÓLIDO E VERDE NEON DE GERENCIAMENTO */
+#appScreen .lab-module-selector[data-mode="library"]{border-color:#88805f!important;background:#20241f!important}
+#appScreen .lab-module-selector[data-mode="library"] .lab-module-led{background:#ffb95a!important;box-shadow:0 0 13px #ffae5370!important}
+#appScreen .lab-module-selector[data-mode="library"] #labModuleSelect{border-color:#c3a36d!important;color:#fff4db!important}
+#appScreen #library{color:#eef1f3}
+#appScreen .library-head{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;background:#1b1e24;border:1px solid #5b665f;border-left:4px solid #ffb45b;border-radius:11px;padding:19px 22px;margin-bottom:15px}
+#appScreen .library-head h2{margin:3px 0 8px;font:750 clamp(22px,2.2vw,27px) 'Arial Nova',Arial,sans-serif;color:#f6f5f0}
+#appScreen .library-head p{font-size:12px;color:#c8cbd2;margin:0}
+#appScreen .library-kicker{font-size:10px;letter-spacing:.13em;color:#ffc57a;font-weight:750}
+#appScreen .library-access{border:1px solid #ffb45b;background:#302b24;border-radius:6px;padding:9px 12px;color:#ffe3b8;font-size:10px;font-weight:750;letter-spacing:.08em}
+#appScreen .library-toolbar,#appScreen .library-results,#appScreen .library-viewer,#appScreen .library-admin{background:#1d2128!important;border:1px solid #505962!important;margin:0 0 15px!important;border-radius:11px!important}
+#appScreen .library-toolbar-row{display:grid;grid-template-columns:minmax(200px,1fr) minmax(150px,240px) auto;gap:12px;align-items:end}
+#appScreen .library-toolbar-row .field{margin:0}
+#appScreen .library-toolbar-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding-bottom:1px}
+#appScreen .library-quick-status{display:flex;gap:15px;flex-wrap:wrap;font-size:11px;color:#acb7c3;padding-top:14px}
+#appScreen .library-quick-status span:first-child{color:#ffcb83;font-weight:750}
+#appScreen .library-message{min-height:17px;margin:8px 0 0;color:#cce9cf;font-size:12px}
+#appScreen .library-manager{background:#283e31!important;border:1px solid #39ff14!important;color:#d6ffcb!important}
+#appScreen .library-admin{border-left:4px solid #39ff14!important}
+#appScreen .library-admin .cardhead h2{color:#b8ffa8!important}
+#appScreen .library-admin-hint{font-size:12px;color:#cad4cf;line-height:1.6}
+#appScreen .library-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px}
+#appScreen .library-admin label{color:#c3ffc1!important}
+#appScreen .library-admin input,#appScreen .library-admin textarea,#appScreen .library-admin select{border:1px solid #578569!important;background:#141a1d!important;color:#f1fff0!important}
+#appScreen .library-admin input:focus,#appScreen .library-admin textarea:focus,#appScreen .library-admin select:focus{border-color:#39ff14!important;box-shadow:0 0 0 2px #39ff1430!important}
+#appScreen .library-add{background:#39ff14!important;color:#0c2609!important;border:1px solid #85ff68!important;font-weight:750!important}
+#appScreen .library-small,#appScreen .library-legal{font-size:11px;color:#aeb9c1;line-height:1.6}
+#appScreen .library-legal{margin:9px 4px 20px}
+#appScreen .library-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+#appScreen .library-item{background:#252a32;border:1px solid #4d5967;border-radius:9px;padding:15px;display:flex;flex-direction:column;gap:12px}
+#appScreen .library-item-head{display:flex;gap:12px;align-items:start}
+#appScreen .library-pdf-icon{display:grid;place-items:center;flex:0 0 47px;height:52px;background:#38262c;border:1px solid #c4626a;border-radius:7px;font-size:11px;color:#ffc1c6;font-weight:800}
+#appScreen .library-item-title{color:#f4f7f8;font-size:15px;font-weight:700;overflow-wrap:anywhere}
+#appScreen .library-item-meta{font-size:11px;color:#bac6cf;line-height:1.65;margin:4px 0 0}
+#appScreen .library-item-desc{font-size:12px;color:#d0d5dc;margin:0;overflow-wrap:anywhere;line-height:1.6}
+#appScreen .library-item-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+#appScreen .library-item-actions .btn{font-size:12px!important;padding:8px 11px!important;min-height:35px}
+#appScreen .library-item-actions .view-pdf{background:#4b3223!important;border:1px solid #efa24f!important;color:#ffe5c1!important}
+#appScreen .library-item-actions .edit-pdf{background:#263c2c!important;border:1px solid #39ff14!important;color:#d5ffca!important}
+#appScreen .library-item-actions .delete-pdf{background:#282d2e!important;border:1px solid #73aa6a!important;color:#ccf7c9!important}
+#appScreen .library-empty{grid-column:1/-1;background:#242a30;border:1px dashed #677480;border-radius:8px;padding:30px;text-align:center;color:#c7ced6}
+#appScreen .library-viewer-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center;margin-bottom:15px}
+#appScreen .library-viewer-top h2{font-size:17px!important;color:#f3f1eb!important}
+#appScreen .library-viewer-top p{font-size:12px;color:#bac4cd}
+#appScreen #libraryPdfFrame{display:block;width:100%;height:min(78vh,930px);min-height:470px;border:1px solid #616b74;background:#f8f9fb;border-radius:7px}
+@media(max-width:900px){#appScreen .library-toolbar-row{grid-template-columns:1fr 1fr}#appScreen .library-toolbar-actions{grid-column:1/-1}}
+@media(max-width:720px){#appScreen .library-list,#appScreen .library-fields,#appScreen .library-toolbar-row{grid-template-columns:1fr}#appScreen .library-toolbar-actions{grid-column:1/-1}#appScreen #libraryPdfFrame{min-height:440px}}
 </style>
 </head>
 <body>
@@ -1030,55 +1078,55 @@ html,body,button,input,select,textarea,option,summary,table,svg text{
 <div aria-hidden="true" class="symbol bcms-logo"><svg role="img" viewbox="0 0 60 60"><defs><lineargradient id="bcmsLogoGlowLab" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#FFD76A"></stop><stop offset="1" stop-color="#FF8A3D"></stop></lineargradient></defs><path d="M10 48H51" stroke="#ffd986" stroke-linecap="round" stroke-width="2.3"></path><rect fill="#ffffff" height="15" rx="1.1" width="8" x="13" y="32"></rect><rect fill="#ffffff" height="23" rx="1.1" width="8" x="26" y="24"></rect><rect fill="#ffffff" height="30" rx="1.1" width="8" x="39" y="17"></rect><path d="M10 34L24 25L35 26L47 12" fill="none" stroke="url(#bcmsLogoGlowLab)" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.2"></path><path d="M47 6L49 11L54 12L50 16L51 21L47 18L43 21L44 16L40 12L45 11Z" fill="#2d2110" stroke="#FFD76A" stroke-linejoin="round" stroke-width="1.8"></path></svg></div>
 <div class="bcms-unified-identity">
 <div class="bcms-hero-title"><strong>BCMS95</strong><span>Conversor de Capacitância · Registros por projeto · Relatório Tapeboard</span></div>
-<span id="heroProject" class="visually-hidden" aria-live="polite">Nenhum projeto selecionado</span>
+<span aria-live="polite" class="visually-hidden" id="heroProject">Nenhum projeto selecionado</span>
 </div>
 </div>
 <div class="bcms-unified-top"><div class="bcms-header-actions"><button aria-label="Logoff — encerrar sessão" class="btn bcms-logout" id="logout" title="Logoff — encerrar sessão" type="button"><svg aria-hidden="true" class="logout-ico" fill="none" viewbox="0 0 24 24"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"></path><path d="M13 8l4 4-4 4M8 12h9"></path></svg></button></div></div>
 </header>
 <nav aria-label="Navegação entre áreas do laboratório" class="lab-module-nav">
-  <div class="lab-module-selector" id="labModuleSelector">
-    <span class="lab-module-led" aria-hidden="true"></span>
-    <label for="labModuleSelect">Área de trabalho</label>
-    <select id="labModuleSelect" aria-label="Selecionar área do sistema">
-      <option value="simple">00 · Consulta Simples de Capacitância</option>
-      <option value="converter">01 · Conversão por Projeto — protegido</option>
-      <option value="tapeboard">02 · Relatório Tapeboard — protegido</option>
-    </select>
-  </div>
-  <p class="lab-module-helper" id="labModuleHelper">Conversão rápida, sem projeto e sem salvar dados.</p>
-  <div class="lab-legacy-nav" aria-hidden="true"><button data-tab="simple" type="button">00 · Consulta Simples</button><button class="active" data-tab="converter" type="button">01 · Conversor de Capacitância</button><button class="locked" data-tab="tapeboard" id="reportTabBtn" type="button">02 · Relatório Tapeboard <span id="tabLock">protegido</span></button></div>
+<div class="lab-module-selector" id="labModuleSelector">
+<span aria-hidden="true" class="lab-module-led"></span>
+<label for="labModuleSelect">Área de trabalho</label>
+<select aria-label="Selecionar área do sistema" id="labModuleSelect">
+<option value="simple">00 · Consulta Simples de Capacitância</option>
+<option value="converter">01 · Conversão por Projeto — protegido</option>
+<option value="tapeboard">02 · Relatório Tapeboard — protegido</option>
+<option value="library">03 · Biblioteca Técnica — consulta liberada</option></select>
+</div>
+<p class="lab-module-helper" id="labModuleHelper">Conversão rápida, sem projeto e sem salvar dados.</p>
+<div aria-hidden="true" class="lab-legacy-nav"><button data-tab="simple" type="button">00 · Consulta Simples</button><button class="active" data-tab="converter" type="button">01 · Conversor de Capacitância</button><button class="locked" data-tab="tapeboard" id="reportTabBtn" type="button">02 · Relatório Tapeboard <span id="tabLock">protegido</span></button></div>
 </nav>
 <div class="maincontent">
 <section id="simple">
- <div class="lab-simple-heading"><div><div class="lab-simple-eyebrow">BCMS95 LAB / UTILITÁRIO</div><h2>Consulta Simples de Capacitância</h2><p>Converta um valor ou interprete uma marcação usual de capacitor SMD/PTH. Não exige projeto e não grava registros.</p></div><span class="simple-badge">CONSULTA INDEPENDENTE</span></div>
- <div class="simple-layout">
-  <article class="panel simple-workspace" aria-label="Conversão simples">
-   <h3>Conversão imediata</h3>
-   <div class="simple-fields">
-    <div class="field"><label for="simpleValue">Valor nominal</label><input id="simpleValue" autocomplete="off" inputmode="decimal" placeholder="Ex.: 0,1" value="0,1"/></div>
-    <div class="field"><label for="simpleUnit">Grandeza / unidade</label><select id="simpleUnit"><option value="uF">µF — microfarad</option><option value="nF">nF — nanofarad</option><option value="pF">pF — picofarad</option><option value="mF">mF — milifarad</option><option value="F">F — farad</option></select></div>
-    <div class="field"><label for="simpleTolerance">Tolerância percentual (±%)</label><input id="simpleTolerance" autocomplete="off" inputmode="decimal" placeholder="Ex.: 10" value="10"/></div>
-   </div>
-   <div class="simple-divider"><span>ou interpretar marcação</span></div>
-   <div class="simple-code-controls"><div class="field"><label for="simpleCode">Código impresso (opcional)</label><input id="simpleCode" autocomplete="off" placeholder="104K, 472, 1002, 4R7, 4n7"/></div><button class="btn simple-code-btn" id="simpleDecode" type="button">Interpretar código</button></div>
-   <div class="simple-examples" aria-label="Exemplos para consulta"><button data-simple-example="104K" type="button">104K</button><button data-simple-example="472" type="button">472</button><button data-simple-example="1002" type="button">1002</button><button data-simple-example="4R7" type="button">4R7</button><button data-simple-example="4n7" type="button">4n7</button></div>
-   <p class="simple-error" id="simpleError" role="status" aria-live="polite"></p>
-   <div class="simple-result" id="simpleResult" aria-live="polite"><div class="simple-result-title">Resultado calculado</div><div class="simple-main-figures" id="simpleKeyResults"></div><div class="tablewrap"><table class="table simple-result-table"><thead><tr><th>Unidade</th><th>Nominal</th><th>Mínimo</th><th>Máximo</th></tr></thead><tbody id="simpleRows"></tbody></table></div><div class="simple-range" id="simpleRange"></div></div>
-   <div class="simple-actions"><button type="button" class="btn simple-clear-btn" id="simpleClear">Limpar consulta</button><span>Os dados desta consulta não são enviados ao Neon.</span></div>
-  </article>
-  <div class="simple-reference-stack">
-   <article class="panel simple-math-panel"><h3>Como é feito o cálculo?</h3><p>A unidade-base é o <strong>farad (F)</strong>. Para converter, multiplique o valor pela escala da unidade de origem e divida pela escala da unidade de destino.</p><div class="simple-formula">C<sub>destino</sub> = C<sub>origem</sub> × (fator de origem ÷ fator de destino)</div><p><strong>Exemplo:</strong> 0,1 µF × 1.000 = 100 nF = 100.000 pF.</p><p>Para tolerância simétrica: <strong>mínimo = nominal × (1 − t/100)</strong> e <strong>máximo = nominal × (1 + t/100)</strong>.</p><div class="simple-formula" id="simpleMathDetail">Com 0,1 µF e ±10%: 90 a 110 nF.</div></article>
-   <article class="panel simple-warning-panel"><h3>Orientação de engenharia / IQC</h3><p>Marcação de capacitor varia conforme tecnologia, fabricante e série. Muitos capacitores cerâmicos SMD não apresentam marcação no corpo. Para inspecionar ou aprovar material, confira sempre <strong>BOM, PN, datasheet e identificação da embalagem</strong>; esta consulta não determina conformidade.</p></article>
-  </div>
- </div>
- <article class="panel simple-code-reference"><div class="cardhead"><h2>Tabela de referência — códigos de capacitores SMD e PTH</h2><span class="chip">Leitura técnica</span></div>
-  <div class="simple-ref-grid">
-   <div class="simple-ref-group"><h3>1. Código numérico de capacitância</h3><p>Em esquemas usuais de 3 dígitos, os dois primeiros são significativos e o último indica a potência de 10, em <strong>pF</strong>. Em 4 dígitos, os três primeiros são significativos.</p><div class="tablewrap"><table class="table"><thead><tr><th>Marcação</th><th>Cálculo em pF</th><th>Equivalência</th></tr></thead><tbody><tr><td>101</td><td>10 × 10¹</td><td>100 pF</td></tr><tr><td>102</td><td>10 × 10²</td><td>1 nF</td></tr><tr><td>103</td><td>10 × 10³</td><td>10 nF</td></tr><tr><td>104</td><td>10 × 10⁴</td><td>100 nF = 0,1 µF</td></tr><tr><td>105</td><td>10 × 10⁵</td><td>1 µF</td></tr><tr><td>472</td><td>47 × 10²</td><td>4,7 nF</td></tr><tr><td>474</td><td>47 × 10⁴</td><td>470 nF</td></tr><tr><td>1002</td><td>100 × 10²</td><td>10 nF</td></tr><tr><td>4R7</td><td>R = vírgula decimal</td><td>4,7 pF (quando a codificação é em pF)</td></tr><tr><td>4n7</td><td>n = nanofarad</td><td>4,7 nF</td></tr></tbody></table></div></div>
-   <div class="simple-ref-group"><h3>2. Letras de tolerância</h3><p>Letras após a marcação nominal podem indicar tolerância, conforme o sistema de codificação do fabricante.</p><div class="tablewrap"><table class="table"><thead><tr><th>Letra</th><th>Tolerância</th><th>Observação</th></tr></thead><tbody><tr><td>B</td><td>±0,10 pF</td><td>Absoluta</td></tr><tr><td>C</td><td>±0,25 pF</td><td>Absoluta</td></tr><tr><td>D</td><td>±0,5 pF</td><td>Absoluta</td></tr><tr><td>F</td><td>±1%</td><td>Percentual</td></tr><tr><td>G</td><td>±2%</td><td>Percentual</td></tr><tr><td>J</td><td>±5%</td><td>Percentual</td></tr><tr><td>K</td><td>±10%</td><td>Percentual</td></tr><tr><td>M</td><td>±20%</td><td>Percentual</td></tr><tr><td>Z</td><td>−20% / +80%</td><td>Assimétrica; não usar como ±%</td></tr></tbody></table></div><p class="simple-ref-note">Ex.: <strong>104K</strong> = 100 nF ±10%. A calculadora usa tolerância percentual simétrica; para B/C/D/Z, consulte o datasheet.</p></div>
-   <div class="simple-ref-group"><h3>3. Letras de grandeza e dielétrico</h3><div class="tablewrap"><table class="table"><thead><tr><th>Marca</th><th>Significado usual</th></tr></thead><tbody><tr><td>p / n / u / µ</td><td>pF / nF / µF (letra substitui a vírgula)</td></tr><tr><td>R</td><td>Separador decimal na codificação aplicável, como 4R7</td></tr><tr><td>C0G / NP0</td><td>Dielétrico cerâmico de elevada estabilidade</td></tr><tr><td>X7R / X5R</td><td>Classe de dielétrico e faixa de temperatura; não é tolerância nominal</td></tr><tr><td>Y5V</td><td>Classe de dielétrico, com variação térmica ampla</td></tr></tbody></table></div></div>
-   <div class="simple-ref-group"><h3>4. Código de tensão (quando aplicável)</h3><p>Algumas séries indicam tensão por código alfanumérico. O padrão deve ser confirmado pelo fabricante.</p><div class="tablewrap"><table class="table"><thead><tr><th>Código</th><th>Tensão típica</th></tr></thead><tbody><tr><td>1A</td><td>10 V</td></tr><tr><td>1C</td><td>16 V</td></tr><tr><td>1E</td><td>25 V</td></tr><tr><td>1H</td><td>50 V</td></tr><tr><td>2A</td><td>100 V</td></tr></tbody></table></div><p class="simple-ref-note">Os códigos variam entre famílias e não substituem a leitura do PN e do datasheet. Em capacitores eletrolíticos PTH a tensão frequentemente aparece impressa diretamente (ex.: 25 V).</p></div>
-  </div>
- </article>
+<div class="lab-simple-heading"><div><div class="lab-simple-eyebrow">BCMS95 LAB / UTILITÁRIO</div><h2>Consulta Simples de Capacitância</h2><p>Converta um valor ou interprete uma marcação usual de capacitor SMD/PTH. Não exige projeto e não grava registros.</p></div><span class="simple-badge">CONSULTA INDEPENDENTE</span></div>
+<div class="simple-layout">
+<article aria-label="Conversão simples" class="panel simple-workspace">
+<h3>Conversão imediata</h3>
+<div class="simple-fields">
+<div class="field"><label for="simpleValue">Valor nominal</label><input autocomplete="off" id="simpleValue" inputmode="decimal" placeholder="Ex.: 0,1" value="0,1"/></div>
+<div class="field"><label for="simpleUnit">Grandeza / unidade</label><select id="simpleUnit"><option value="uF">µF — microfarad</option><option value="nF">nF — nanofarad</option><option value="pF">pF — picofarad</option><option value="mF">mF — milifarad</option><option value="F">F — farad</option></select></div>
+<div class="field"><label for="simpleTolerance">Tolerância percentual (±%)</label><input autocomplete="off" id="simpleTolerance" inputmode="decimal" placeholder="Ex.: 10" value="10"/></div>
+</div>
+<div class="simple-divider"><span>ou interpretar marcação</span></div>
+<div class="simple-code-controls"><div class="field"><label for="simpleCode">Código impresso (opcional)</label><input autocomplete="off" id="simpleCode" placeholder="104K, 472, 1002, 4R7, 4n7"/></div><button class="btn simple-code-btn" id="simpleDecode" type="button">Interpretar código</button></div>
+<div aria-label="Exemplos para consulta" class="simple-examples"><button data-simple-example="104K" type="button">104K</button><button data-simple-example="472" type="button">472</button><button data-simple-example="1002" type="button">1002</button><button data-simple-example="4R7" type="button">4R7</button><button data-simple-example="4n7" type="button">4n7</button></div>
+<p aria-live="polite" class="simple-error" id="simpleError" role="status"></p>
+<div aria-live="polite" class="simple-result" id="simpleResult"><div class="simple-result-title">Resultado calculado</div><div class="simple-main-figures" id="simpleKeyResults"></div><div class="tablewrap"><table class="table simple-result-table"><thead><tr><th>Unidade</th><th>Nominal</th><th>Mínimo</th><th>Máximo</th></tr></thead><tbody id="simpleRows"></tbody></table></div><div class="simple-range" id="simpleRange"></div></div>
+<div class="simple-actions"><button class="btn simple-clear-btn" id="simpleClear" type="button">Limpar consulta</button><span>Os dados desta consulta não são enviados ao Neon.</span></div>
+</article>
+<div class="simple-reference-stack">
+<article class="panel simple-math-panel"><h3>Como é feito o cálculo?</h3><p>A unidade-base é o <strong>farad (F)</strong>. Para converter, multiplique o valor pela escala da unidade de origem e divida pela escala da unidade de destino.</p><div class="simple-formula">C<sub>destino</sub> = C<sub>origem</sub> × (fator de origem ÷ fator de destino)</div><p><strong>Exemplo:</strong> 0,1 µF × 1.000 = 100 nF = 100.000 pF.</p><p>Para tolerância simétrica: <strong>mínimo = nominal × (1 − t/100)</strong> e <strong>máximo = nominal × (1 + t/100)</strong>.</p><div class="simple-formula" id="simpleMathDetail">Com 0,1 µF e ±10%: 90 a 110 nF.</div></article>
+<article class="panel simple-warning-panel"><h3>Orientação de engenharia / IQC</h3><p>Marcação de capacitor varia conforme tecnologia, fabricante e série. Muitos capacitores cerâmicos SMD não apresentam marcação no corpo. Para inspecionar ou aprovar material, confira sempre <strong>BOM, PN, datasheet e identificação da embalagem</strong>; esta consulta não determina conformidade.</p></article>
+</div>
+</div>
+<article class="panel simple-code-reference"><div class="cardhead"><h2>Tabela de referência — códigos de capacitores SMD e PTH</h2><span class="chip">Leitura técnica</span></div>
+<div class="simple-ref-grid">
+<div class="simple-ref-group"><h3>1. Código numérico de capacitância</h3><p>Em esquemas usuais de 3 dígitos, os dois primeiros são significativos e o último indica a potência de 10, em <strong>pF</strong>. Em 4 dígitos, os três primeiros são significativos.</p><div class="tablewrap"><table class="table"><thead><tr><th>Marcação</th><th>Cálculo em pF</th><th>Equivalência</th></tr></thead><tbody><tr><td>101</td><td>10 × 10¹</td><td>100 pF</td></tr><tr><td>102</td><td>10 × 10²</td><td>1 nF</td></tr><tr><td>103</td><td>10 × 10³</td><td>10 nF</td></tr><tr><td>104</td><td>10 × 10⁴</td><td>100 nF = 0,1 µF</td></tr><tr><td>105</td><td>10 × 10⁵</td><td>1 µF</td></tr><tr><td>472</td><td>47 × 10²</td><td>4,7 nF</td></tr><tr><td>474</td><td>47 × 10⁴</td><td>470 nF</td></tr><tr><td>1002</td><td>100 × 10²</td><td>10 nF</td></tr><tr><td>4R7</td><td>R = vírgula decimal</td><td>4,7 pF (quando a codificação é em pF)</td></tr><tr><td>4n7</td><td>n = nanofarad</td><td>4,7 nF</td></tr></tbody></table></div></div>
+<div class="simple-ref-group"><h3>2. Letras de tolerância</h3><p>Letras após a marcação nominal podem indicar tolerância, conforme o sistema de codificação do fabricante.</p><div class="tablewrap"><table class="table"><thead><tr><th>Letra</th><th>Tolerância</th><th>Observação</th></tr></thead><tbody><tr><td>B</td><td>±0,10 pF</td><td>Absoluta</td></tr><tr><td>C</td><td>±0,25 pF</td><td>Absoluta</td></tr><tr><td>D</td><td>±0,5 pF</td><td>Absoluta</td></tr><tr><td>F</td><td>±1%</td><td>Percentual</td></tr><tr><td>G</td><td>±2%</td><td>Percentual</td></tr><tr><td>J</td><td>±5%</td><td>Percentual</td></tr><tr><td>K</td><td>±10%</td><td>Percentual</td></tr><tr><td>M</td><td>±20%</td><td>Percentual</td></tr><tr><td>Z</td><td>−20% / +80%</td><td>Assimétrica; não usar como ±%</td></tr></tbody></table></div><p class="simple-ref-note">Ex.: <strong>104K</strong> = 100 nF ±10%. A calculadora usa tolerância percentual simétrica; para B/C/D/Z, consulte o datasheet.</p></div>
+<div class="simple-ref-group"><h3>3. Letras de grandeza e dielétrico</h3><div class="tablewrap"><table class="table"><thead><tr><th>Marca</th><th>Significado usual</th></tr></thead><tbody><tr><td>p / n / u / µ</td><td>pF / nF / µF (letra substitui a vírgula)</td></tr><tr><td>R</td><td>Separador decimal na codificação aplicável, como 4R7</td></tr><tr><td>C0G / NP0</td><td>Dielétrico cerâmico de elevada estabilidade</td></tr><tr><td>X7R / X5R</td><td>Classe de dielétrico e faixa de temperatura; não é tolerância nominal</td></tr><tr><td>Y5V</td><td>Classe de dielétrico, com variação térmica ampla</td></tr></tbody></table></div></div>
+<div class="simple-ref-group"><h3>4. Código de tensão (quando aplicável)</h3><p>Algumas séries indicam tensão por código alfanumérico. O padrão deve ser confirmado pelo fabricante.</p><div class="tablewrap"><table class="table"><thead><tr><th>Código</th><th>Tensão típica</th></tr></thead><tbody><tr><td>1A</td><td>10 V</td></tr><tr><td>1C</td><td>16 V</td></tr><tr><td>1E</td><td>25 V</td></tr><tr><td>1H</td><td>50 V</td></tr><tr><td>2A</td><td>100 V</td></tr></tbody></table></div><p class="simple-ref-note">Os códigos variam entre famílias e não substituem a leitura do PN e do datasheet. Em capacitores eletrolíticos PTH a tensão frequentemente aparece impressa diretamente (ex.: 25 V).</p></div>
+</div>
+</article>
 </section>
 <section class="active" id="converter">
 <div class="module-project-panel"><div class="module-project-title"><i></i> PROJETO · CONVERSÃO E HISTÓRICO</div><div class="lab-project-chip"><label class="header-project-label" for="headerProjectSelect">Projeto da conversão</label><select aria-label="Selecionar projeto para conversão e registros" class="project-context-select" id="headerProjectSelect"><option value="">Selecione um projeto</option></select></div></div>
@@ -1187,10 +1235,34 @@ html,body,button,input,select,textarea,option,summary,table,svg text{
 </div>
 </div>
 </section>
-</div>
+<section aria-label="Biblioteca Técnica" id="library">
+<div class="library-head"><div><div class="library-kicker">BCMS95 LAB / REFERÊNCIAS</div><h2>Biblioteca Técnica</h2><p>Consulte normas, datasheets, manuais e procedimentos cadastrados. Leitura liberada para usuários do sistema.</p></div><span class="library-access">CONSULTA LIBERADA</span></div>
+<article class="panel library-toolbar">
+<div class="library-toolbar-row"><div class="field"><label for="librarySearch">Pesquisar documentos</label><input id="librarySearch" placeholder="Título, código, revisão ou descrição" type="search"/></div><div class="field"><label for="libraryFilter">Categoria</label><select id="libraryFilter"><option value="">Todas as categorias</option><option>Norma técnica</option><option>Datasheet</option><option>Procedimento</option><option>Manual</option><option>Especificação</option><option>Outros</option></select></div><div class="library-toolbar-actions"><button class="btn soft" id="libraryRefresh" type="button">Atualizar lista</button><button class="btn library-manager" id="libraryUnlock" type="button">Gerenciar PDFs · protegido</button></div></div>
+<div class="library-quick-status"><span id="libraryCount">0 documentos</span><span>PDFs disponíveis nos computadores autorizados · Armazenamento online Neon</span></div>
+<p aria-live="polite" class="library-message" id="libraryMessage" role="status"></p>
+</article>
+<article class="panel library-admin" hidden="" id="libraryAdmin">
+<div class="cardhead"><h2>Gerenciamento de documentos</h2><span class="chip">Senha das áreas 01 e 02 validada</span></div>
+<p class="library-admin-hint">Adicione PDFs de até 2 MB diretamente aqui, sem publicar no GitHub. O arquivo e sua identificação ficam salvos no Neon. Consulte os direitos de acesso e reprodução de normas técnicas antes de disponibilizá-las.</p>
+<form id="libraryForm"><input id="libraryEditId" type="hidden"/>
+<div class="library-fields"><div class="field"><label for="libraryTitle">Título do documento *</label><input id="libraryTitle" maxlength="160" placeholder="Ex.: Especificação de capacitor cerâmico" required=""/></div>
+<div class="field"><label for="libraryCategory">Categoria *</label><select id="libraryCategory"><option>Norma técnica</option><option>Datasheet</option><option>Procedimento</option><option>Manual</option><option>Especificação</option><option>Outros</option></select></div>
+<div class="field"><label for="libraryCode">Código / referência</label><input id="libraryCode" maxlength="80" placeholder="Ex.: IPC-XXXX, PN, POP-001"/></div>
+<div class="field"><label for="libraryRevision">Revisão / edição</label><input id="libraryRevision" maxlength="60" placeholder="Ex.: Rev. 02 / 2026"/></div></div>
+<div class="field"><label for="libraryDescription">Resumo / observações</label><textarea id="libraryDescription" maxlength="900" placeholder="Escopo, aplicação, identificação ou notas de consulta" rows="2"></textarea></div>
+<div class="field" id="libraryFileField"><label for="libraryFile">Documento PDF * (até 2 MB)</label><input accept="application/pdf,.pdf" id="libraryFile" type="file"/><p class="library-small">O arquivo é armazenado no Neon. Um cadastro existente pode ter os metadados editados; para substituir seu PDF, exclua-o e cadastre a nova versão.</p></div>
+<div class="actions"><button class="btn library-add" id="librarySave" type="submit">Adicionar PDF à biblioteca</button><button class="btn soft" hidden="" id="libraryCancelEdit" type="button">Cancelar edição</button></div>
+</form>
+</article>
+<article class="panel library-results"><div class="cardhead"><h2>Documentos disponíveis</h2><span class="chip" id="libraryVisibleCount">—</span></div>
+<div class="library-list" id="libraryList"><p class="library-empty">Carregando documentos…</p></div></article>
+<article class="panel library-viewer" hidden="" id="libraryViewer"><div class="library-viewer-top"><div><h2 id="libraryViewerTitle">Visualização de documento</h2><p id="libraryViewerMeta"></p></div><div class="actions"><a class="btn soft" href="#" id="libraryOpenNew" rel="noopener" target="_blank">Abrir em nova guia</a><button class="btn soft" id="libraryCloseViewer" type="button">Fechar visualização</button></div></div><iframe id="libraryPdfFrame" loading="lazy" title="Visualizador de PDF da Biblioteca Técnica"></iframe></article>
+<p class="library-legal">A biblioteca organiza documentos de referência e não substitui a consulta às fontes oficiais ou ao datasheet vigente. Apenas inclua documentos cuja disponibilização seja permitida pelo titular dos direitos.</p>
+</section></div>
 <div class="footer-app">BCMS95 LAB · Conversão de capacitância e documentação de Tapeboard · Sincronização online · Banco de dados PostgreSQL</div>
 </main>
-<div class="modal-overlay" hidden="" id="reportGate"><div class="modal"><div aria-hidden="true" class="lock-symbol">◇</div><h2>Áreas protegidas do BCMS95 LAB</h2><div class="brandline"></div><p>Conversão por Projeto e Relatório Tapeboard usam a mesma senha adicional. Após desbloquear, as duas áreas ficam disponíveis nesta sessão.</p><form id="reportGateForm"><div class="field"><label for="reportPassword">Senha das áreas 01 e 02</label><input autocomplete="off" id="reportPassword" placeholder="Senha do módulo" required="" type="password"/></div><p class="message" id="gateError" role="alert"></p><div class="actions"><button class="btn soft" id="gateCancel" type="button">Cancelar</button><button class="btn primary" type="submit">Desbloquear módulo</button></div></form></div></div>
+<div class="modal-overlay" hidden="" id="reportGate"><div class="modal"><div aria-hidden="true" class="lock-symbol">◇</div><h2>Acesso às áreas protegidas</h2><div class="brandline"></div><p>A mesma senha libera Conversão por Projeto, Relatório Tapeboard e gerenciamento de PDFs. A consulta à biblioteca não exige essa senha adicional.</p><form id="reportGateForm"><div class="field"><label for="reportPassword">Senha das áreas 01 e 02 / gerenciamento da biblioteca</label><input autocomplete="off" id="reportPassword" placeholder="Senha do módulo" required="" type="password"/></div><p class="message" id="gateError" role="alert"></p><div class="actions"><button class="btn soft" id="gateCancel" type="button">Cancelar</button><button class="btn primary" type="submit">Desbloquear módulo</button></div></form></div></div>
 <div class="toast" hidden="" id="toast" role="status"></div>
 <script>
 'use strict';
@@ -1316,10 +1388,11 @@ function setTab(name){
   setTimeout(()=>$('reportPassword').focus(),50);return;
  }
  tab=name;
+ if(name==='library'&&!libraryLoaded)loadLibrary();
  document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));
  document.querySelectorAll('.maincontent>section').forEach(s=>s.classList.toggle('active',s.id===name));
  if($('labModuleSelect')){$('labModuleSelect').value=name;$('labModuleSelector').dataset.mode=name;
- $('labModuleHelper').textContent=name==='simple'?'Conversão rápida, sem projeto e sem salvar dados.':name==='converter'?'Área protegida · Conversões e histórico vinculados ao projeto.':'Área protegida · Observações, assinaturas e relatórios.'}
+ $('labModuleHelper').textContent=name==='simple'?'Conversão rápida, sem projeto e sem salvar dados.':name==='converter'?'Área protegida · Conversões e histórico vinculados ao projeto.':name==='tapeboard'?'Área protegida · Observações, assinaturas e relatórios.':'Consulta liberada · Biblioteca Técnica de PDFs armazenados no Neon.'}
 }
 
 async function goLogin(){
@@ -1332,7 +1405,7 @@ async function unlockReport(evt){
   await api('/api/auth/report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:$('reportPassword').value})});
   // A senha é verificada pelo servidor e a sessão vale para os dois módulos.
   await hydrate();
-  reportUnlocked=true;$('reportPassword').value='';$('reportGate').hidden=true;
+  reportUnlocked=true;setLibraryManager();if(libraryLoaded)renderLibrary();$('reportPassword').value='';$('reportGate').hidden=true;
   $('tabLock').textContent='✓';setTab(requestedProtectedTab);
  }catch(e){$('gateError').textContent=e.message}
 }
@@ -1500,6 +1573,126 @@ function simpleDecode(){
    simpleCalculate();
  }catch(err){$('simpleError').textContent=err.message;}
 }
+
+/* BIBLIOTECA TÉCNICA: consulta após login principal; gerenciamento após senha extra. */
+let libraryDocs=[],libraryLoaded=false,libraryBusy=false;
+const libraryCategories=['Norma técnica','Datasheet','Procedimento','Manual','Especificação','Outros'];
+function libraryError(err){
+ const msg=err?.message||'Falha na operação.';
+ $('libraryMessage').textContent=msg;
+ notify(msg);
+}
+function setLibraryManager(){
+ $('libraryAdmin').hidden=!reportUnlocked;
+ $('libraryUnlock').hidden=reportUnlocked;
+}
+async function loadLibrary(){
+ $('libraryMessage').textContent='Consultando documentos no banco Neon…';
+ try{
+  const result=await api('/api/library');
+  libraryDocs=Array.isArray(result.documents)?result.documents:[];
+  libraryLoaded=true;
+  if(result.canManage&&!reportUnlocked)reportUnlocked=true;
+  setLibraryManager();renderLibrary();
+  $('libraryMessage').textContent='Lista atualizada.';
+ }catch(e){libraryError(e);}
+}
+function renderLibrary(){
+ const search=$('librarySearch').value.trim().toLocaleLowerCase('pt-BR');
+ const category=$('libraryFilter').value;
+ const filtered=libraryDocs.filter(d=>(!category||d.category===category)&&
+  [d.title,d.code,d.revision,d.description,d.filename,d.category].join(' ').toLocaleLowerCase('pt-BR').includes(search));
+ $('libraryCount').textContent=`${libraryDocs.length} documento(s)`;
+ $('libraryVisibleCount').textContent=`${filtered.length} resultado(s)`;
+ const root=$('libraryList');root.replaceChildren();
+ if(!filtered.length){const p=document.createElement('p');p.className='library-empty';p.textContent=libraryDocs.length?'Nenhum documento corresponde à pesquisa.':'Nenhum PDF cadastrado. A consulta ficará disponível assim que um administrador adicionar documentos.';root.append(p);return}
+ filtered.forEach(d=>{
+  const article=document.createElement('article');article.className='library-item';
+  const head=document.createElement('div');head.className='library-item-head';
+  const icon=document.createElement('span');icon.className='library-pdf-icon';icon.textContent='PDF';
+  const wrap=document.createElement('div');
+  const title=document.createElement('div');title.className='library-item-title';title.textContent=d.title;
+  const meta=document.createElement('p');meta.className='library-item-meta';
+  meta.textContent=[d.category,d.code||'',d.revision?`Rev.: ${d.revision}`:'',
+   `${Math.round((Number(d.bytes)||0)/1024)} KB`,d.updated_at?new Date(d.updated_at).toLocaleDateString('pt-BR'):''].filter(Boolean).join(' · ');
+  wrap.append(title,meta);head.append(icon,wrap);article.append(head);
+  if(d.description){const p=document.createElement('p');p.className='library-item-desc';p.textContent=d.description;article.append(p)}
+  const actions=document.createElement('div');actions.className='library-item-actions';
+  const view=document.createElement('button');view.type='button';view.className='btn view-pdf';view.textContent='Visualizar PDF';view.addEventListener('click',()=>openLibraryPdf(d));actions.append(view);
+  if(reportUnlocked){
+   const edit=document.createElement('button');edit.type='button';edit.className='btn edit-pdf';edit.textContent='Editar cadastro';edit.addEventListener('click',()=>editLibraryDoc(d));actions.append(edit);
+   const del=document.createElement('button');del.type='button';del.className='btn delete-pdf';del.textContent='Excluir';del.addEventListener('click',()=>deleteLibraryDoc(d));actions.append(del);
+  }
+  article.append(actions);root.append(article);
+ });
+}
+function openLibraryPdf(d){
+ const url='/api/library/file?id='+encodeURIComponent(d.id);
+ $('libraryViewerTitle').textContent=d.title;
+ $('libraryViewerMeta').textContent=[d.category,d.code,d.revision].filter(Boolean).join(' · ');
+ $('libraryPdfFrame').src=url;
+ $('libraryOpenNew').href=url;
+ $('libraryViewer').hidden=false;
+ $('libraryViewer').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function resetLibraryForm(){
+ $('libraryForm').reset();$('libraryEditId').value='';$('libraryFileField').hidden=false;
+ $('librarySave').textContent='Adicionar PDF à biblioteca';$('libraryCancelEdit').hidden=true;
+}
+function editLibraryDoc(d){
+ if(!reportUnlocked)return;
+ $('libraryEditId').value=d.id;
+ $('libraryTitle').value=d.title;$('libraryCategory').value=d.category;
+ $('libraryCode').value=d.code||'';$('libraryRevision').value=d.revision||'';
+ $('libraryDescription').value=d.description||'';
+ $('libraryFileField').hidden=true;$('librarySave').textContent='Salvar alterações do cadastro';
+ $('libraryCancelEdit').hidden=false;
+ $('libraryAdmin').scrollIntoView({behavior:'smooth',block:'start'});
+}
+async function deleteLibraryDoc(d){
+ if(!reportUnlocked)return;
+ if(!confirm(`Excluir DEFINITIVAMENTE o PDF "${d.title}" da Biblioteca Técnica? Essa ação remove o documento armazenado no Neon.`))return;
+ try{
+  await api('/api/library',{method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:d.id})});
+  if($('libraryPdfFrame').src.includes(d.id)){$('libraryViewer').hidden=true;$('libraryPdfFrame').removeAttribute('src')}
+  await loadLibrary();notify('PDF excluído do Neon.');
+ }catch(e){libraryError(e)}
+}
+async function submitLibraryDoc(e){
+ e.preventDefault();if(libraryBusy||!reportUnlocked)return;
+ const id=$('libraryEditId').value;
+ const payload={title:$('libraryTitle').value.trim(),category:$('libraryCategory').value,
+  code:$('libraryCode').value.trim(),revision:$('libraryRevision').value.trim(),
+  description:$('libraryDescription').value.trim()};
+ if(payload.title.length<3){$('libraryMessage').textContent='Informe o título do documento.';return}
+ const btn=$('librarySave');libraryBusy=true;btn.disabled=true;btn.textContent='Salvando no Neon…';
+ try{
+  if(id){payload.id=id;await api('/api/library',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})}
+  else{
+   const f=$('libraryFile').files?.[0];
+   if(!f)throw Error('Escolha um documento PDF.');
+   if(f.size>2*1024*1024)throw Error('O PDF ultrapassa 2 MB; use um arquivo menor.');
+   if(!f.name.toLowerCase().endsWith('.pdf'))throw Error('Selecione um arquivo .pdf.');
+   const encoded=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result).split(',')[1]||'');reader.onerror=()=>reject(Error('Não foi possível ler o PDF.'));reader.readAsDataURL(f)});
+   payload.filename=f.name;payload.contentBase64=encoded;
+   await api('/api/library',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  }
+  resetLibraryForm();await loadLibrary();notify(id?'Cadastro do PDF atualizado.':'PDF adicionado ao Neon.');
+ }catch(err){libraryError(err)}finally{libraryBusy=false;btn.disabled=false;btn.textContent=$('libraryEditId').value?'Salvar alterações do cadastro':'Adicionar PDF à biblioteca'}
+}
+$('libraryRefresh').addEventListener('click',loadLibrary);
+$('librarySearch').addEventListener('input',renderLibrary);
+$('libraryFilter').addEventListener('change',renderLibrary);
+$('libraryUnlock').addEventListener('click',()=>{
+ if(reportUnlocked){setLibraryManager();return}
+ requestedProtectedTab='library';$('reportGate').hidden=false;
+ $('reportPassword').value='';$('gateError').textContent='';$('reportPassword').focus();
+});
+$('libraryForm').addEventListener('submit',submitLibraryDoc);
+$('libraryCancelEdit').addEventListener('click',resetLibraryForm);
+$('libraryCloseViewer').addEventListener('click',()=>{$('libraryPdfFrame').removeAttribute('src');$('libraryViewer').hidden=true});
+setLibraryManager();
+
 $('labModuleSelect').addEventListener('change',e=>setTab(e.target.value));
 ['simpleValue','simpleTolerance'].forEach(id=>$(id).addEventListener('input',simpleCalculate));
 $('simpleUnit').addEventListener('change',simpleCalculate);
@@ -1514,6 +1707,7 @@ simpleCalculate();
    const auth=await api('/api/auth/session');
    if(!auth.authenticated){window.location.replace('/login.html');return;}
    reportUnlocked=!!auth.report;
+   setLibraryManager();
    if(reportUnlocked){await hydrate();$('tabLock').textContent='✓';}
    $('appScreen').hidden=false;
    setTab('simple');
