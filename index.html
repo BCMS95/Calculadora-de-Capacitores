@@ -1253,14 +1253,13 @@ html,body,button,input,select,textarea,option,summary,table,svg text{
 </article>
 <article class="panel library-admin" hidden="" id="libraryAdmin">
 <div class="cardhead"><h2>Gerenciamento de documentos</h2><span class="chip">Senha das áreas 01 e 02 validada</span></div>
-<p class="library-admin-hint">Adicione PDFs de até 2 MB diretamente aqui, sem publicar no GitHub. O arquivo e sua identificação ficam salvos no Neon. Consulte os direitos de acesso e reprodução de normas técnicas antes de disponibilizá-las.</p>
+<p class="library-admin-hint">Adicione PDFs de até 10 MB diretamente aqui, sem publicar no GitHub. O arquivo e sua identificação ficam salvos no Neon. Consulte os direitos de acesso e reprodução de normas técnicas antes de disponibilizá-las.</p>
 <form id="libraryForm"><input id="libraryEditId" type="hidden"/>
 <div class="library-fields"><div class="field"><label for="libraryTitle">Título do documento *</label><input id="libraryTitle" maxlength="160" placeholder="Ex.: Especificação de capacitor cerâmico" required=""/></div>
 <div class="field"><label for="libraryCategory">Categoria *</label><select id="libraryCategory"><option>Norma técnica</option><option>Datasheet</option><option>Procedimento</option><option>Manual</option><option>Especificação</option><option>Outros</option></select></div>
-<div class="field"><label for="libraryCode">Código / referência</label><input id="libraryCode" maxlength="80" placeholder="Ex.: IPC-XXXX, PN, POP-001"/></div>
-<div class="field"><label for="libraryRevision">Revisão / edição</label><input id="libraryRevision" maxlength="60" placeholder="Ex.: Rev. 02 / 2026"/></div></div>
-<div class="field"><label for="libraryDescription">Resumo / observações</label><textarea id="libraryDescription" maxlength="900" placeholder="Escopo, aplicação, identificação ou notas de consulta" rows="2"></textarea></div>
-<div class="field" id="libraryFileField"><label for="libraryFile">Documento PDF * (até 2 MB)</label><input accept="application/pdf,.pdf" id="libraryFile" type="file"/><p class="library-small">O arquivo é armazenado no Neon. Um cadastro existente pode ter os metadados editados; para substituir seu PDF, exclua-o e cadastre a nova versão.</p></div>
+</div>
+
+<div class="field" id="libraryFileField"><label for="libraryFile">Documento PDF * (até 10 MB)</label><input accept="application/pdf,.pdf" id="libraryFile" type="file"/><p class="library-small">O arquivo é armazenado no Neon em partes protegidas. Para substituir um PDF, exclua-o e cadastre a nova versão.</p></div>
 <div class="actions"><button class="btn library-add" id="librarySave" type="submit">Adicionar PDF à biblioteca</button><button class="btn soft" hidden="" id="libraryCancelEdit" type="button">Cancelar edição</button></div>
 </form>
 </article>
@@ -1665,15 +1664,6 @@ function renderLibrary(){
  }
 }
 
-function openLibraryPdf(d){
- const url='/api/library/file?id='+encodeURIComponent(d.id);
- $('libraryViewerTitle').textContent=d.title;
- $('libraryViewerMeta').textContent=[d.category,d.code,d.revision].filter(Boolean).join(' · ');
- $('libraryPdfFrame').src=url;
- $('libraryOpenNew').href=url;
- $('libraryViewer').hidden=false;
- $('libraryViewer').scrollIntoView({behavior:'smooth',block:'start'});
-}
 function resetLibraryForm(){
  $('libraryForm').reset();$('libraryEditId').value='';$('libraryFileField').hidden=false;
  $('librarySave').textContent='Adicionar PDF à biblioteca';$('libraryCancelEdit').hidden=true;
@@ -1682,8 +1672,7 @@ function editLibraryDoc(d){
  if(!reportUnlocked)return;
  $('libraryEditId').value=d.id;
  $('libraryTitle').value=d.title;$('libraryCategory').value=d.category;
- $('libraryCode').value=d.code||'';$('libraryRevision').value=d.revision||'';
- $('libraryDescription').value=d.description||'';
+
  $('libraryFileField').hidden=true;$('librarySave').textContent='Salvar alterações do cadastro';
  $('libraryCancelEdit').hidden=false;
  $('libraryAdmin').scrollIntoView({behavior:'smooth',block:'start'});
@@ -1693,16 +1682,64 @@ async function deleteLibraryDoc(d){
  if(!confirm(`Excluir DEFINITIVAMENTE o PDF "${d.title}" da Biblioteca Técnica? Essa ação remove o documento armazenado no Neon.`))return;
  try{
   await api('/api/library',{method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:d.id})});
-  if($('libraryPdfFrame').src.includes(d.id)){$('libraryViewer').hidden=true;$('libraryPdfFrame').removeAttribute('src')}
+  closeLibraryPdf()
   await loadLibrary();notify('PDF excluído do Neon.');
+ }catch(e){libraryError(e)}
+}
+const LIB_CHUNK_BYTES=512*1024;
+async function libraryChunkBase64(blob){
+ const bytes=new Uint8Array(await blob.arrayBuffer());
+ let binary='';for(let i=0;i<bytes.length;i+=8192)binary+=String.fromCharCode(...bytes.subarray(i,i+8192));
+ return btoa(binary);
+}
+async function uploadLibraryPdf(file,metadata){
+ if(file.size<12)throw Error('O PDF é muito pequeno ou inválido.');
+ const start=await api('/api/library',{method:'POST',headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({action:'begin',...metadata,filename:file.name,expectedBytes:file.size})});
+ let offset=0;
+ for(;offset<file.size;){
+  const end=Math.min(offset+LIB_CHUNK_BYTES,file.size);
+  const contentBase64=await libraryChunkBase64(file.slice(offset,end));
+  await api('/api/library',{method:'POST',headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({action:'chunk',id:start.id,offset,contentBase64})});
+  offset=end;
+  $('libraryMessage').textContent='Enviando PDF para o Neon: '+Math.round(100*offset/file.size)+'%';
+ }
+ await api('/api/library',{method:'POST',headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({action:'finish',id:start.id})});
+}
+let libraryBlobUrl=null;
+function closeLibraryPdf(){
+ $('libraryPdfFrame').removeAttribute('src');$('libraryViewer').hidden=true;
+ $('libraryOpenNew').removeAttribute('href');
+ if(libraryBlobUrl){URL.revokeObjectURL(libraryBlobUrl);libraryBlobUrl=null}
+}
+async function openLibraryPdf(d){
+ closeLibraryPdf();
+ $('libraryMessage').textContent='Preparando PDF para consulta…';
+ try{
+  const parts=[];const total=Math.ceil(Number(d.bytes)/LIB_CHUNK_BYTES);
+  for(let i=0;i<total;i++){
+   const response=await fetch('/api/library/file?id='+encodeURIComponent(d.id)+'&part='+i,
+    {credentials:'same-origin',cache:'no-store'});
+   if(!response.ok)throw Error('Não foi possível carregar o PDF (parte '+(i+1)+').');
+   parts.push(await response.blob());
+  }
+  libraryBlobUrl=URL.createObjectURL(new Blob(parts,{type:'application/pdf'}));
+  $('libraryViewerTitle').textContent=d.title;
+  $('libraryViewerMeta').textContent=d.category||'';
+  $('libraryPdfFrame').src=libraryBlobUrl;
+  $('libraryOpenNew').href=libraryBlobUrl;
+  $('libraryViewer').hidden=false;
+  $('libraryMessage').textContent='PDF pronto para consulta.';
+  $('libraryViewer').scrollIntoView({behavior:'smooth',block:'start'});
  }catch(e){libraryError(e)}
 }
 async function submitLibraryDoc(e){
  e.preventDefault();if(libraryBusy||!reportUnlocked)return;
  const id=$('libraryEditId').value;
  const payload={title:$('libraryTitle').value.trim(),category:$('libraryCategory').value,
-  code:$('libraryCode').value.trim(),revision:$('libraryRevision').value.trim(),
-  description:$('libraryDescription').value.trim()};
+  code:'',revision:'',description:''};
  if(payload.title.length<3){$('libraryMessage').textContent='Informe o título do documento.';return}
  const btn=$('librarySave');libraryBusy=true;btn.disabled=true;btn.textContent='Salvando no Neon…';
  try{
@@ -1710,11 +1747,9 @@ async function submitLibraryDoc(e){
   else{
    const f=$('libraryFile').files?.[0];
    if(!f)throw Error('Escolha um documento PDF.');
-   if(f.size>2*1024*1024)throw Error('O PDF ultrapassa 2 MB; use um arquivo menor.');
+   if(f.size>10*1024*1024)throw Error('O PDF ultrapassa 10 MB; escolha um arquivo menor.');
    if(!f.name.toLowerCase().endsWith('.pdf'))throw Error('Selecione um arquivo .pdf.');
-   const encoded=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result).split(',')[1]||'');reader.onerror=()=>reject(Error('Não foi possível ler o PDF.'));reader.readAsDataURL(f)});
-   payload.filename=f.name;payload.contentBase64=encoded;
-   await api('/api/library',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+   await uploadLibraryPdf(f,payload);
   }
   resetLibraryForm();await loadLibrary();notify(id?'Cadastro do PDF atualizado.':'PDF adicionado ao Neon.');
  }catch(err){libraryError(err)}finally{libraryBusy=false;btn.disabled=false;btn.textContent=$('libraryEditId').value?'Salvar alterações do cadastro':'Adicionar PDF à biblioteca'}
@@ -1723,7 +1758,7 @@ $('libraryRefresh').addEventListener('click',loadLibrary);
 $('libraryDocumentSelect').addEventListener('change',e=>{
  const d=libraryDocs.find(d=>String(d.id)===e.target.value);
  if(d)openLibraryPdf(d);
- else {$('libraryPdfFrame').removeAttribute('src');$('libraryViewer').hidden=true;}
+ else closeLibraryPdf();
 });
 $('libraryUnlock').addEventListener('click',()=>{
  if(reportUnlocked){setLibraryManager();return}
@@ -1732,7 +1767,7 @@ $('libraryUnlock').addEventListener('click',()=>{
 });
 $('libraryForm').addEventListener('submit',submitLibraryDoc);
 $('libraryCancelEdit').addEventListener('click',resetLibraryForm);
-$('libraryCloseViewer').addEventListener('click',()=>{$('libraryPdfFrame').removeAttribute('src');$('libraryViewer').hidden=true;$('libraryDocumentSelect').value=''});
+$('libraryCloseViewer').addEventListener('click',()=>{closeLibraryPdf();$('libraryDocumentSelect').value=''});
 setLibraryManager();
 
 $('labModuleSelect').addEventListener('change',e=>setTab(e.target.value));
