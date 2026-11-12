@@ -14,3 +14,6 @@ CREATE TABLE IF NOT EXISTS public.lab_documents (
  created_at timestamptz NOT NULL DEFAULT now(),
  updated_at timestamptz NOT NULL DEFAULT now()
 );
+
+ALTER TABLE public.lab_documents ADD COLUMN IF NOT EXISTS upload_state text NOT NULL DEFAULT 'ready';
+ALTER TABLE public.lab_documents ADD COLUMN IF NOT EXISTS expected_bytes integer NOT NULL DEFAULT 0;
