@@ -6,6 +6,7 @@ const protectedData=(p)=>Array.isArray(p.notes)&&p.notes.length || Array.isArray
 
 export default async function handler(req,res){
  if(!hasMain(req))return json(res,401,{erro:'Acesso não autorizado. Faça login novamente.'});
+ if(!hasReport(req))return json(res,403,{erro:'Digite a senha adicional das áreas 01 e 02 para acessar os projetos.'});
  if(!['GET','PUT'].includes(req.method)){
   res.setHeader('Allow','GET, PUT');return json(res,405,{erro:'Método não permitido.'});
  }
