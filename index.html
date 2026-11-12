@@ -653,6 +653,75 @@ html,body,button,input,select,textarea,summary,option,table,th,td,small,label,
 #appScreen #reportPreview{margin-top:4px;}
 #appScreen #reportPreview .line strong{color:#eff5fa!important;}
 @media(max-width:760px){#appScreen .lab-guide{padding:15px 12px!important;}#appScreen .lab-guides{grid-template-columns:1fr!important;}}
+
+/* BCMS95 LAB — VERDE NEON PARA PROJETOS, RESULTADOS E AÇÕES POSITIVAS.
+   Preserva superfícies grafite, acessibilidade e integrações online. */
+:root{--project-neon:#39ff14;--project-neon-light:#caffbd;--project-neon-glow:#39ff1448}
+/* Painel de informações geradas (incluindo o exemplo C207: 472 = 4.700 pF). */
+#appScreen #automaticConversionNote,
+#appScreen #converter .auto-note,
+#appScreen .project-info-strip{
+  background:#1a2020!important;
+  background-image:none!important;
+  border:1px solid #39ff1470!important;
+  border-left:4px solid var(--project-neon)!important;
+  color:var(--project-neon-light)!important;
+  box-shadow:inset 0 0 0 1px #39ff140c,0 0 13px #39ff1420!important;
+}
+#appScreen #automaticConversionNote strong,
+#appScreen .project-info-strip strong{color:var(--project-neon)!important}
+/* Criação permanece vermelha; salvar/adicionar/confirmar ficam verde neon. */
+#appScreen #projectSave,
+#appScreen #saveReport,
+#appScreen #memorizeBtn,
+#appScreen #addNote,
+#appScreen #addSignature,
+#appScreen #projectList [data-project],
+#appScreen .project-accordion .btn.primary:not(#projectNew):not(#projectDelete){
+  background:#39ff14!important;
+  background-image:none!important;
+  border:1px solid #9cff8b!important;
+  color:#102008!important;
+  font-weight:900!important;
+  box-shadow:0 0 14px #39ff1442!important;
+  text-shadow:none!important;
+}
+#appScreen #projectSave:hover,
+#appScreen #saveReport:hover,
+#appScreen #memorizeBtn:hover,
+#appScreen #addNote:hover,
+#appScreen #addSignature:hover,
+#appScreen #projectList [data-project]:hover{
+  background:#77ff5e!important;
+  border-color:#d7ffce!important;
+  box-shadow:0 0 20px #39ff1470!important;
+  filter:none!important;
+}
+#appScreen #projectSave:disabled,
+#appScreen #saveReport:disabled,
+#appScreen #memorizeBtn:disabled,
+#appScreen #addNote:disabled,
+#appScreen #addSignature:disabled{opacity:.5;box-shadow:none!important}
+#appScreen #projectList .mini-item{border-left:4px solid var(--project-neon)!important}
+#appScreen .report-project-picker{
+  background:#1e2228!important;background-image:none!important;
+  border:1px solid #39ff1470!important;border-left:4px solid var(--project-neon)!important;
+  box-shadow:0 0 12px #39ff1417!important;
+}
+#appScreen .report-project-picker label{color:var(--project-neon)!important}
+#appScreen .report-project-picker select{background:#141a1d!important;border:1px solid #39ff14b0!important;color:#eaffea!important}
+#appScreen .report-project-picker select:focus{border-color:#a8ff98!important;box-shadow:0 0 0 3px #39ff1433!important}
+#appScreen .report-picker-help{color:#b9fcb0!important}
+#appScreen #projectMessage,
+#appScreen #manualMessage,
+#appScreen #exportMessage{color:#a7ff97!important}
+#appScreen .project-management .project-indicator{color:#baffae!important}
+/* Exportação Excel: mesmo verde neon, sem modificar a função exportadora. */
+#appScreen .btn.excel{background:#39ff14!important;background-image:none!important;border-color:#acffa0!important;color:#122408!important;font-weight:900!important;box-shadow:0 0 12px #39ff1438!important}
+#appScreen .btn.excel:hover{background:#80ff6a!important;box-shadow:0 0 19px #39ff1458!important}
+/* Status positivos recebem sinalização nítida; vermelho continua exclusivo de risco. */
+#appScreen .message.good{color:#b8ffab!important}
+
 </style>
 </head>
 <body>
