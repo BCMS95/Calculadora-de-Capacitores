@@ -1071,6 +1071,226 @@ html,body,button,input,select,textarea,option,summary,table,svg text{
 #appScreen #libraryDocumentSelect option{color:#eef5f0;background:#252b32;font-weight:500}
 #appScreen #libraryAdminList[hidden]{display:none!important}
 @media(max-width:760px){#appScreen .library-toolbar-row{grid-template-columns:1fr!important}#appScreen .library-toolbar-actions{grid-column:1!important}}
+
+/* ═════════════════════════════════════════════════════════════════════
+   BCMS95 LAB · INTERFACE CORPORATIVA / ENGINEERING WORKSPACE · 2026
+   Layer de apresentação; NÃO altera ids, eventos, API, senha nem banco.
+   ═════════════════════════════════════════════════════════════════════ */
+:root{
+  --bg:#111317;--surface:#1d2026;--surface2:#23272e;
+  --input:#14181d;--line:#3a424a;--line2:#55626b;
+  --text:#edf0f2;--muted:#a9b4bd;
+  --shadow:0 12px 32px #00000025;
+  --lab-neon:#39ff14;--lab-neon-soft:#baffae;
+  --lab-amber:#ffa64c;--lab-ink:#14171c;
+  --font:'Arial Nova',Arial,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:#111317!important;color:#edf0f2;font-family:var(--font)!important;font-size:13.5px;line-height:1.55}
+#ambient{opacity:.14!important}
+#ambient::before{opacity:.12!important}
+#appScreen{max-width:1420px!important;padding:20px clamp(13px,2.4vw,32px) 64px!important}
+#appScreen *,#appScreen *::before,#appScreen *::after{box-sizing:border-box}
+#appScreen h1,#appScreen h2,#appScreen h3{letter-spacing:-.014em;line-height:1.32;text-shadow:none!important}
+#appScreen h2{font-weight:700!important}
+#appScreen h3{font-weight:680!important}
+#appScreen p{line-height:1.65}
+#appScreen .muted,#appScreen small{color:#acb7bf}
+#appScreen .bcms-unified-header{margin-bottom:18px!important;border-radius:13px!important;box-shadow:0 14px 42px #0005!important}
+#appScreen .bcms-hero-title>strong{letter-spacing:.025em!important}
+#appScreen .bcms-hero-title>span{color:#d3d5d8!important;line-height:1.55}
+#appScreen .lab-module-nav{
+  margin:0 0 18px!important;padding:13px 16px!important;
+  border:1px solid #414b51!important;border-radius:12px!important;
+  background:#1c2026!important;display:flex!important;align-items:center;
+  gap:14px 20px!important;flex-wrap:wrap;
+  box-shadow:0 5px 18px #0000001a!important;
+}
+#appScreen .lab-module-selector{
+  flex:0 1 575px!important;max-width:100%!important;
+  min-height:51px!important;border-radius:10px!important;
+  padding:7px 11px!important;gap:9px!important;
+  box-shadow:none!important;
+}
+#appScreen .lab-module-selector>label{
+  font-size:11px!important;letter-spacing:.005em!important;
+  font-weight:700!important;white-space:nowrap!important;margin:0!important;
+}
+#appScreen #labModuleSelect{
+  min-height:37px!important;border-radius:7px!important;
+  font-size:12.5px!important;font-weight:670!important;
+  padding:7px 11px!important;letter-spacing:0!important;
+}
+#appScreen .lab-module-helper{
+  flex:1 1 230px;margin:0!important;font-size:11.5px!important;
+  line-height:1.45!important;color:#b5bec5!important;
+}
+#appScreen .maincontent{min-width:0}
+#appScreen .maincontent>section{min-width:0}
+#appScreen .panel{
+  background:#1d2128!important;border:1px solid #3b454e!important;
+  border-radius:12px!important;box-shadow:0 7px 22px #0000001a!important;
+  padding:clamp(15px,1.65vw,23px)!important;
+  min-width:0;margin-bottom:15px!important;
+}
+#appScreen .panel .cardhead{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px 16px;flex-wrap:wrap;
+  padding-bottom:13px!important;margin-bottom:16px!important;
+  border-bottom:1px solid #38414a!important;
+}
+#appScreen .panel .cardhead h2{
+  font-size:clamp(17px,1.35vw,20px)!important;
+  margin:0!important;color:#eff3f2!important;
+}
+#appScreen .panel>h3{font-size:16px!important;color:#f1f4f4!important}
+#appScreen input:not([type="checkbox"]):not([type="radio"]),
+#appScreen select,#appScreen textarea{
+  min-width:0;border-radius:8px!important;
+  border:1px solid #48535d!important;background:#141a20!important;
+  color:#f0f4f4!important;box-shadow:none!important;
+  font-weight:520!important;transition:border-color .17s,box-shadow .17s,background .17s;
+}
+#appScreen input:not([type="checkbox"]):not([type="radio"]):hover,
+#appScreen select:hover,#appScreen textarea:hover{border-color:#71808b!important}
+#appScreen input::placeholder,#appScreen textarea::placeholder{color:#9caab5!important;opacity:.9}
+#appScreen label{font-size:11.5px!important;font-weight:690!important;color:#d5dde1!important;margin-bottom:6px!important}
+#appScreen .field{min-width:0}
+#appScreen .btn{
+  border-radius:8px!important;min-height:39px!important;
+  font-weight:690!important;font-size:12.5px!important;
+  line-height:1.35!important;letter-spacing:.005em!important;
+  box-shadow:none!important;transition:background .15s,border-color .15s,transform .15s!important;
+}
+#appScreen .btn:hover:not(:disabled){filter:none!important;transform:translateY(-1px)}
+#appScreen .btn:active:not(:disabled){transform:translateY(0)}
+#appScreen .btn:focus-visible,#appScreen input:focus-visible,
+#appScreen select:focus-visible,#appScreen textarea:focus-visible,
+#appScreen summary:focus-visible{outline:2px solid #93d6a0!important;outline-offset:2px!important}
+#appScreen .tablewrap{border-radius:9px!important;overflow:auto;max-width:100%;border:1px solid #3b464e}
+#appScreen .table{width:100%;border-collapse:collapse;font-size:12px!important}
+#appScreen .table th{
+  background:#252c32!important;color:#cad5d9!important;
+  font-size:11px!important;font-weight:730!important;
+  letter-spacing:.02em!important;border-bottom:1px solid #46535c!important;
+  white-space:nowrap;
+}
+#appScreen .table td{border-bottom:1px solid #343c43!important;vertical-align:middle}
+#appScreen .table tr:last-child td{border-bottom:0!important}
+#appScreen .table tbody tr:hover{background:#ffffff07!important}
+#appScreen .chip{border-radius:7px!important;font-weight:700!important;letter-spacing:.014em!important}
+#appScreen details{border-radius:9px!important}
+#appScreen details>summary{font-size:12.5px!important;font-weight:650!important;line-height:1.5!important}
+#appScreen .lab-guide{margin-bottom:16px!important}
+#appScreen .lab-guide-title{letter-spacing:.025em!important}
+/* Unidade visual: Consulta Simples / somente laranja sobre grafite */
+#appScreen #simple{--section-accent:#ffae5f;--section-faint:#ffae5f26}
+#appScreen #simple .lab-simple-heading{
+  border-radius:12px!important;padding:20px clamp(16px,2vw,27px)!important;
+  background:#202229!important;border:1px solid #504238!important;
+  border-left:4px solid #ff9c4a!important;box-shadow:0 7px 24px #0002!important;
+  margin-bottom:16px!important;
+}
+#appScreen #simple .lab-simple-heading h2{
+  color:#faf7f3!important;font-size:clamp(21px,2vw,27px)!important;
+  font-weight:720!important;margin:4px 0 8px!important;
+}
+#appScreen #simple .lab-simple-heading p{color:#c4c4c8!important;font-size:12.5px!important;max-width:720px}
+#appScreen #simple .lab-simple-eyebrow{color:#ffb26f!important;letter-spacing:.12em!important;font-weight:730!important}
+#appScreen #simple .panel{border-top:2px solid #be7845!important}
+#appScreen #simple .simple-workspace{border-top:3px solid #ff994b!important}
+#appScreen #simple input:focus,#appScreen #simple select:focus,
+#appScreen #simple textarea:focus{border-color:#ffab60!important;box-shadow:0 0 0 3px #ffab6022!important}
+#appScreen #simple .simple-main-figures>*,#appScreen #simple .simple-result{border-radius:9px!important}
+#appScreen #simple .simple-math-panel{border-top-color:#d38b51!important}
+#appScreen #simple .simple-code-reference{border-top-color:#f5a15b!important}
+#appScreen #simple .simple-warning-panel{border-top-color:#b08a56!important}
+/* Unidade visual 01 + 02 / somente verde + grafite para identidade */
+#appScreen #converter,#appScreen #tapeboard{--section-accent:#39ff14;--section-faint:#39ff1420}
+#appScreen #converter .panel,#appScreen #tapeboard .panel{
+  background:#1c2223!important;border-color:#3b5344!important;
+}
+#appScreen #converter .panel .cardhead,#appScreen #tapeboard .panel .cardhead{border-bottom-color:#38513d!important}
+#appScreen #converter .panel .cardhead h2,#appScreen #tapeboard .panel .cardhead h2{
+  color:#e9f6e8!important;
+}
+#appScreen #converter .panel h3,#appScreen #tapeboard .panel h3{color:#c7f6c2!important}
+#appScreen #converter input:focus,#appScreen #converter select:focus,#appScreen #converter textarea:focus,
+#appScreen #tapeboard input:focus,#appScreen #tapeboard select:focus,#appScreen #tapeboard textarea:focus{
+  border-color:#39ff14!important;box-shadow:0 0 0 3px #39ff1424!important;
+}
+#appScreen #converter .module-project-panel,#appScreen #tapeboard .module-project-panel{
+  border-radius:12px!important;padding:17px 19px!important;
+  background:#1c2421!important;border-left:4px solid #39ff14!important;
+  box-shadow:0 8px 23px #00000024!important;margin-bottom:16px!important;
+}
+#appScreen #converter .module-project-title,#appScreen #tapeboard .module-project-title{
+  font-size:10.5px!important;font-weight:750!important;letter-spacing:.10em!important;
+}
+#appScreen #converter .module-project-panel select,
+#appScreen #tapeboard .module-project-panel select{
+  min-height:41px!important;background:#101b15!important;border-color:#5fbe60!important;
+  border-radius:8px!important;
+}
+#appScreen #converter .project-accordion,#appScreen #converter .project-management{
+  border-radius:10px!important;
+}
+#appScreen #converter .conversion-panel{border-top:3px solid #39ff14!important}
+#appScreen #converter .btn.primary,#appScreen #tapeboard .btn.primary{
+  background:#39ff14!important;color:#10210c!important;border-color:#7bfc64!important;
+}
+#appScreen #converter .btn.soft,#appScreen #tapeboard .btn.soft{
+  background:#29352c!important;border:1px solid #639868!important;color:#dbffd6!important;
+}
+#appScreen #converter .table th,#appScreen #tapeboard .table th{
+  color:#c9eec6!important;background:#24332a!important;border-bottom-color:#44684c!important;
+}
+#appScreen #converter .tablewrap,#appScreen #tapeboard .tablewrap{border-color:#3a5940!important}
+/* Biblioteca / fundo neutro, destaque discreto, gerenciamento verde */
+#appScreen #library .library-head{
+  border-radius:12px!important;background:#202329!important;
+  border-color:#4e5052!important;border-left-color:#eab06f!important;
+  padding:19px 23px!important;
+}
+#appScreen #library .library-head h2{letter-spacing:-.017em!important}
+#appScreen #library .library-toolbar,#appScreen #library .library-results,
+#appScreen #library .library-viewer,#appScreen #library .library-admin{
+  background:#1d2128!important;border-radius:12px!important;border-color:#3e474e!important;
+}
+#appScreen #library .library-admin{border-left:4px solid #39ff14!important}
+#appScreen #library .library-list{gap:12px!important}
+#appScreen #library .library-item{border-radius:10px!important;background:#222831!important;border-color:#404c55!important}
+#appScreen #library .library-item:hover{border-color:#718177!important;background:#252d34!important}
+#appScreen #library #libraryDocumentSelect{background:#151b20!important;border-color:#65716f!important}
+#appScreen #library .library-toolbar .btn:not(.library-manager){background:#30363e!important;border-color:#61717a!important;color:#f1f4f5!important}
+#appScreen #library .library-admin .library-add{background:#39ff14!important;color:#10240d!important}
+/* Interface adaptável sem efeito de zoom nos campos e sem tabelas cortadas */
+@media(max-width:980px){
+ #appScreen .lab-module-nav{align-items:stretch!important}
+ #appScreen .lab-module-selector{flex:1 1 100%!important}
+ #appScreen .lab-module-helper{flex:1 1 100%!important}
+ #appScreen .simple-layout{grid-template-columns:minmax(0,1fr)!important}
+}
+@media(max-width:690px){
+ #appScreen{padding:11px 10px 42px!important}
+ #appScreen .bcms-unified-header{margin-bottom:12px!important}
+ #appScreen .lab-module-nav{padding:10px!important;margin-bottom:13px!important;gap:8px!important}
+ #appScreen .lab-module-selector{padding:9px 10px!important;flex-wrap:wrap!important;gap:5px 8px!important}
+ #appScreen .lab-module-selector>label{flex:1 1 calc(100% - 30px)!important}
+ #appScreen .lab-module-selector #labModuleSelect{width:100%!important;flex:1 1 100%!important;max-width:none!important}
+ #appScreen .panel{padding:14px!important;margin-bottom:11px!important}
+ #appScreen .panel .cardhead{margin-bottom:12px!important;padding-bottom:11px!important}
+ #appScreen .panel .cardhead h2{font-size:16px!important}
+ #appScreen .module-project-panel{padding:13px!important}
+ #appScreen .tablewrap{overscroll-behavior-inline:contain}
+ #appScreen .table td,#appScreen .table th{padding:9px 10px!important}
+ #appScreen #simple .lab-simple-heading{padding:16px!important}
+ #appScreen .btn{min-height:39px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ #appScreen *{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+
 </style>
 </head>
 <body>
